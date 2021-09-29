@@ -8,8 +8,7 @@ use App\Models\User;
 
 class UsersController extends Controller
 {
-    //
-
+    
     function logIn(Request $request){
 
         $user = User::where('email', $request->email)->first();
@@ -26,7 +25,13 @@ class UsersController extends Controller
             'user' => $user,
             'token' =>$token
         ];
+
+        $user->assignRole('garage_manager');
         
         return response($response, 201);
+    }
+
+    function singUp(Request $request){
+
     }
 }
