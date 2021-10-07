@@ -9,29 +9,28 @@ use App\Models\User;
 class UsersController extends Controller
 {
     
-    function logIn(Request $request){
+    // function logIn(Request $request){
 
-        $user = User::where('email', $request->email)->first();
+    //     $user = User::where('email', $request->email)->first();
         
-        if(!$user || !Hash::check($request->password, $user->password)){
-            return response([
-                'message' => ['These credentials do not match out records.'] 
-            ],404); 
-        }
+    //     if(!$user || !Hash::check($request->password, $user->password)){
+    //         return response([
+    //             'message' => ['These credentials do not match out records.'] 
+    //         ],404); 
+    //     }
 
-        $token = $user->createToken('my-app-token')->plainTextToken;
+    //     $token = $user->createToken('my-app-token')->plainTextToken;
+    //     $user->getPermissionsViaRoles();
 
-        $response = [
-            'user' => $user,
-            'token' =>$token
-        ];
+    //     $response = [
+    //         'user' => $user,
+    //         'token' =>$token, 
+    //     ];
 
-        $user->assignRole('garage_manager');
         
-        return response($response, 201);
-    }
+    //     return response($response, 201);
+    // }
 
-    function singUp(Request $request){
-
-    }
+    // public function store(){
+    // }
 }
