@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +16,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+   
+
+    //Creating all roles with guard API
+    // $role = Role::create(['guard_name' => 'api', 'name' => 'client']);
+    // $role = Role::create(['guard_name' => 'api','name' => 'mechanic']);
+    // $role = Role::create(['guard_name' => 'api','name' => 'garage_administration']);
+    // $role = Role::create(['guard_name' => 'api','name' => 'garage_manager']);
+
 });
