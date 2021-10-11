@@ -13,6 +13,13 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
+       /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
+    public $timestamps = false;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -20,7 +27,11 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'last_name',
         'email',
+        'date_of_birth',
+        'address',
+        'phone_number',
         'password',
     ];
 
