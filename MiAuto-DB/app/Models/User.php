@@ -62,4 +62,13 @@ class User extends Authenticatable
         return $this->hasMany(Garage::class);
     }
     
+
+    /**
+     * Get the cars for the user
+     */
+    public function cars()
+    {
+        return $this->hasMany(Car::class);
+    }
+    
 }

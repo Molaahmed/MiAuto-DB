@@ -20,9 +20,8 @@ class CreateGaragesTable extends Migration
             $table->string('address');
             $table->string('email')->unique();
             $table->string('phone_number');
-            
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            
+
         });
     }
 
