@@ -14,8 +14,10 @@ class CreateCarsTable extends Migration
     public function up()
     {
         Schema::create('cars', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->string('vin_number')->primary();
+            $table->unsignedBigInteger('user_id');
+            
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
