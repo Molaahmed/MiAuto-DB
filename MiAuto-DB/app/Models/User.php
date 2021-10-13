@@ -53,4 +53,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Get the garages for the user
+     */
+    public function garages()
+    {
+        return $this->hasMany(Garage::class);
+    }
+    
 }
