@@ -10,6 +10,7 @@ class Operation extends Model
     use HasFactory;
 
     protected $fillable = [
+        'garage_id',
         'vin_number',
         'employee_id',
         'status',
