@@ -1,4 +1,5 @@
 <?php
+
 namespace Database\Seeders;
 
 require_once 'vendor/autoload.php';
@@ -7,8 +8,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Faker\Factory as Faker;
+use Log;
 
-class UsersTableSeeder extends Seeder
+class GarageSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -18,16 +20,15 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create('nl_NL');
-        //
-        for ($i=0; $i < 10; $i++) { 
-            DB::table('users')->insert([
-                'name' => $faker->firstName($gender = 'male'|'female'),
-                'last_name' => $faker->lastName(),
+        $usersIDs = DB::table('users')->pluck('id');
+
+        for ($i=0; $i < 5; $i++) { 
+            DB::table('garages')->insert([
+                'user_id'=> $faker->randomElement($usersIDs),
+                'name' => $faker->name(),
                 'email' => $faker->email(),
-                'date_of_birth' => $faker->dateTimeBetween('-1 week', '+1 week'),
                 'address' => $faker->address(), 
-                'phone_number'=> $faker->e164PhoneNumber(),
-                'password' => Hash::make('password'),
+                'phone_number'=> $faker->e164PhoneNumber()
             ]);
         }
     }
