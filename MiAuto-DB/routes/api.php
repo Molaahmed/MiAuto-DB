@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TokensController;
 use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\UsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,3 +29,5 @@ Route::post('/registerClient', [RegistrationController::class, 'storeClient']);
 
 Route::post('/login', [TokensController::class, 'store']);
 Route::get('/logout', [TokensController::class, 'destroy']);
+
+Route::put('/users/update', [UsersController::class, 'updateProfile']);
