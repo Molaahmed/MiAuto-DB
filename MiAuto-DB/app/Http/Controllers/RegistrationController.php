@@ -14,47 +14,53 @@ class RegistrationController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'last_name' => 'required',
             'email' => 'required|email',
+            'date_of_birth' => 'required',
+            'address'=> 'required',
+            'phone_number'=> 'required',
             'password' => 'required'
         ]);
 
         $user = User::where('email', $request->email)->first();
 
         if ($user) {
-        return abort(406, 'Email exists');
+            return abort(406, 'Email exists');
         }
 
         $user = User::create([
             'name' => $request->name,
+            'last_name' => $request->last_name,
             'email' => $request->email,
+            'date_of_birth' => $request->date_of_birth,
+            'address' => $request->address,
+            'phone_number' => $request->phone_number,
             'password' => Hash::make($request->password),
         ]);
-        $user->assignRole('client');
-        
-       
+        $user->assignRole('garage_client');
+         
         return $user;
     }
 
 
+    //Needs to be implemented
+    // public function storeMechanic(Request $request)
+    // {
+    //     $this->validate(request(), [
+    //         'name' => 'required',
+    //         'email' => 'required|email',
+    //         'password' => 'required'
+    //     ]);
 
-    
-    public function storeMechanic(Request $request)
-    {
-        $this->validate(request(), [
-            'name' => 'required',
-            'email' => 'required|email',
-            'password' => 'required'
-        ]);
+    //     $user = User::where('email', $request->email)->first();
 
-        $user = User::where('email', $request->email)->first();
+    //     if ($user) {
+    //     return abort(406, 'Email exists');
+    //     }
 
-        if ($user) {
-        return abort(406, 'Email exists');
-        }
+    //     $user = User::create(request(['name', 'email', 'password']));
+    //     $user->assignRole('mechanic');
 
-        $user = User::create(request(['name', 'email', 'password']));
-        $user->assignRole('mechanic');
-
-        return $user;
-    }
+    //     return $user;
+    // }
 }
