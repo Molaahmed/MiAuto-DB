@@ -25,7 +25,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::post('/registerClient', [RegistrationController::class, 'storeClient']);
-//Route::post('/registerMechanic', [RegistrationController::class, 'storeMechanic']);
+Route::post('/registerGarage', [RegistrationController::class, 'storeGarage']);
 
 Route::post('/login', [TokensController::class, 'store']);
 Route::get('/logout', [TokensController::class, 'destroy']);
