@@ -27,7 +27,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/registerClient', [RegistrationController::class, 'storeClient']);
 Route::post('/registerGarage', [RegistrationController::class, 'storeGarage']);
 
-Route::post('/login', [TokensController::class, 'store']);
-Route::get('/logout', [TokensController::class, 'destroy']);
+Route::post('/login', [TokenController::class, 'store']);
+Route::get('/logout', [TokenController::class, 'destroy']);
 
-Route::put('/users/update', [UsersController::class, 'updateProfile']);
+Route::put('/users/update', [UserController::class, 'updateProfile']);

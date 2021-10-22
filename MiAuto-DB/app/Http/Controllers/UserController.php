@@ -8,13 +8,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\JsonResponse;
 use App\Models\User;
 
-class UsersController extends Controller
+class UserController extends Controller
 {
 
     public function updateProfile(Request $request)
     {
-        $user_id = Auth::user()->id;
-        $user = User::where('id', $user_id)->first();
+        $user = User::where('id', Auth::user()->id)->first();
 
         if(!$user)
         {

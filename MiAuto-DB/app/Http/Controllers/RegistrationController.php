@@ -15,7 +15,7 @@ class RegistrationController extends Controller
     public function storeClient(Request $request)
     {
         $request->validate([
-            'name' => 'required',
+            'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required|email',
             'date_of_birth' => 'required',
@@ -31,7 +31,7 @@ class RegistrationController extends Controller
         }
 
         $user = User::create([
-            'name' => $request->name,
+            'first_name' => $request->name,
             'last_name' => $request->last_name,
             'email' => $request->email,
             'date_of_birth' => $request->date_of_birth,

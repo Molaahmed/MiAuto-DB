@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
-class TokensController extends Controller
+class TokenController extends Controller
 {
     
     public function store(Request $request)
