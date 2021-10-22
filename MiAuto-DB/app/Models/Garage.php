@@ -9,6 +9,17 @@ class Garage extends Model
 {
     use HasFactory;
 
+    
+    protected $fillable = [
+        'user_id',
+        'name',
+        'address',
+        'phone_number',
+        'email'
+    ];
+
+    public $timestamps = false;
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
@@ -34,11 +45,4 @@ class Garage extends Model
         return $this->hasMany(Employee::class, 'garage_id', 'id');
     }
 
-    protected $fillable = [
-        'user_id',
-        'name',
-        'address',
-        'phone_number',
-        'email'
-    ];
 }

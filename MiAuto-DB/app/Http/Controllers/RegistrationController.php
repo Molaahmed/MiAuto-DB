@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use App\Models\User;
+use App\Models\Garage;
 
 class RegistrationController extends Controller
 {
@@ -39,9 +41,37 @@ class RegistrationController extends Controller
         ]);
         $user->assignRole('garage_client');
          
-        return $user;
+
+        return response()->json($user, 200);
     }
 
+
+
+    public function storeGarage(Request $request)
+    {
+
+
+        $validated = Validator::make($request->all(), [
+            'name' => 'required|min:2',
+            'address'=> 'required|min:3',
+            'email' => 'required|email',
+            'phone_number'=> 'required|numeric',
+        ]);
+        
+        if ($validated->fails()) {
+            return response()->json($validated->errors(), 404);
+         }
+
+        $garage = Garage::create([
+            'user_id'=> Auth::user()->id,
+            'name' => $request->name,
+            'address' => $request->address,
+            'email' => $request->email,
+            'phone_number' => $request->phone_number,
+        ]);
+
+        return response()->json($garage, 200);
+    } 
 
     //Needs to be implemented
     // public function storeMechanic(Request $request)
