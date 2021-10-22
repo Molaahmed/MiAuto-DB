@@ -59,7 +59,7 @@ class RegistrationController extends Controller
         ]);
         
         if ($validated->fails()) {
-            return response()->json($validated->errors(), 404);
+            return response()->json($validated->errors(), 422);
          }
 
         $garage = Garage::create([
