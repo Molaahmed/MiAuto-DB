@@ -21,7 +21,7 @@ class UsersTableSeeder extends Seeder
         //
         for ($i=0; $i < 10; $i++) { 
             DB::table('users')->insert([
-                'name' => $faker->firstName($gender = 'male'|'female'),
+                'first_name' => $faker->firstName($gender = 'male'|'female'),
                 'last_name' => $faker->lastName(),
                 'email' => $faker->email(),
                 'date_of_birth' => $faker->dateTimeBetween('-1 week', '+1 week'),
