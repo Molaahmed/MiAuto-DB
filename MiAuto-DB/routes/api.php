@@ -2,9 +2,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\TokensController;
-use App\Http\Controllers\RegistrationController;
-use App\Http\Controllers\UsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,15 +16,4 @@ use App\Http\Controllers\UsersController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
-    
 });
-
-
-
-Route::post('/registerClient', [RegistrationController::class, 'storeClient']);
-Route::post('/registerGarage', [RegistrationController::class, 'storeGarage']);
-
-Route::post('/login', [TokenController::class, 'store']);
-Route::get('/logout', [TokenController::class, 'destroy']);
-
-Route::put('/users/update', [UserController::class, 'updateProfile']);
