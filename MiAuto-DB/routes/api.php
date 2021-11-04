@@ -35,4 +35,4 @@ Route::put('/users/update', [UserController::class, 'updateProfile']);
 
 
 //REMINDER: this endpoint needs to have an admin authorization
-Route::post('/cars/create', [AdminController::class,'createCar']);
+Route::post('/cars/create', [GarageAdminController::class,'createCar']);
