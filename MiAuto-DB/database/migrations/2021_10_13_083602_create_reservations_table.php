@@ -20,8 +20,6 @@ class CreateReservationsTable extends Migration
             $table->string('description');
             $table->date('date');
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('vin_number')->references('vin_number')->on('cars')->onDelete('cascade');
 
         });
     }

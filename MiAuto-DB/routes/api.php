@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TokensController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\UsersController;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\GarageAdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,4 +35,4 @@ Route::put('/users/update', [UserController::class, 'updateProfile']);
 
 
 //REMINDER: this endpoint needs to have an admin authorization
-Route::post('/cars/create', [GarageAdminController::class,'createCar']);
+Route::post('/cars/create', [GarageAdminController::class,'RegisterCar']);
