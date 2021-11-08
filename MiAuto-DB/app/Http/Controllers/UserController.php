@@ -11,6 +11,11 @@ use App\Models\User;
 class UserController extends Controller
 {
 
+    public function User()
+    {
+        return Auth::user();
+    }
+
     public function updateProfile(Request $request)
     {
         $user = User::where('id', Auth::user()->id)->first();
@@ -23,7 +28,7 @@ class UserController extends Controller
         }
 
         $request->validate([
-            'name' => 'required',
+            'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required|email',
             'date_of_birth' => 'required',
