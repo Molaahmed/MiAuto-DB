@@ -70,4 +70,14 @@ class User extends Authenticatable
         return $this->hasMany(Car::class);
     }
     
+    
+    /**
+     * The roles that belong to the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function roles()
+    {
+        return $this->belongsToMany('App\Models\Role', 'user_role', 'user_id', 'role_id');
+    }
 }
