@@ -2,10 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\TokensController;
+use App\Http\Controllers\TokenController;
 use App\Http\Controllers\RegistrationController;
-use App\Http\Controllers\UsersController;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\GarageAdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,21 +18,24 @@ use App\Http\Controllers\AdminController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-    
-});
-
-
-
-Route::post('/registerClient', [RegistrationController::class, 'storeClient']);
-Route::post('/registerGarage', [RegistrationController::class, 'storeGarage']);
-
 Route::post('/login', [TokenController::class, 'store']);
 Route::get('/logout', [TokenController::class, 'destroy']);
 
-Route::put('/users/update', [UserController::class, 'updateProfile']);
+Route::post('/client/register', [RegistrationController::class, 'storeClient']);
+Route::post('/garage/register', [RegistrationController::class, 'storeGarage']);
+
+//check if the user is authenticated
+Route::middleware('auth:sanctum')->get('/authenticated', function () {
+    return true;
+});
+
+// authentication middleware
+Route::middleware('auth:sanctum')->group( function(){
+    //user
+    Route::get('/user' ,[UserController::class, 'User']);
+    Route::put('/users/update', [UserController::class, 'updateProfile']);
+});
 
 
 //REMINDER: this endpoint needs to have an admin authorization
-Route::post('/cars/create', [AdminController::class,'createCar']);
+Route::post('/cars/create', [GarageAdminController::class,'RegisterCar']);

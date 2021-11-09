@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
+use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 use App\Models\User;
 use App\Models\Garage;
 
@@ -14,24 +16,22 @@ class RegistrationController extends Controller
     
     public function storeClient(Request $request)
     {
-        $request->validate([
+        $validated = Validator::make($request->all(), [
             'first_name' => 'required',
             'last_name' => 'required',
-            'email' => 'required|email',
+            'email' => 'email|required|unique:users',
             'date_of_birth' => 'required',
-            'address'=> 'required',
-            'phone_number'=> 'required',
+            'address' => 'required',
+            'phone_number' => 'required',
             'password' => 'required'
         ]);
 
-        $user = User::where('email', $request->email)->first();
-
-        if ($user) {
-            return abort(406, 'Email exists');
+        if ($validated->fails()) {
+            return response()->json($validated->errors(), 422);
         }
 
         $user = User::create([
-            'first_name' => $request->name,
+            'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'email' => $request->email,
             'date_of_birth' => $request->date_of_birth,
@@ -39,7 +39,6 @@ class RegistrationController extends Controller
             'phone_number' => $request->phone_number,
             'password' => Hash::make($request->password),
         ]);
-        $user->assignRole('garage_client');
          
 
         return response()->json($user, 200);

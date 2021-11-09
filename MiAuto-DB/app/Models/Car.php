@@ -10,6 +10,7 @@ class Car extends Model
     use HasFactory;
     public $timestamps = false;
 
+
       /**
      * The attributes that are mass assignable.
      *
@@ -17,7 +18,8 @@ class Car extends Model
      */
     protected $fillable = [
         'vin_number',
-        'client_id'
+	'client_id',
+	'garage_id'
     ];
 
 }
