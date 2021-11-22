@@ -70,26 +70,6 @@ class RegistrationController extends Controller
         ]);
 
         return response()->json($garage, 200);
-    } 
+    }
 
-    //Needs to be implemented
-    // public function storeMechanic(Request $request)
-    // {
-    //     $this->validate(request(), [
-    //         'name' => 'required',
-    //         'email' => 'required|email',
-    //         'password' => 'required'
-    //     ]);
-
-    //     $user = User::where('email', $request->email)->first();
-
-    //     if ($user) {
-    //     return abort(406, 'Email exists');
-    //     }
-
-    //     $user = User::create(request(['name', 'email', 'password']));
-    //     $user->assignRole('mechanic');
-
-    //     return $user;
-    // }
 }
