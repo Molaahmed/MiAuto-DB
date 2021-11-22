@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Car;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Garage;
 use Illuminate\Support\Facades\DB;
 
@@ -53,11 +54,73 @@ class GarageAdminController extends Controller
             'phone_number' => $request->phone_number,
             'password' => Hash::make($request->password)
         ]);
-        
+        //assign a client role
         DB::table('user_role')->insert([
             'user_id' => $user->id,
-            'role-id' => 1
+            'role_id' => 1
         ]);
 
+    }
+
+    public function registerManager(Request $request)
+    {
+        //check if the manager exists
+        if(User::where('email',$request->email)->first())
+        {
+            return response()->json(['error: duplicate entry' => 'User already exists']);
+        }
+
+        $user = User::create([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'date_of_birth' => $request->date_of_birth,
+            'address' => $request->address,
+            'phone_number' => $request->phone_number,
+            'password' => Hash::make($request->password)
+        ]);
+
+        DB::table('employees')->insert([
+            'user_id' => $user->id,
+            'garage_id' => $request->garage_id,
+            'salary' => $request->salary
+        ]);
+
+        //assign a manager role
+        DB::table('user_role')->insert([
+            'user_id' => $user->id,
+            'role_id' => 4
+        ]);
+    }
+
+    public function registerMechanic(Request $request)
+    {
+        //check if the mechanic exists
+        if(User::where('email',$request->email)->first())
+        {
+            return response()->json(['error: duplicate entry' => 'User already exists']);
+        }
+
+        $user = User::create([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'date_of_birth' => $request->date_of_birth,
+            'address' => $request->address,
+            'phone_number' => $request->phone_number,
+            'password' => Hash::make($request->password)
+        ]);
+
+        DB::table('employees')->insert([
+            'user_id' => $user->id,
+            'garage_id' => $request->garage_id,
+            'salary' => $request->salary
+        ]);
+
+        //assign a mechanic role
+        DB::table('user_role')->insert([
+            'user_id' => $user->id,
+            'role_id' => 2
+        ]);
     }
 }
