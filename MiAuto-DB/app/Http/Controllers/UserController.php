@@ -7,13 +7,40 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\JsonResponse;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
 
     public function User()
     {
-        return Auth::user();
+         $role_id = DB::table('users')
+        ->join('user_role','user_role.user_id','=','users.id')
+        ->where('users.id',Auth::user()->id)
+        ->select('user_role.role_id')->value('role_id');
+
+        //if its a garage owner or employee we return the garage he's/she's working at
+        if($role_id == 2 || $role_id == 3 || $role_id == 4)
+        {
+            return DB::table('users')
+        ->join('user_role','user_role.user_id','=','users.id')
+        ->join('roles','roles.id','=','user_role.role_id')
+        ->join('employees','employees.user_id','users.id')
+        ->join('garages','garages.user_id','=','users.id')
+        ->where('users.id',Auth::user()->id)
+        ->select('users.*','garages.name as Garage','garages.address as GarageAddress','garages.email as GarageEmail','garages.phone_number as GaragePhoneNumber','roles.name as role')
+        ->first();
+        }
+
+        else{
+            return DB::table('users')
+            ->join('user_role','user_role.user_id','=','users.id')
+            ->join('roles','roles.id','=','user_role.role_id')
+            ->where('users.id',Auth::user()->id)
+            ->select('users.*','roles.name as role')
+            ->first();
+        }
+        
     }
 
     public function updateProfile(Request $request)
@@ -23,7 +50,7 @@ class UserController extends Controller
         if(!$user)
         {
             return response([
-                'message' => ['No such a user'] 
+                'message' => ['User not found'] 
             ],404);
         }
 

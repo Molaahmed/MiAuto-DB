@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Car;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
 use App\Models\Garage;
+use App\Models\Employee;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Validator;
+use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 
 class GarageAdminController extends Controller
 {
@@ -67,7 +71,7 @@ class GarageAdminController extends Controller
         //check if the manager exists
         if(User::where('email',$request->email)->first())
         {
-            return response()->json(['error: duplicate entry' => 'User already exists']);
+            return response()->json(['error: duplicate entry' => 'User already exists'],422);
         }
 
         $user = User::create([
@@ -98,7 +102,7 @@ class GarageAdminController extends Controller
         //check if the mechanic exists
         if(User::where('email',$request->email)->first())
         {
-            return response()->json(['error: duplicate entry' => 'User already exists']);
+            return response()->json(['error: duplicate entry' => 'User already exists'],422);
         }
 
         $user = User::create([
@@ -121,6 +125,56 @@ class GarageAdminController extends Controller
         DB::table('user_role')->insert([
             'user_id' => $user->id,
             'role_id' => 2
+        ]);
+    }
+
+    public function modifyEmployee(Request $request)
+    {
+        if(DB::table('employees')
+        ->where('user_id',$request->employee_id)
+        ->where('garage_id',$request->garage_id)->count() == 0)
+        {
+            return response->json(['error: record not found' => 'Employee not found'],422);
+        }
+
+        $validated = Validator::make($request->all(), [
+            //user table
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'date_of_birth' => 'required',
+            'address' => 'required',
+            'phone_number' => 'required',
+            'password' => 'required',
+            //employee table
+            'salary' => 'numeric',
+            //role
+            'role' => 'numeric',
+
+        ]);
+
+        if ($validated->fails()) {
+            return response()->json($validated->errors(), 422);
+        }
+
+        User::where('id',$request->employee_id)
+        ->update([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'date_of_birth' => $request->date_of_birth,
+            'address' => $request->address,
+            'phone_number' => $request->phone_number,
+            'password' => Hash::make($request->password)
+        ]);
+
+        Employee::where('user_id',$request->employee_id)
+        ->update([
+            'salary' => $request->salary
+        ]);
+
+        DB::table('user_role')
+        ->where('user_id',$request->employee_id)
+        ->update([
+            'role_id' => $request->role
         ]);
     }
 }
