@@ -17,7 +17,7 @@ class CreateEmployeesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('garage_id');
-            $table->integer('salary');  
+            $table->integer('salary')->nullable();  
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('garage_id')->references('id')->on('garages')->onDelete('cascade');

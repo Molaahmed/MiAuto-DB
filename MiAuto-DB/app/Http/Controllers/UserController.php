@@ -38,7 +38,7 @@ class UserController extends Controller
             ->join('roles','roles.id','=','user_role.role_id')
             ->where('users.id',Auth::user()->id)
             ->select('users.*','roles.name as role')
-            ->first();    
+            ->first();
         }
         
     }

@@ -10,6 +10,8 @@ use Illuminate\Validation\ValidationException;
 use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 use App\Models\User;
 use App\Models\Garage;
+use App\Models\Employee;
+use Illuminate\Support\Facades\DB;
 
 class RegistrationController extends Controller
 {
@@ -80,6 +82,11 @@ class RegistrationController extends Controller
             return response()->json($validated->errors(), 422);
          }
 
+        //assign a client role
+        DB::table('user_role')->insert([
+            'user_id' => $user->id,
+            'role_id' => 4
+        ]);
 
         //garage 
         $garage = Garage::create([
@@ -88,6 +95,11 @@ class RegistrationController extends Controller
             'address' => $request->garage_address,
             'email' => $request->garage_email,
             'phone_number' => $request->garage_phone_number,
+        ]);
+
+        Employee::create([
+            'user_id' => $user->id,
+            'garage_id' => $garage->id
         ]);
 
         return response()->json($garage, 200);
