@@ -38,7 +38,7 @@ Route::middleware('auth:sanctum')->group( function(){
 
 
 
-//REMINDER: thess endpoints needs an garage admin authorization
+//REMINDER: thess endpoints needs an garage admin authorization or an admin authorization
 //car
 Route::post('/cars/create', [GarageAdminController::class,'registerCar']);
 
