@@ -16,8 +16,9 @@ class AdminAuthorization
      */
     public function handle(Request $request, Closure $next)
     {
-        $role = DB::table('users')
+        return $role_id = DB::table('users')
         ->join('user_role','user_role.user_id','=','users.id')
+        ->where('users.id',Auth::user()->id)
         ->select('user_role.role_id')->value('role_id');
         
         if($role != 5)

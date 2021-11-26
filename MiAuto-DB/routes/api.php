@@ -19,7 +19,7 @@ use App\Http\Controllers\GarageAdminController;
 */
 
 Route::post('/login', [TokenController::class, 'store']);
-Route::get('/logout', [TokenController::class, 'destroy']);
+Route::post('/logout', [TokenController::class, 'destroy']);
 
 Route::post('/client/register', [RegistrationController::class, 'storeClient']);
 Route::post('/garage/register', [RegistrationController::class, 'storeGarage']);
@@ -33,7 +33,7 @@ Route::middleware('auth:sanctum')->get('/authenticated', function () {
 Route::middleware('auth:sanctum')->group( function(){
     //user
     Route::get('/user' ,[UserController::class, 'User']);
-    Route::put('/users/update', [UserController::class, 'updateProfile']);
+    Route::put('/user/update', [UserController::class, 'updateProfile']);
 });
 
 
