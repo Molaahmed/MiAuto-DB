@@ -44,5 +44,5 @@ Route::post('/cars/create', [GarageAdminController::class,'registerCar']);
 
 //client
 Route::post('/client/create',[GarageAdminController::class,'registerClient'])->middleware('admin');
-//emplye
+//employee
 Route::post('/employee/create',[GarageAdminController::class,'registerEmployee']);
