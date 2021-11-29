@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Car;
 use App\Models\User;
 use App\Models\Garage;
@@ -66,8 +67,22 @@ class GarageAdminController extends Controller
 
     }
 
-    public function registerManager(Request $request)
+    public function registerEmployee(Request $request)
     {
+        $validated = Validator::make($request->all(), [
+            //user table
+            'first_name' => 'required|min:2',
+            'last_name' => 'required|min:2',
+            'date_of_birth' => 'required',
+            'address' => 'required|min:2',
+            'phone_number' => 'required|min:5',
+            'password' => 'required|min:8',
+            //employee table
+            'salary' => 'numeric',
+            //role
+            'role' => 'numeric',
+        ]);
+        
         //check if the manager exists
         if(User::where('email',$request->email)->first())
         {
@@ -89,42 +104,15 @@ class GarageAdminController extends Controller
             'garage_id' => $request->garage_id,
             'salary' => $request->salary
         ]);
-
-        //assign a manager role
-        DB::table('user_role')->insert([
-            'user_id' => $user->id,
-            'role_id' => 4
-        ]);
-    }
-
-    public function registerMechanic(Request $request)
-    {
-        //check if the mechanic exists
-        if(User::where('email',$request->email)->first())
+        //role reserved for client and admin
+        if($request->role == 1 || $request->role == 5)
         {
-            return response()->json(['error: duplicate entry' => 'User already exists'],422);
+            abort(403, 'error: Not a valid role');
         }
-
-        $user = User::create([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'email' => $request->email,
-            'date_of_birth' => $request->date_of_birth,
-            'address' => $request->address,
-            'phone_number' => $request->phone_number,
-            'password' => Hash::make($request->password)
-        ]);
-
-        DB::table('employees')->insert([
-            'user_id' => $user->id,
-            'garage_id' => $request->garage_id,
-            'salary' => $request->salary
-        ]);
-
-        //assign a mechanic role
+        //assign a role
         DB::table('user_role')->insert([
             'user_id' => $user->id,
-            'role_id' => 2
+            'role_id' => $request->role
         ]);
     }
 
@@ -139,12 +127,12 @@ class GarageAdminController extends Controller
 
         $validated = Validator::make($request->all(), [
             //user table
-            'first_name' => 'required',
-            'last_name' => 'required',
+            'first_name' => 'required|min:2',
+            'last_name' => 'required|min:2',
             'date_of_birth' => 'required',
-            'address' => 'required',
-            'phone_number' => 'required',
-            'password' => 'required',
+            'address' => 'required|min:2',
+            'phone_number' => 'required|min:5',
+            'password' => 'required|min:8',
             //employee table
             'salary' => 'numeric',
             //role
@@ -171,10 +159,27 @@ class GarageAdminController extends Controller
             'salary' => $request->salary
         ]);
 
+        //role reserved for client and admin
+        if($request->role == 1 || $request->role == 5)
+        {
+            abort(403, 'error: Not a valid role');
+        }
+
         DB::table('user_role')
         ->where('user_id',$request->employee_id)
         ->update([
             'role_id' => $request->role
         ]);
+    }
+
+    public function getEmployees(Request $request)
+    {
+        return DB::table('users')
+        ->join('user_role','user_role.user_id','=','users.id')
+        ->join('roles','roles.id','=','user_role.role_id')
+        ->join('employees','employees.user_id','users.id')
+        ->where('employees.garage_id',$request->garage_id)
+        ->select('users.*','roles.name as role','employees.salary')
+        ->get();
     }
 }
