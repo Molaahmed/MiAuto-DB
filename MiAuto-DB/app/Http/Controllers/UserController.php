@@ -28,7 +28,7 @@ class UserController extends Controller
         ->join('employees','employees.user_id','users.id')
         ->join('garages','garages.user_id','=','users.id')
         ->where('users.id',Auth::user()->id)
-        ->select('users.*','garages.name as Garage','garages.address as GarageAddress','garages.email as GarageEmail','garages.phone_number as GaragePhoneNumber','roles.name as role')
+        ->select('users.*','garages.name as Garage','garages.address as GarageAddress','garages.email as GarageEmail','garages.phone_number as GaragePhoneNumber','roles.name as role','employees.salary')
         ->first();
         }
 

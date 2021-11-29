@@ -48,4 +48,5 @@ Route::middleware(['auth:sanctum','garage.admin'])->group(function() {
     //employee
     Route::post('/employee/create',[GarageAdminController::class,'registerEmployee']);
     Route::post('/employee/update',[GarageAdminController::class,'modifyEmployee']);
+    Route::get('/employees/{garage_id}',[GarageAdminController::class,'getEmployees']);
 });
