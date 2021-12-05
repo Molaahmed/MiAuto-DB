@@ -17,9 +17,17 @@ class Car extends Model
      * @var string[]
      */
     protected $fillable = [
-        'vin_number',
         'client_id',
-        'garage_id'
+        'vin_number',
+        'plate',
+        'type',
+        'fuel',
+        'make',
+        'model',
+        'engine',
+        'gear_box',
+        'air_conditioner',
+        'color',
     ];
 
 }
