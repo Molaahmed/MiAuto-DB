@@ -6,7 +6,7 @@ use App\Http\Controllers\TokenController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GarageAdminController;
-
+use App\Http\Controllers\ClientCarController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,6 +17,7 @@ use App\Http\Controllers\GarageAdminController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
 
 Route::post('/login', [TokenController::class, 'store']);
 Route::post('/logout', [TokenController::class, 'destroy']);
@@ -54,7 +55,9 @@ Route::middleware(['auth:sanctum','garage.admin'])->group(function() {
 
 // Authorization : Garage Client
 Route::middleware(['auth:sanctum','garage.client'])->group(function() {
-
-
-
+    Route::get('/client/cars' ,[ClientCarController::class, 'index']);
+    Route::post('/client/cars' ,[ClientCarController::class, 'store']);
+    Route::put('/client/cars/{id}' ,[ClientCarController::class, 'update']);
+    Route::get('/client/cars/{id}' ,[ClientCarController::class, 'show']);
+    Route::delete('/client/cars/{id}' ,[ClientCarController::class, 'destroy']);
 });

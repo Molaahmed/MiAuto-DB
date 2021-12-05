@@ -23,7 +23,7 @@ class CarSeeder extends Seeder
     
             DB::table('cars')->insert([
                 'vin_number'=> $faker->vin,
-                'client_id'=> $faker->randomElement($usersIDs),
+                'user_id'=> $faker->randomElement($usersIDs),
                 'plate' => $faker->vehicleRegistration,
                 'type' => $faker->vehicleType,
                 'fuel' => $faker->vehicleFuelType,
@@ -35,6 +35,5 @@ class CarSeeder extends Seeder
                 'color' => 'red',
             ]);
         }
-
     }
 }

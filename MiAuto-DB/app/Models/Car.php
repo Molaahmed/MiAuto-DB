@@ -11,13 +11,14 @@ class Car extends Model
     public $timestamps = false;
 
 
+    protected $guarded = [];
       /**
      * The attributes that are mass assignable.
      *
      * @var string[]
      */
     protected $fillable = [
-        'client_id',
+        'user_id',
         'vin_number',
         'plate',
         'type',

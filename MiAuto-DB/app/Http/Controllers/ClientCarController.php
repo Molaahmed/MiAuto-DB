@@ -2,7 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Car;
+use App\Http\Resources\CarResource;
 
 class ClientCarController extends Controller
 {
@@ -15,9 +21,11 @@ class ClientCarController extends Controller
      */
     public function index()
     {
-        
+        if(Auth::user()){
+            return CarResource::collection(Auth::user()->cars);
+        }
+        return Abort(401);
     }
-
 
 
     /**
@@ -28,32 +36,59 @@ class ClientCarController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+         $validator = Validator::make($request->all(),[
+            'user_id' => 'required',
+            'vin_number' => 'required',
+            'plate' => 'required',
+            'type' => 'required',
+            'fuel' => 'required',
+            'make' => 'required',
+            'model' => 'required',
+            'engine' => 'required',
+            'gear_box' => 'required',
+            'air_conditioner' => 'required',
+            'color' => 'required',
+        ]);
 
+        if($validator->fails()){
+            return new JsonResponse(['errors'=>$validator->messages()],422);
+        }else{
+            $car = Car::create($request->all());
+            return new JsonResponse("Successfully created ", 200);
+        }
+    }
 
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //
+    {    
+        $car = Car::findOrFail($id);
+        $validator = Validator::make($request->all(),[
+            'user_id' => 'required',
+            'vin_number' => 'required',
+            'plate' => 'required',
+            'type' => 'required',
+            'fuel' => 'required',
+            'make' => 'required',
+            'model' => 'required',
+            'engine' => 'required',
+            'gear_box' => 'required',
+            'air_conditioner' => 'required',
+            'color' => 'required',
+        ]);
+        if($validator->fails()){
+            return new JsonResponse(['errors'=>$validator->messages()],422);
+        }
+        else{
+            $car->update($request->all());
+            return new JsonResponse("Successfully updated ", 200);
+        }
     }
 
     /**
@@ -64,6 +99,7 @@ class ClientCarController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $car = Car::findOrFail($id);
+        $car->delete();
     }
 }
