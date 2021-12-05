@@ -14,10 +14,15 @@ class CreateCarsTable extends Migration
     public function up()
     {
         Schema::create('cars', function (Blueprint $table) {
-        $table->id();
-        $table->string('vin_number');
-	    $table->unsignedBigInteger('client_id');
-	    $table->unsignedBigInteger('garage_id');
+        $table->bigIncrements('id');
+        $table->unsignedBigInteger('client_id');
+        $table->string('vin_number')->nullable();
+        $table->string('plate')->nullable();
+        $table->string('type');
+        $table->string('fuel');
+	    $table->string('make');
+        $table->string('model');
+        $table->string('engine');
         });
     }
 

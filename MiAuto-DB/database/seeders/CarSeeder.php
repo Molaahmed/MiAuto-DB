@@ -17,8 +17,7 @@ class CarSeeder extends Seeder
     {
         $faker = Faker::create('nl_NL');
         $usersIDs = DB::table('users')->pluck('id');
-        $garageIDs = DB::table('garages')->pluck('id');
-
+    
         for ($i=0; $i < 5; $i++) { 
             DB::table('cars')->insert([
                 'vin_number'=> $faker->regexify('[A-Za-z0-9]{17}'),
