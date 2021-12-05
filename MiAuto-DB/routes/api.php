@@ -50,3 +50,11 @@ Route::middleware(['auth:sanctum','garage.admin'])->group(function() {
     Route::post('/employee/update',[GarageAdminController::class,'modifyEmployee']);
     Route::get('/employees/{garage_id}',[GarageAdminController::class,'getEmployees']);
 });
+
+
+// Authorization : Garage Client
+Route::middleware(['auth:sanctum','garage.client'])->group(function() {
+
+
+
+});
