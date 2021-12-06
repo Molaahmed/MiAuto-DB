@@ -10,6 +10,8 @@ use Illuminate\Validation\ValidationException;
 use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 use App\Models\User;
 use App\Models\Garage;
+use App\Models\Employee;
+use Illuminate\Support\Facades\DB;
 
 class RegistrationController extends Controller
 {
@@ -39,6 +41,12 @@ class RegistrationController extends Controller
             'phone_number' => $request->phone_number,
             'password' => Hash::make($request->password),
         ]);
+
+        //assign a client role
+        DB::table('user_role')->insert([
+            'user_id' => $user->id,
+            'role_id' => 1
+        ]);
          
 
         return response()->json($user, 200);
@@ -49,9 +57,22 @@ class RegistrationController extends Controller
     public function storeGarage(Request $request)
     {
 
+        // create user as garage owner
+        $user = User::create([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'date_of_birth' => $request->date_of_birth,
+            'address' => $request->address,
+            'phone_number' => $request->phone_number,
+            'password' => Hash::make($request->password),
+        ]);
+
 
         $validated = Validator::make($request->all(), [
-            'name' => 'required|min:2',
+            'first_name' => 'required|min:2',
+            'last_name' => 'required|min:2',
+            'date_of_birth' => 'required',
             'address'=> 'required|min:3',
             'email' => 'required|email',
             'phone_number'=> 'required|numeric',
@@ -61,12 +82,24 @@ class RegistrationController extends Controller
             return response()->json($validated->errors(), 422);
          }
 
+        //assign a client role
+        DB::table('user_role')->insert([
+            'user_id' => $user->id,
+            'role_id' => 4
+        ]);
+
+        //garage 
         $garage = Garage::create([
-            'user_id'=> Auth::user()->id,
+            'user_id'=> $user->id,
             'name' => $request->name,
-            'address' => $request->address,
-            'email' => $request->email,
-            'phone_number' => $request->phone_number,
+            'address' => $request->garage_address,
+            'email' => $request->garage_email,
+            'phone_number' => $request->garage_phone_number,
+        ]);
+
+        Employee::create([
+            'user_id' => $user->id,
+            'garage_id' => $garage->id
         ]);
 
         return response()->json($garage, 200);

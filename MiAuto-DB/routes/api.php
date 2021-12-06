@@ -6,6 +6,8 @@ use App\Http\Controllers\TokenController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GarageAdminController;
+use App\Http\Controllers\ClientCarController;
+use App\Http\Controllers\GarageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,31 +20,52 @@ use App\Http\Controllers\GarageAdminController;
 |
 */
 
+
 Route::post('/login', [TokenController::class, 'store']);
-Route::get('/logout', [TokenController::class, 'destroy']);
+Route::post('/logout', [TokenController::class, 'destroy']);
 
 Route::post('/client/register', [RegistrationController::class, 'storeClient']);
 Route::post('/garage/register', [RegistrationController::class, 'storeGarage']);
 
-//check if the user is authenticated
+
+// Check if authenticated
 Route::middleware('auth:sanctum')->get('/authenticated', function () {
     return true;
 });
 
-// authentication middleware
+
+// Authorization : Authentication
 Route::middleware('auth:sanctum')->group( function(){
     //user
     Route::get('/user' ,[UserController::class, 'User']);
-    Route::put('/users/update', [UserController::class, 'updateProfile']);
+    Route::put('/user/update', [UserController::class, 'updateProfile']);
 });
 
 
+// Authorization : Garage Administrator
+Route::middleware(['auth:sanctum','garage.admin'])->group(function() {
+    //car
+    Route::post('/cars/create', [GarageAdminController::class,'registerCar']);
+    //client
+    Route::post('/client/create',[GarageAdminController::class,'registerClient']);
+    //employee
+    Route::post('/employee/create',[GarageAdminController::class,'registerEmployee']);
+    Route::post('/employee/update',[GarageAdminController::class,'modifyEmployee']);
+    Route::get('/employees/{garage_id}',[GarageAdminController::class,'getEmployees']);
+});
 
-//REMINDER: thess endpoints needs an garage admin authorization
-//car
-Route::post('/cars/create', [GarageAdminController::class,'registerCar']);
 
-//client
-Route::post('/client/create',[GarageAdminController::class,'registerClient'])->middleware('admin');
-//emplye
-Route::post('/employee/create',[GarageAdminController::class,'registerEmployee']);
+// Authorization : Garage Client
+Route::middleware(['auth:sanctum','garage.client'])->group(function() {
+    Route::get('/client/cars' ,[ClientCarController::class, 'index']);
+    Route::post('/client/cars' ,[ClientCarController::class, 'store']);
+    Route::put('/client/cars/{id}' ,[ClientCarController::class, 'update']);
+    Route::get('/client/cars/{id}' ,[ClientCarController::class, 'show']);
+    Route::delete('/client/cars/{id}' ,[ClientCarController::class, 'destroy']);
+});
+
+
+Route::get('/garages' ,[GarageController::class, 'index']);
+Route::get('/garages/address/{address}' ,[GarageController::class, 'searchByAddress']);
+Route::get('/garages/{id}' ,[GarageController::class, 'show']);
+    

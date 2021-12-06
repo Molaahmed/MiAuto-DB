@@ -11,15 +11,24 @@ class Car extends Model
     public $timestamps = false;
 
 
+    protected $guarded = [];
       /**
      * The attributes that are mass assignable.
      *
      * @var string[]
      */
     protected $fillable = [
+        'user_id',
         'vin_number',
-	'client_id',
-	'garage_id'
+        'plate',
+        'type',
+        'fuel',
+        'make',
+        'model',
+        'engine',
+        'gear_box',
+        'air_conditioner',
+        'color',
     ];
 
 }
