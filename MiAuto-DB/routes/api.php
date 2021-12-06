@@ -7,6 +7,8 @@ use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GarageAdminController;
 use App\Http\Controllers\ClientCarController;
+use App\Http\Controllers\GarageController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -62,4 +64,8 @@ Route::middleware(['auth:sanctum','garage.client'])->group(function() {
     Route::delete('/client/cars/{id}' ,[ClientCarController::class, 'destroy']);
 });
 
+
+Route::get('/garages' ,[GarageController::class, 'index']);
+Route::get('/garages/address/{address}' ,[GarageController::class, 'searchByAddress']);
+Route::get('/garages/{id}' ,[GarageController::class, 'show']);
     
