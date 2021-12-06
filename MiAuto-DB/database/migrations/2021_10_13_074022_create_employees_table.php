@@ -23,7 +23,7 @@ class CreateEmployeesTable extends Migration
             $table->foreign('garage_id')->references('id')->on('garages')->onDelete('cascade');
         });
     }
-
+ 
     /**
      * Reverse the migrations.
      *

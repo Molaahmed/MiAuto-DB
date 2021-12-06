@@ -63,10 +63,11 @@ class User extends Authenticatable
     
 
     /**
-     * Get the cars for the user
+     *  Get the cars for the user post.
      */
     public function cars()
     {
+        //return $this->hasMany(Car::class, 'client_id', 'id');
         return $this->hasMany(Car::class);
     }
     
