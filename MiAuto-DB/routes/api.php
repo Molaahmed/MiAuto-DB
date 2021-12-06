@@ -66,4 +66,6 @@ Route::middleware(['auth:sanctum','garage.client'])->group(function() {
 
 
 Route::get('/garages' ,[GarageController::class, 'index']);
+Route::get('/garages/address/{address}' ,[GarageController::class, 'searchByAddress']);
+Route::get('/garages/{id}' ,[GarageController::class, 'show']);
     
