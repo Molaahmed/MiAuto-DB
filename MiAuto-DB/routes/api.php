@@ -54,6 +54,11 @@ Route::middleware(['auth:sanctum','garage.admin'])->group(function() {
     Route::get('/employees/{garage_id}',[GarageAdminController::class,'getEmployees']);
 });
 
+ // Authorization : Garage Employee
+ Route::middleware(['auth:sanctum','garage.employee'])->group(function() {
+    //Garage Id
+    Route::get('/garage/id', [GarageController::class,'getGarageId']);
+});
 
 // Authorization : Garage Client
 Route::middleware(['auth:sanctum','garage.client'])->group(function() {

@@ -42,6 +42,10 @@ class RegistrationController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        //create a Token
+        $token = $user->createToken('authToken')->plainTextToken;
+
+
         //assign a client role
         DB::table('user_role')->insert([
             'user_id' => $user->id,
@@ -68,6 +72,9 @@ class RegistrationController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        //create a Token
+        $token = $user->createToken('authToken')->plainTextToken;
+
 
         $validated = Validator::make($request->all(), [
             'first_name' => 'required|min:2',
@@ -76,6 +83,11 @@ class RegistrationController extends Controller
             'address'=> 'required|min:3',
             'email' => 'required|email',
             'phone_number'=> 'required|numeric',
+            //garage
+            'name' => 'required',
+            'address' => 'required',
+            'email' => 'required',
+            'phone_number' => 'required'
         ]);
         
         if ($validated->fails()) {

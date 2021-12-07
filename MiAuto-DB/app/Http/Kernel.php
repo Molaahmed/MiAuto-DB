@@ -57,6 +57,7 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         'admin' => \App\Http\Middleware\AdminAuthorization::class,
         'garage.admin' => \App\Http\Middleware\GarageAdminAuthorization::class,
+        'garage.employee' => \App\Http\Middleware\GarageEmployeeAuthorization::class,
         'garage.client' => \App\Http\Middleware\GarageClientAuthorization::class,
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,

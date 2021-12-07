@@ -16,7 +16,7 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {
         if (! $request->expectsJson()) {
-            throw new AuthorizationException('Not Authorized');
+            throw new AuthorizationException('Not Logged In');
         }
     }
 }
