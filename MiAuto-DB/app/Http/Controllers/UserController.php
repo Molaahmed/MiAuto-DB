@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use App\Http\Resources\UserResource;
@@ -26,10 +27,10 @@ class UserController extends Controller
 
     public function User()
     {
-         $role_id = DB::table('users')
-        ->join('user_role','user_role.user_id','=','users.id')
-        ->where('users.id',Auth::user()->id)
-        ->select('user_role.role_id')->value('role_id');
+        //  $role_id = DB::table('users')
+        // ->join('user_role','user_role.user_id','=','users.id')
+        // ->where('users.id',Auth::user()->id)
+        // ->select('user_role.role_id')->value('role_id');
 
         return new JsonResponse( DB::table('users')
         ->join('user_role','user_role.user_id','=','users.id')
@@ -86,5 +87,27 @@ class UserController extends Controller
         $user->update($request->all());
 
         return new JsonResponse('Updated successful', 200);
+    }
+
+    public function updateClientProfile(Request $request, $client_id)
+    {
+
+        $user = User::findOrFail($client_id);
+        $validator = Validator::make($request->all(), [
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'email|required',
+            'date_of_birth' => 'required',
+            'address' => 'required',
+            'phone_number' => 'required',
+        ]);
+        if($validator->fails()){
+            return new JsonResponse(['errors'=>$validator->messages()],422);
+        }
+        else{
+            $user->update($request->all());
+            return new JsonResponse("Successfully updated ", 200);
+        }
+
     }
 }

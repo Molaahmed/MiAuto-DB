@@ -9,6 +9,7 @@ use App\Http\Controllers\GarageAdminController;
 use App\Http\Controllers\ClientCarController;
 use App\Http\Controllers\GarageController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\CarController;
 
 
 /*
@@ -46,7 +47,7 @@ Route::middleware('auth:sanctum')->group( function(){
     Route::get('/garages' ,[GarageController::class, 'index']);
     Route::get('/garages/address/{address}' ,[GarageController::class, 'searchByAddress']);
     Route::get('/garages/{id}' ,[GarageController::class, 'show']);
-
+    Route::get('/cars' ,[CarController::class, 'index']);
 });
 
 
@@ -62,6 +63,8 @@ Route::middleware(['auth:sanctum','garage.admin'])->group(function() {
     Route::post('/employee/update',[GarageAdminController::class,'modifyEmployee']);
     Route::get('/employees/{garage_id}',[GarageAdminController::class,'getEmployees']);
     Route::get('/reservations/{garage_id}' ,[ReservationController::class, 'getByGarageId']);
+    Route::post('/garage/client/register', [RegistrationController::class, 'storeClient']);
+    Route::put('/garage/client/update/{client_id}', [UserController::class, 'updateClientProfile']);
 });
 
  // Authorization : Garage Employee

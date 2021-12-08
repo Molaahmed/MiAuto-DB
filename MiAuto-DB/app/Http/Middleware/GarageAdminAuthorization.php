@@ -20,15 +20,15 @@ class GarageAdminAuthorization
     {
         
         //check if he's working at that garage
-        $check = DB::table('employees')
-        ->where('user_id',Auth::user()->id)
-        ->where('garage_id',$request->garage_id)
-        ->count();
+        // $check = DB::table('employees')
+        // ->where('user_id',Auth::user()->id)
+        // ->where('garage_id',$request->garage_id)
+        // ->count();
         
-        if($check == 0)
-        {
-            abort(403, 'Access denied');
-        }
+        // if($check == 0)
+        // {
+        //     abort(403, 'Access denied');
+        // }
     
 
         //check if the employee is Authorized

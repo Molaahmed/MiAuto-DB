@@ -25,7 +25,6 @@ class RegistrationController extends Controller
             'date_of_birth' => 'required',
             'address' => 'required',
             'phone_number' => 'required',
-            'password' => 'required'
         ]);
 
         if ($validated->fails()) {
