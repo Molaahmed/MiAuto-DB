@@ -15,7 +15,13 @@ class UserController extends Controller
 
     public function index()
     {
-        return UserResource::collection(User::all());
+        $clients = DB::table('users')
+        ->join('user_role','user_role.user_id','=','users.id')
+        ->where('role_id', '1')
+        ->select('*')
+        ->get();
+        return  UserResource::collection($clients);
+        
     }
 
     public function User()
