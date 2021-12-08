@@ -30,9 +30,15 @@ class Garage extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function operations(): HasMany
+    public function operations()
     {
-        return $this->hasMany(Operation::class, 'garage_id', 'id');
+        return $this->hasMany(Operation::class_uses);
+    }
+    
+    
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class);
     }
 
     /**
@@ -40,7 +46,7 @@ class Garage extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function employee(): HasMany
+    public function employee()
     {
         return $this->hasMany(Employee::class, 'garage_id', 'id');
     }
