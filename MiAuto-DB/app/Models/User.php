@@ -62,6 +62,14 @@ class User extends Authenticatable
     }
     
 
+      /**
+     * Get the garages for the user
+     */
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class);
+    }
+
     /**
      *  Get the cars for the user post.
      */
