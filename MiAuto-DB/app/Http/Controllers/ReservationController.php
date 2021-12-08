@@ -20,8 +20,12 @@ class ReservationController extends Controller
 
     public function  getByGarageId($garage_id){
         $garage = Garage::findOrFail($garage_id);
-        $reservation =  $garage->reservations;
-        return new JsonResponse($reservation, 200);
+        if($garage){
+            $reservation =  $garage->reservations;
+            return new JsonResponse($reservation, 200);
+        }
+        return new JsonResponse("Error not found",404);
+      
     }
 
 

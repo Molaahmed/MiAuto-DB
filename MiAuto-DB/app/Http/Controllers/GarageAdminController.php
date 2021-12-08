@@ -16,6 +16,14 @@ use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 
 class GarageAdminController extends Controller
 {
+
+    public function index()
+    {
+        return Auth::user()->garages;
+    }
+
+
+
     public function registerCar(Request $request)
     {
 	//check if its a valid garage
