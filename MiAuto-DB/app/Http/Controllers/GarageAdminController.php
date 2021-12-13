@@ -8,11 +8,13 @@ use App\Models\Car;
 use App\Models\User;
 use App\Models\Garage;
 use App\Models\Employee;
+use App\Services\PayUService\Exception;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
+use Illuminate\Http\JsonResponse;
 
 class GarageAdminController extends Controller
 {
@@ -84,17 +86,21 @@ class GarageAdminController extends Controller
             'date_of_birth' => 'required',
             'address' => 'required|min:2',
             'phone_number' => 'required|min:5',
-            'password' => 'required|min:8',
-            //employee table
-            'salary' => 'numeric',
-            //role
-            'role' => 'numeric',
+            'email' => 'email|required|unique:users',
+            // //employee table
+            // 'salary' => 'numeric',
+            // //role
+             'role' => 'numeric',
         ]);
+
+        if($validated ->fails()){
+            return new JsonResponse(['errors'=>$validated->messages()],422);
+        }
         
         //check if the manager exists
         if(User::where('email',$request->email)->first())
         {
-            return response()->json(['error: duplicate entry' => 'User already exists'],422);
+            return new JsonResponse(['error: duplicate entry' => 'User already exists'],422);
         }
 
         $user = User::create([
@@ -104,24 +110,27 @@ class GarageAdminController extends Controller
             'date_of_birth' => $request->date_of_birth,
             'address' => $request->address,
             'phone_number' => $request->phone_number,
-            'password' => Hash::make($request->password)
+            'password' => Hash::make("password")
         ]);
 
         DB::table('employees')->insert([
             'user_id' => $user->id,
             'garage_id' => $request->garage_id,
-            'salary' => $request->salary
+            'salary' => 0
         ]);
         //role reserved for client and admin
         if($request->role == 1 || $request->role == 5)
         {
-            abort(403, 'error: Not a valid role');
+           $user->delete();
+           return new JsonResponse ('Error: Not a valid role',403);
         }
         //assign a role
         DB::table('user_role')->insert([
             'user_id' => $user->id,
             'role_id' => $request->role
         ]);
+
+        return new JsonResponse("Created successfully", 200);
     }
 
     public function modifyEmployee(Request $request)
@@ -182,12 +191,15 @@ class GarageAdminController extends Controller
 
     public function getEmployees(Request $request)
     {
+        
         return DB::table('users')
         ->join('user_role','user_role.user_id','=','users.id')
         ->join('roles','roles.id','=','user_role.role_id')
         ->join('employees','employees.user_id','users.id')
         ->where('employees.garage_id',$request->garage_id)
-        ->select('users.*','roles.name as role','employees.salary')
+        ->Where('user_role.role_id', 2)
+        ->orWhere('user_role.role_id', 4)
+        ->select('users.id','users.first_name','users.last_name','users.email','users.date_of_birth','users.address','roles.name as role','employees.salary')
         ->get();
     }
 
