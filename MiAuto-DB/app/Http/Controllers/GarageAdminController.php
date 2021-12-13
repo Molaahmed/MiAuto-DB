@@ -133,10 +133,10 @@ class GarageAdminController extends Controller
         return new JsonResponse("Created successfully", 200);
     }
 
-    public function modifyEmployee(Request $request)
+    public function modifyEmployee(Request $request, $employee_id)
     {
         if(DB::table('employees')
-        ->where('user_id',$request->employee_id)
+        ->where('user_id', $employee_id)
         ->where('garage_id',$request->garage_id)->count() == 0)
         {
             return response->json(['error: record not found' => 'Employee not found'],422);
@@ -149,24 +149,25 @@ class GarageAdminController extends Controller
             'date_of_birth' => 'required',
             'address' => 'required|min:2',
             'phone_number' => 'required|min:5',
-            'password' => 'required|min:8',
+            'email' => 'email|required',
             //employee table
-            'salary' => 'numeric',
-            //role
-            'role' => 'numeric',
+             'salary' => 'numeric',
+            // //role
+             'role' => 'numeric',
 
         ]);
 
         if ($validated->fails()) {
-            return response()->json($validated->errors(), 422);
+            return new JsonResponse(['errors'=>$validated->messages()],422);
         }
 
-        User::where('id',$request->employee_id)
+        User::where('id', $employee_id)
         ->update([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'date_of_birth' => $request->date_of_birth,
             'address' => $request->address,
+            'email' => $request->email,
             'phone_number' => $request->phone_number,
             'password' => Hash::make($request->password)
         ]);
@@ -183,10 +184,12 @@ class GarageAdminController extends Controller
         }
 
         DB::table('user_role')
-        ->where('user_id',$request->employee_id)
+        ->where('user_id', $employee_id)
         ->update([
             'role_id' => $request->role
         ]);
+
+        return new JsonResponse("Successfully updated ", 200);
     }
 
     public function getEmployees(Request $request)
