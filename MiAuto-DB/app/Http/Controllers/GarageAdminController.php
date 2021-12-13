@@ -202,7 +202,7 @@ class GarageAdminController extends Controller
         ->where('employees.garage_id',$request->garage_id)
         ->Where('user_role.role_id', 2)
         ->orWhere('user_role.role_id', 4)
-        ->select('users.id','users.first_name','users.last_name','users.email','users.date_of_birth','users.address','roles.name as role','employees.salary')
+        ->select('users.id','users.first_name','users.last_name','users.email','users.phone_number' ,'users.date_of_birth','users.address','roles.name as role','employees.salary')
         ->get();
     }
 
