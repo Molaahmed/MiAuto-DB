@@ -60,7 +60,7 @@ Route::middleware(['auth:sanctum','garage.admin'])->group(function() {
     Route::post('/client/create',[GarageAdminController::class,'registerClient']);
     //employee
     Route::post('/employee/create',[GarageAdminController::class,'registerEmployee']);
-    Route::post('/employee/update',[GarageAdminController::class,'modifyEmployee']);
+    Route::put('/employee/update/{employee_id}',[GarageAdminController::class,'modifyEmployee']);
     Route::get('/employees/{garage_id}',[GarageAdminController::class,'getEmployees']);
     Route::get('/reservations/{garage_id}' ,[ReservationController::class, 'getByGarageId']);
     Route::post('/garage/client/register', [RegistrationController::class, 'storeClient']);
