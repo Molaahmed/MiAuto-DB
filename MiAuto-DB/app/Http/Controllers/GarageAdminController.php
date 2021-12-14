@@ -87,6 +87,7 @@ class GarageAdminController extends Controller
             'address' => 'required|min:2',
             'phone_number' => 'required|min:5',
             'email' => 'email|required|unique:users',
+            'garage_id'=> 'required',
             // //employee table
             // 'salary' => 'numeric',
             // //role
@@ -102,6 +103,11 @@ class GarageAdminController extends Controller
         {
             return new JsonResponse(['error: duplicate entry' => 'User already exists'],422);
         }
+        if($request->role == 1 || $request->role == 5)
+        {
+           
+           return new JsonResponse ('Error: Not a valid role',403);
+        }
 
         $user = User::create([
             'first_name' => $request->first_name,
@@ -112,16 +118,26 @@ class GarageAdminController extends Controller
             'phone_number' => $request->phone_number,
             'password' => Hash::make("password")
         ]);
+        if(!$user->exists){
+            return new JsonResponse ('Employee not saved',403);
+        }
 
-        DB::table('employees')->insert([
-            'user_id' => $user->id,
-            'garage_id' => $request->garage_id,
-            'salary' => 0
-        ]);
+        $employee = new Employee;
+        $employee->user_id  = $user->id;
+        $employee->garage_id = $request->garage_id;
+        $employee->salary = 0;
+        $saved = $employee->save();
+        
+        if(!$saved){
+            $user->delete();
+            return new JsonResponse ('Employee not saved',403);
+        } 
+
         //role reserved for client and admin
         if($request->role == 1 || $request->role == 5)
         {
-           $user->delete();
+            $user->delete();
+            $employee->delete();
            return new JsonResponse ('Error: Not a valid role',403);
         }
         //assign a role
@@ -146,10 +162,10 @@ class GarageAdminController extends Controller
             //user table
             'first_name' => 'required|min:2',
             'last_name' => 'required|min:2',
+            'email' => 'email|required|unique:users',
             'date_of_birth' => 'required',
             'address' => 'required|min:2',
             'phone_number' => 'required|min:5',
-            'email' => 'email|required',
             //role
              'role' => 'numeric',
 
@@ -158,6 +174,12 @@ class GarageAdminController extends Controller
         if ($validated->fails()) {
             return new JsonResponse(['errors'=>$validated->messages()],422);
         }
+        //role reserved for client and admin
+        if($request->role == 1 || $request->role == 5)
+        {
+            return new JsonResponse('error: Not a valid role',403);
+        }
+
 
         User::where('id', $employee_id)
         ->update([
@@ -169,14 +191,7 @@ class GarageAdminController extends Controller
             'phone_number' => $request->phone_number,
             'password' => Hash::make($request->password)
         ]);
-
-
-        //role reserved for client and admin
-        if($request->role == 1 || $request->role == 5)
-        {
-            abort(403, 'error: Not a valid role');
-        }
-
+       
         DB::table('user_role')
         ->where('user_id', $employee_id)
         ->update([
