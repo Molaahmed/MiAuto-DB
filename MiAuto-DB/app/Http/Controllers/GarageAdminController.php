@@ -155,14 +155,14 @@ class GarageAdminController extends Controller
         ->where('user_id', $employee_id)
         ->where('garage_id',$request->garage_id)->count() == 0)
         {
-            return response->json(['error: record not found' => 'Employee not found'],422);
+            return new JsonResponse(['error: record not found' => 'Employee not found'],422);
         }
 
         $validated = Validator::make($request->all(), [
             //user table
             'first_name' => 'required|min:2',
             'last_name' => 'required|min:2',
-            'email' => 'email|required|unique:users',
+            'email' => 'email|required',
             'date_of_birth' => 'required',
             'address' => 'required|min:2',
             'phone_number' => 'required|min:5',
