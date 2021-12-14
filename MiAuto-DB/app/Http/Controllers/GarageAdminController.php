@@ -150,9 +150,7 @@ class GarageAdminController extends Controller
             'address' => 'required|min:2',
             'phone_number' => 'required|min:5',
             'email' => 'email|required',
-            //employee table
-             'salary' => 'numeric',
-            // //role
+            //role
              'role' => 'numeric',
 
         ]);
@@ -172,10 +170,6 @@ class GarageAdminController extends Controller
             'password' => Hash::make($request->password)
         ]);
 
-        Employee::where('user_id',$request->employee_id)
-        ->update([
-            'salary' => $request->salary
-        ]);
 
         //role reserved for client and admin
         if($request->role == 1 || $request->role == 5)
