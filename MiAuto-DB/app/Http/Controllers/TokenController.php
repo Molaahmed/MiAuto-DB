@@ -16,14 +16,17 @@ class TokenController extends Controller
             'email' => ['required'],
             'password' => ['required']
         ]);
+        
 
         if(Auth::attempt($request->only('email', 'password'))){
-            return response()->json(Auth::user(), 200);
+            $user = User::where('email',$request->email)->first();
+            $token = $user->createToken('authToken')->plainTextToken;
+            return response()->json($token, 200);
         }
         return response([
             'message' => ['These credentials do not match out records.'] 
-        ],404);
-
+        ],422);
+            
 
     }
 

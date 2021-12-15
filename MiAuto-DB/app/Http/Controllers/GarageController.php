@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Garage;
+use App\Models\Employee;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\GarageResource;
 use DB;
 
@@ -33,6 +35,11 @@ class GarageController extends Controller
             ->get();
 
         return  GarageResource::collection($garages);
+    }
+
+    public function getGarageId()
+    {
+        return Employee::where('user_id',Auth::user()->id)->select('garage_id')->value('garage_id');
     }
 
     public function show($id)

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
-class GarageAdminAuthorization
+class GarageEmployeeAuthorization
 {
     /**
      * Handle an incoming request.
@@ -18,18 +18,6 @@ class GarageAdminAuthorization
      */
     public function handle(Request $request, Closure $next)
     {
-        
-        //check if he's working at that garage
-        // $check = DB::table('employees')
-        // ->where('user_id',Auth::user()->id)
-        // ->where('garage_id',$request->garage_id)
-        // ->count();
-        
-        // if($check == 0)
-        // {
-        //     abort(403, 'Access denied');
-        // }
-    
 
         //check if the employee is Authorized
         $role = DB::table('users')
@@ -37,9 +25,9 @@ class GarageAdminAuthorization
         ->where('users.id',Auth::user()->id)
         ->select('user_role.role_id')->value('role_id');
     
-          if($role != 3)
+          if($role != 4 && $role != 3 && $role != 2)
           {
-             abort(403, 'Access denied');
+             abort(403, 'Access dencied');
           }
 
           return $next($request);
