@@ -66,9 +66,9 @@ class ClientCarController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $car_id)
     {    
-        $car = Car::findOrFail($id);
+        $car = Car::findOrFail($car_id);
         $validator = Validator::make($request->all(),[
             'user_id' => 'required',
             'vin_number' => 'required',
@@ -91,15 +91,25 @@ class ClientCarController extends Controller
         }
     }
 
+
+    public function show($client_id){
+        
+        $client = User::findOrFail($client_id);
+        if(!$client){
+            return new JsonResponse(['error: user' => 'User not found'], 404);
+        }
+        return  CarResource::collection($client->cars);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($car_id)
     {
-        $car = Car::findOrFail($id);
+        $car = Car::findOrFail($car_id);
         $car->delete();
     }
 }
