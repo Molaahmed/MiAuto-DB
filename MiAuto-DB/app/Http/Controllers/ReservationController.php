@@ -37,6 +37,8 @@ class ReservationController extends Controller
             'vin_number' => 'required',
             'description' => 'required',
             'date'=> 'required',
+            'startingTime' => 'required',
+            'endingTime' => 'required'
         ]);
 
         if($validator->fails()){

@@ -28,28 +28,26 @@ class GarageAdminController extends Controller
 
     public function registerCar(Request $request)
     {
-	//check if its a valid garage
-	    if(!Garage::where('id',$request->garage_id)->first())
-	    {
-		return response()->json(['error' => 'Garage not found'],422);
-	    }
-	//checks if the user exists
-        if(!User::where('id', $request->client_id)->first())
-        {
-            return response()->json(['error' => 'Client not found'], 422);
+        $validator = Validator::make($request->all(),[
+            'user_id' => 'required',
+            'vin_number' => 'required|unique:cars',
+            'plate' => 'required',
+            'type' => 'required',
+            'fuel' => 'required',
+            'make' => 'required',
+            'model' => 'required',
+            'engine' => 'required',
+            'gear_box' => 'required',
+            'air_conditioner' => 'required',
+            'color' => 'required',
+        ]);
+
+        if($validator->fails()){
+            return new JsonResponse(['errors'=>$validator->messages()],422);
+        }else{
+            $car = Car::create($request->all());
+            return new JsonResponse("Successfully created ", 200);
         }
-    //checks if the car already exists in the garage
-        if(DB::table('cars')->where('vin_number',$request->vin_number)
-        ->where('garage_id',$request->garage_id)->count() != 0)
-        {
-            return response()->json(['error: duplicate entry' => 'Car already exists']);
-        }
-        //
-        return Car::create([
-            'vin_number' =>  $request->vin_number,
-            'client_id' => $request->client_id,
-            'garage_id' => $request->garage_id
-            ]);
     }
 
     public function registerClient(Request $request)
@@ -209,8 +207,6 @@ class GarageAdminController extends Controller
         ->join('roles','roles.id','=','user_role.role_id')
         ->join('employees','employees.user_id','users.id')
         ->where('employees.garage_id',$request->garage_id)
-        ->Where('user_role.role_id', 2)
-        ->orWhere('user_role.role_id', 4)
         ->select('users.id','users.first_name','users.last_name','users.email','users.phone_number' ,'users.date_of_birth','users.address','roles.name as role','employees.salary')
         ->get();
     }

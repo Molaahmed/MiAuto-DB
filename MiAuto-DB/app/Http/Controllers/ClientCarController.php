@@ -39,7 +39,7 @@ class ClientCarController extends Controller
 
          $validator = Validator::make($request->all(),[
             'user_id' => 'required',
-            'vin_number' => 'required',
+            'vin_number' => 'required|unique:cars',
             'plate' => 'required',
             'type' => 'required',
             'fuel' => 'required',
