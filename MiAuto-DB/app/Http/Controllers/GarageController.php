@@ -39,7 +39,7 @@ class GarageController extends Controller
 
     public function getGarageId()
     {
-        return Employee::where('user_id',Auth::user()->id)->select('garage_id')->value('garage_');
+        return Employee::where('user_id',Auth::user()->id)->select('garage_id')->value('garage_id');
     }
 
     public function show($id)

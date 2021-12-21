@@ -28,7 +28,9 @@ class ReservationSeeder extends Seeder
                 'garage_id' => $faker->randomElement($garages_ids), 
                 'user_id'=>  $faker->randomElement($usersIDs),
                 'description' => $faker->text(),
-                'date' => $faker->date()
+                'date' => $faker->date(),
+                'startingTime'=> $faker->time(),
+                'endingTime'=> $faker->time()
             ]);
         }
 
