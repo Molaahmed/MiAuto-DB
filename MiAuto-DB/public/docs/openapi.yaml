@@ -1,0 +1,1439 @@
+openapi: 3.0.3
+info:
+  title: Laravel
+  description: ''
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost'
+paths:
+  /api/login:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/logout:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/client/register:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                  description: ''
+                  example: neque
+                last_name:
+                  type: string
+                  description: ''
+                  example: quo
+                email:
+                  type: string
+                  description: 'Must be a valid email address.'
+                  example: loren90@example.org
+                date_of_birth:
+                  type: string
+                  description: ''
+                  example: harum
+                address:
+                  type: string
+                  description: ''
+                  example: qui
+                phone_number:
+                  type: string
+                  description: ''
+                  example: ullam
+              required:
+                - first_name
+                - last_name
+                - email
+                - date_of_birth
+                - address
+                - phone_number
+      security: []
+  /api/garage/register:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                  description: 'Must be at least 2 characters.'
+                  example: r
+                last_name:
+                  type: string
+                  description: 'Must be at least 2 characters.'
+                  example: oq
+                date_of_birth:
+                  type: string
+                  description: ''
+                  example: ut
+                address:
+                  type: string
+                  description: ''
+                  example: illum
+                email:
+                  type: string
+                  description: ''
+                  example: aut
+                phone_number:
+                  type: string
+                  description: ''
+                  example: laborum
+                name:
+                  type: string
+                  description: garage.
+                  example: facilis
+              required:
+                - first_name
+                - last_name
+                - date_of_birth
+                - address
+                - email
+                - phone_number
+                - name
+      security: []
+  /api/authenticated:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  /api/user:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  /api/users:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  /api/user/update:
+    put:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/reservation:
+    put:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: string
+                  description: ''
+                  example: quia
+                employee_id:
+                  type: string
+                  description: ''
+                  example: quia
+                vin_number:
+                  type: string
+                  description: ''
+                  example: rerum
+                description:
+                  type: string
+                  description: ''
+                  example: fugiat
+                date:
+                  type: string
+                  description: ''
+                  example: provident
+                startingTime:
+                  type: string
+                  description: ''
+                  example: consectetur
+                endingTime:
+                  type: string
+                  description: ''
+                  example: vel
+              required:
+                - user_id
+                - employee_id
+                - vin_number
+                - description
+                - date
+                - startingTime
+                - endingTime
+      security: []
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  /api/garages:
+    get:
+      summary: 'Display a listing of the resource.'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  '/api/garages/address/{address}':
+    get:
+      summary: 'Store a newly created resource in storage.'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: address
+        description: ''
+        example: odio
+        required: true
+        schema:
+          type: string
+  '/api/garages/{id}':
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the garage.'
+        example: 4
+        required: true
+        schema:
+          type: integer
+  /api/cars:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  /api/cars/create:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: string
+                  description: ''
+                  example: ut
+                vin_number:
+                  type: string
+                  description: ''
+                  example: exercitationem
+                plate:
+                  type: string
+                  description: ''
+                  example: quisquam
+                type:
+                  type: string
+                  description: ''
+                  example: odit
+                fuel:
+                  type: string
+                  description: ''
+                  example: rerum
+                make:
+                  type: string
+                  description: ''
+                  example: repellat
+                model:
+                  type: string
+                  description: ''
+                  example: eligendi
+                engine:
+                  type: string
+                  description: ''
+                  example: voluptatem
+                gear_box:
+                  type: string
+                  description: ''
+                  example: officiis
+                air_conditioner:
+                  type: string
+                  description: ''
+                  example: ea
+                color:
+                  type: string
+                  description: ''
+                  example: porro
+              required:
+                - user_id
+                - vin_number
+                - plate
+                - type
+                - fuel
+                - make
+                - model
+                - engine
+                - gear_box
+                - air_conditioner
+                - color
+      security: []
+  /api/garage:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  /api/client/create:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/employee/create:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                  description: 'user table. Must be at least 2 characters.'
+                  example: ''
+                last_name:
+                  type: string
+                  description: 'Must be at least 2 characters.'
+                  example: x
+                date_of_birth:
+                  type: string
+                  description: ''
+                  example: mollitia
+                address:
+                  type: string
+                  description: 'Must be at least 2 characters.'
+                  example: l
+                phone_number:
+                  type: string
+                  description: 'Must be at least 5 characters.'
+                  example: ''
+                email:
+                  type: string
+                  description: 'Must be a valid email address.'
+                  example: irogahn@example.com
+                garage_id:
+                  type: string
+                  description: ''
+                  example: sed
+                role:
+                  type: number
+                  description: "//employee table\n'salary' => 'numeric',\n//role."
+                  example: 1396568.1678
+              required:
+                - first_name
+                - last_name
+                - date_of_birth
+                - address
+                - phone_number
+                - email
+                - garage_id
+      security: []
+  '/api/employee/update/{employee_id}':
+    put:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                  description: 'user table. Must be at least 2 characters.'
+                  example: h
+                last_name:
+                  type: string
+                  description: 'Must be at least 2 characters.'
+                  example: es
+                email:
+                  type: string
+                  description: 'Must be a valid email address.'
+                  example: zachary.rogahn@example.org
+                date_of_birth:
+                  type: string
+                  description: ''
+                  example: modi
+                address:
+                  type: string
+                  description: 'Must be at least 2 characters.'
+                  example: jm
+                phone_number:
+                  type: string
+                  description: 'Must be at least 5 characters.'
+                  example: tace
+                role:
+                  type: number
+                  description: role.
+                  example: 9.0
+              required:
+                - first_name
+                - last_name
+                - email
+                - date_of_birth
+                - address
+                - phone_number
+      security: []
+    parameters:
+      -
+        in: path
+        name: employee_id
+        description: 'The ID of the employee.'
+        example: rerum
+        required: true
+        schema:
+          type: string
+  '/api/employees/{garage_id}':
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: garage_id
+        description: 'The ID of the garage.'
+        example: 3
+        required: true
+        schema:
+          type: integer
+  '/api/reservations/{garage_id}':
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: garage_id
+        description: 'The ID of the garage.'
+        example: 11
+        required: true
+        schema:
+          type: integer
+  /api/garage/client/register:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                  description: ''
+                  example: aspernatur
+                last_name:
+                  type: string
+                  description: ''
+                  example: numquam
+                email:
+                  type: string
+                  description: 'Must be a valid email address.'
+                  example: ykub@example.org
+                date_of_birth:
+                  type: string
+                  description: ''
+                  example: est
+                address:
+                  type: string
+                  description: ''
+                  example: iure
+                phone_number:
+                  type: string
+                  description: ''
+                  example: aperiam
+              required:
+                - first_name
+                - last_name
+                - email
+                - date_of_birth
+                - address
+                - phone_number
+      security: []
+  '/api/garage/client/update/{client_id}':
+    put:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                  description: ''
+                  example: explicabo
+                last_name:
+                  type: string
+                  description: ''
+                  example: temporibus
+                email:
+                  type: string
+                  description: 'Must be a valid email address.'
+                  example: luettgen.lavern@example.com
+                date_of_birth:
+                  type: string
+                  description: ''
+                  example: temporibus
+                address:
+                  type: string
+                  description: ''
+                  example: maxime
+                phone_number:
+                  type: string
+                  description: ''
+                  example: earum
+              required:
+                - first_name
+                - last_name
+                - email
+                - date_of_birth
+                - address
+                - phone_number
+      security: []
+    parameters:
+      -
+        in: path
+        name: client_id
+        description: 'The ID of the client.'
+        example: aut
+        required: true
+        schema:
+          type: string
+  '/api/garage/client/cars/{client_id}':
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: client_id
+        description: 'The ID of the client.'
+        example: 10
+        required: true
+        schema:
+          type: integer
+  /api/garage/id:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  /api/client/cars:
+    get:
+      summary: 'Display a listing of the resource.'
+      description: 'Return all the cars of the client'
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    post:
+      summary: 'Store a newly created resource in storage.'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: string
+                  description: ''
+                  example: id
+                vin_number:
+                  type: string
+                  description: ''
+                  example: et
+                plate:
+                  type: string
+                  description: ''
+                  example: est
+                type:
+                  type: string
+                  description: ''
+                  example: consectetur
+                fuel:
+                  type: string
+                  description: ''
+                  example: est
+                make:
+                  type: string
+                  description: ''
+                  example: iste
+                model:
+                  type: string
+                  description: ''
+                  example: deserunt
+                engine:
+                  type: string
+                  description: ''
+                  example: quis
+                gear_box:
+                  type: string
+                  description: ''
+                  example: quod
+                air_conditioner:
+                  type: string
+                  description: ''
+                  example: nulla
+                color:
+                  type: string
+                  description: ''
+                  example: ratione
+              required:
+                - user_id
+                - vin_number
+                - plate
+                - type
+                - fuel
+                - make
+                - model
+                - engine
+                - gear_box
+                - air_conditioner
+                - color
+      security: []
+  '/api/client/cars/{car_id}':
+    put:
+      summary: 'Update the specified resource in storage.'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: string
+                  description: ''
+                  example: ex
+                vin_number:
+                  type: string
+                  description: ''
+                  example: amet
+                plate:
+                  type: string
+                  description: ''
+                  example: dolor
+                type:
+                  type: string
+                  description: ''
+                  example: est
+                fuel:
+                  type: string
+                  description: ''
+                  example: aut
+                make:
+                  type: string
+                  description: ''
+                  example: corporis
+                model:
+                  type: string
+                  description: ''
+                  example: sint
+                engine:
+                  type: string
+                  description: ''
+                  example: rerum
+                gear_box:
+                  type: string
+                  description: ''
+                  example: recusandae
+                air_conditioner:
+                  type: string
+                  description: ''
+                  example: quo
+                color:
+                  type: string
+                  description: ''
+                  example: ratione
+              required:
+                - user_id
+                - vin_number
+                - plate
+                - type
+                - fuel
+                - make
+                - model
+                - engine
+                - gear_box
+                - air_conditioner
+                - color
+      security: []
+    delete:
+      summary: 'Remove the specified resource from storage.'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: car_id
+        description: 'The ID of the car.'
+        example: 6
+        required: true
+        schema:
+          type: integer
+  '/api/client/cars/{client_id}':
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: client_id
+        description: 'The ID of the client.'
+        example: 10
+        required: true
+        schema:
+          type: integer
+tags:
+  -
+    name: Endpoints
+    description: ''
