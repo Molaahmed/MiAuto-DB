@@ -16,7 +16,7 @@ class Reservation extends Model
      */
     protected $fillable = [
         'user_id',
-        'garage_id',
+        'employee_id',
         'vin_number',
         'description',
         'date'

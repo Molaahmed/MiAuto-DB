@@ -33,7 +33,7 @@ class ReservationController extends Controller
     {
         $validator = Validator::make($request->all(),[
             'user_id' => 'required',
-            'garage_id' => 'required',
+            'employee_id' => 'required',
             'vin_number' => 'required',
             'description' => 'required',
             'date'=> 'required',
