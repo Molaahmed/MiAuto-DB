@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "Laravel",
-        "_postman_id": "a28d72ec-821e-4282-81e0-819f9d2a6e11",
+        "_postman_id": "f9ab3b0e-88a2-4a9e-85bb-89793921bc47",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -20,7 +20,7 @@
             "description": "",
             "item": [
                 {
-                    "name": "api\/login",
+                    "name": "POST api\/login",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -39,16 +39,32 @@
                                 "value": "application\/json"
                             }
                         ],
-                        "body": null,
-                        "description": "",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"email\":\"example@gmail.com\",\"password\":\"password\"}"
+                        },
+                        "description": "This endpoint is used by all types of users to be authenticated.\nIn the response, there will be a token that you need to use in every request that you make to the server.\n\n<aside class=\"notice\">Use the token in every request that you make in order to be authorized to access resources.<\/aside>",
                         "auth": {
                             "type": "noauth"
                         }
                     },
-                    "response": []
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n \"4|va23TB3m66Pr1W7ozSfDuRWMsHnf6fhwexyTY1Wg\"\n}",
+                            "name": "success"
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\"message\": \"These credentials do not match out records.\"}",
+                            "name": "user not found"
+                        }
+                    ]
                 },
                 {
-                    "name": "api\/logout",
+                    "name": "POST api\/logout",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -68,7 +84,7 @@
                             }
                         ],
                         "body": null,
-                        "description": "",
+                        "description": "This endpoint will log out the user and destroy the token that is used.",
                         "auth": {
                             "type": "noauth"
                         }
@@ -76,7 +92,7 @@
                     "response": []
                 },
                 {
-                    "name": "api\/client\/register",
+                    "name": "POST api\/client\/register",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -97,17 +113,30 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"first_name\":\"neque\",\"last_name\":\"quo\",\"email\":\"loren90@example.org\",\"date_of_birth\":\"harum\",\"address\":\"qui\",\"phone_number\":\"ullam\"}"
+                            "raw": "{\"first_name\":\"Luuk\",\"last_name\":\"van der Steen\",\"email\":\"marquardt.anabelle@example.org\",\"date_of_birth\":\"2001-02-06\",\"address\":\"Juan Leon Mera, 19, Av. Patria\",\"phone_number\":\"+5514123456\"}"
                         },
-                        "description": "",
+                        "description": "This endpoint is used to create client. The endpoint is used for development pupposes.",
                         "auth": {
                             "type": "noauth"
                         }
                     },
-                    "response": []
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"first_name\":\"Luuk\",\"last_name\":\"van der Steen\",\"email\":\"luckeeylssuddukss.633@gmail.com\",\"date_of_birth\":\"2001-02-06\",\"address\":\"Juan Leon Mera, 19, Av. Patria\",\"phone_number\":\"4 123 4567\",\"id\":14}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\"first_name\":[\"The first name field is required.\"],\"last_name\":[\"The last name field is required.\"],\"email\":[\"The email field is required.\"],\"date_of_birth\":[\"The date of birth field is required.\"],\"address\":[\"The address field is required.\"],\"phone_number\":[\"The phone number field is required.\"]}",
+                            "name": ""
+                        }
+                    ]
                 },
                 {
-                    "name": "api\/garage\/register",
+                    "name": "POST api\/garage\/register",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -128,14 +157,27 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"first_name\":\"r\",\"last_name\":\"oq\",\"date_of_birth\":\"ut\",\"address\":\"illum\",\"email\":\"aut\",\"phone_number\":\"laborum\",\"name\":\"facilis\"}"
+                            "raw": "{\"first_name\":\"Luuk\",\"last_name\":\"van der Steen\",\"date_of_birth\":\"2001-02-06\",\"address\":\"Juan Leon Mera, 19, Av. Patria\",\"email\":\"assumenda\",\"phone_number\":\"+5514123456\",\"name\":\"numquam\",\"garage_address\":\"nesciunt\",\"garage_email\":\"recusandae\",\"garage_phone_number\":\"animi\"}"
                         },
-                        "description": "",
+                        "description": "This endpoint will first create a user and then assign the garage to that user.\nYou need to pass the client credentials and the garage in the same request.",
                         "auth": {
                             "type": "noauth"
                         }
                     },
-                    "response": []
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"user_id\":15,\"name\":\"ut\",\"address\":\"placeat\",\"email\":\"hic@gmail.com\",\"phone_number\":\"+3125544785\",\"id\":6}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\"first_name\":[\"The first name field is required.\"],\"last_name\":[\"The last name field is required.\"],\"email\":[\"The email field is required.\"],\"date_of_birth\":[\"The date of birth field is required.\"],\"address\":[\"The address field is required.\"],\"phone_number\":[\"The phone number field is required.\"],\"garage_email\":[\"The garage_email of garage field is required.\"],\"garage_address\":[\"The garage_address of garage field is required.\"],\"name\":[\"The name of garage field is required.\"],\"garage_phone_number\":[\"The garage_phone_number of garage field is required.\"]}",
+                            "name": ""
+                        }
+                    ]
                 },
                 {
                     "name": "api\/authenticated",
@@ -180,7 +222,7 @@
                                 },
                                 {
                                     "key": "set-cookie",
-                                    "value": "laravel_session=fVkFsGR8SILwqxUMhpYYTonvBAekMX7Lwq6cTU14; expires=Mon, 10-Jan-2022 15:53:32 GMT; Max-Age=7200; path=\/; httponly; samesite=lax"
+                                    "value": "laravel_session=XVymIpYoi4B7fKWtF9KbP73BmMrfMeh5QbmtNkO6; expires=Tue, 11-Jan-2022 15:02:40 GMT; Max-Age=7200; path=\/; httponly; samesite=lax"
                                 }
                             ],
                             "code": 401,
@@ -190,7 +232,7 @@
                     ]
                 },
                 {
-                    "name": "api\/user",
+                    "name": "GET api\/user",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -210,39 +252,25 @@
                             }
                         ],
                         "body": null,
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "description": "Returns the data for the user that is authenticated."
                     },
                     "response": [
                         {
-                            "header": [
-                                {
-                                    "key": "cache-control",
-                                    "value": "no-cache, private"
-                                },
-                                {
-                                    "key": "content-type",
-                                    "value": "application\/json"
-                                },
-                                {
-                                    "key": "vary",
-                                    "value": "Origin"
-                                },
-                                {
-                                    "key": "set-cookie",
-                                    "value": "laravel_session=zfOVAQLbYxzB91TbrS0kbjoHb6k17LsSvVjmoLQQ; expires=Mon, 10-Jan-2022 15:53:32 GMT; Max-Age=7200; path=\/; httponly; samesite=lax"
-                                }
-                            ],
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"id\":11,\"first_name\":\"Dave\",\"last_name\":\"van der Kaay\",\"email\":\"amin.tahiri@ismail.nl\",\"date_of_birth\":\"2021-12-18\",\"address\":\"Ko\\u00e7dreef 5-7\\n3551GH Tilburg\",\"phone_number\":\"+298159732\",\"role\":\"garage_administration\"}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
                             "code": 401,
-                            "body": "{\"message\":\"Unauthenticated.\"}",
+                            "body": "{ \"message\": \"Unauthenticated.\" }",
                             "name": ""
                         }
                     ]
                 },
                 {
-                    "name": "api\/users",
+                    "name": "GET api\/users",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -262,39 +290,25 @@
                             }
                         ],
                         "body": null,
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "description": "Returns all the clients."
                     },
                     "response": [
                         {
-                            "header": [
-                                {
-                                    "key": "cache-control",
-                                    "value": "no-cache, private"
-                                },
-                                {
-                                    "key": "content-type",
-                                    "value": "application\/json"
-                                },
-                                {
-                                    "key": "vary",
-                                    "value": "Origin"
-                                },
-                                {
-                                    "key": "set-cookie",
-                                    "value": "laravel_session=iL0aInO2lGziswtMlATRkSMuqblGcwv8GfQanmdf; expires=Mon, 10-Jan-2022 15:53:32 GMT; Max-Age=7200; path=\/; httponly; samesite=lax"
-                                }
-                            ],
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"data\":[{\"id\":1,\"first_name\":\"Vaj\\u00e8n\",\"last_name\":\"Joosten\",\"email\":\"chloe48@hoeks.nl\",\"date_of_birth\":\"2021-12-25\",\"address\":\"van Duvenvoirdestraat 16\\n1949AN Beek\",\"phone_number\":\"+316677260032\"},{\"id\":2,\"first_name\":\"Aaron\",\"last_name\":\"van der Velden\",\"email\":\"isis.peters@heinrichs.com\",\"date_of_birth\":\"2021-12-21\",\"address\":\"Blomring 1-p\\n2685VZ Zwijndrecht\",\"phone_number\":\"+8555950674310\"}]}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
                             "code": 401,
-                            "body": "{\"message\":\"Unauthenticated.\"}",
+                            "body": "{ \"message\": \"Unauthenticated.\" }",
                             "name": ""
                         }
                     ]
                 },
                 {
-                    "name": "api\/user\/update",
+                    "name": "PUT api\/user\/update",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -313,13 +327,32 @@
                                 "value": "application\/json"
                             }
                         ],
-                        "body": null,
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"first_name\":\"consequatur\",\"last_name\":\"eaque\",\"email\":\"crawford.zboncak@example.com\",\"date_of_birth\":\"nulla\",\"address\":\"ut\",\"phone_number\":\"ducimus\"}"
+                        },
+                        "description": "Update the user that is authenticated."
                     },
-                    "response": []
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{ \"message\": \"Updated successful\" }",
+                            "name": "success"
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\"errors\":{\"first_name\":[\"The first name field is required.\"],\"last_name\":[\"The last name field is required.\"],\"email\":[\"The email field is required.\"],\"date_of_birth\":[\"The date of birth field is required.\"],\"address\":[\"The address field is required.\"],\"phone_number\":[\"The phone number field is required.\"]}}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{ \"message\": \"Unauthenticated.\" }",
+                            "name": ""
+                        }
+                    ]
                 },
                 {
                     "name": "api\/reservation",
@@ -343,7 +376,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"user_id\":\"quia\",\"employee_id\":\"quia\",\"vin_number\":\"rerum\",\"description\":\"fugiat\",\"date\":\"provident\",\"startingTime\":\"consectetur\",\"endingTime\":\"vel\"}"
+                            "raw": "{\"user_id\":\"vel\",\"employee_id\":\"quasi\",\"vin_number\":\"illum\",\"description\":\"tenetur\",\"date\":\"reprehenderit\",\"startingTime\":\"minus\",\"endingTime\":\"ullam\"}"
                         },
                         "description": "",
                         "auth": {
@@ -395,7 +428,7 @@
                                 },
                                 {
                                     "key": "set-cookie",
-                                    "value": "laravel_session=X4e7hBPDXL4fV85SJKJ7pAbeHaaQks6M0jqOZwxF; expires=Mon, 10-Jan-2022 15:53:32 GMT; Max-Age=7200; path=\/; httponly; samesite=lax"
+                                    "value": "laravel_session=SDKD1g2X9fnQy8aU8F2jpMR8d5ksJ8aLLUVpeqZW; expires=Tue, 11-Jan-2022 15:02:40 GMT; Max-Age=7200; path=\/; httponly; samesite=lax"
                                 }
                             ],
                             "code": 401,
@@ -416,7 +449,7 @@
                                 {
                                     "id": "address",
                                     "key": "address",
-                                    "value": "odio",
+                                    "value": "at",
                                     "description": ""
                                 }
                             ]
@@ -455,7 +488,7 @@
                                 },
                                 {
                                     "key": "set-cookie",
-                                    "value": "laravel_session=mG3vxygHphaVvPg4XMz4AK6x2RUoDIUAfWzdKJvD; expires=Mon, 10-Jan-2022 15:53:32 GMT; Max-Age=7200; path=\/; httponly; samesite=lax"
+                                    "value": "laravel_session=6BJkJ8SVc0sn2FnmK9HCEHUfUXiTxsfPH82qODSo; expires=Tue, 11-Jan-2022 15:02:40 GMT; Max-Age=7200; path=\/; httponly; samesite=lax"
                                 }
                             ],
                             "code": 401,
@@ -476,7 +509,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "4",
+                                    "value": "15",
                                     "description": "The ID of the garage."
                                 }
                             ]
@@ -515,7 +548,7 @@
                                 },
                                 {
                                     "key": "set-cookie",
-                                    "value": "laravel_session=ugXwlsgfOVtGsfkh6INrgc6hBOSAUOxb2PNgULk7; expires=Mon, 10-Jan-2022 15:53:32 GMT; Max-Age=7200; path=\/; httponly; samesite=lax"
+                                    "value": "laravel_session=jggYlvWtVmuXAG4anKOw4PtPbppF9LuczQaE6Kb3; expires=Tue, 11-Jan-2022 15:02:40 GMT; Max-Age=7200; path=\/; httponly; samesite=lax"
                                 }
                             ],
                             "code": 401,
@@ -567,7 +600,7 @@
                                 },
                                 {
                                     "key": "set-cookie",
-                                    "value": "laravel_session=yN6ZB4NoOpGM0NgigQPdMdvoTVoyy7ncFevWa8pu; expires=Mon, 10-Jan-2022 15:53:32 GMT; Max-Age=7200; path=\/; httponly; samesite=lax"
+                                    "value": "laravel_session=CmxxPq4VqOYGThgs52zw8NcsIGazZVb1pSnREpAK; expires=Tue, 11-Jan-2022 15:02:40 GMT; Max-Age=7200; path=\/; httponly; samesite=lax"
                                 }
                             ],
                             "code": 401,
@@ -598,7 +631,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"user_id\":\"ut\",\"vin_number\":\"exercitationem\",\"plate\":\"quisquam\",\"type\":\"odit\",\"fuel\":\"rerum\",\"make\":\"repellat\",\"model\":\"eligendi\",\"engine\":\"voluptatem\",\"gear_box\":\"officiis\",\"air_conditioner\":\"ea\",\"color\":\"porro\"}"
+                            "raw": "{\"user_id\":\"accusamus\",\"vin_number\":\"eveniet\",\"plate\":\"et\",\"type\":\"autem\",\"fuel\":\"ut\",\"make\":\"et\",\"model\":\"sit\",\"engine\":\"et\",\"gear_box\":\"esse\",\"air_conditioner\":\"a\",\"color\":\"sint\"}"
                         },
                         "description": "",
                         "auth": {
@@ -650,7 +683,7 @@
                                 },
                                 {
                                     "key": "set-cookie",
-                                    "value": "laravel_session=epdhJ6ygvySvDOxQufIRktnpMJWdncSPqeiJHfjF; expires=Mon, 10-Jan-2022 15:53:32 GMT; Max-Age=7200; path=\/; httponly; samesite=lax"
+                                    "value": "laravel_session=vYWvv8YiMSZhWcpZfEMP739mILiV7LjnIv4n9GeD; expires=Tue, 11-Jan-2022 15:02:40 GMT; Max-Age=7200; path=\/; httponly; samesite=lax"
                                 }
                             ],
                             "code": 401,
@@ -709,7 +742,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"first_name\":\"\",\"last_name\":\"x\",\"date_of_birth\":\"mollitia\",\"address\":\"l\",\"phone_number\":\"\",\"email\":\"irogahn@example.com\",\"garage_id\":\"sed\",\"role\":1396568.1678}"
+                            "raw": "{\"first_name\":\"hr\",\"last_name\":\"o\",\"date_of_birth\":\"voluptate\",\"address\":\"pg\",\"phone_number\":\"uu\",\"email\":\"ssauer@example.org\",\"garage_id\":\"dolor\",\"role\":384.4024231}"
                         },
                         "description": "",
                         "auth": {
@@ -748,7 +781,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"first_name\":\"h\",\"last_name\":\"es\",\"email\":\"zachary.rogahn@example.org\",\"date_of_birth\":\"modi\",\"address\":\"jm\",\"phone_number\":\"tace\",\"role\":9}"
+                            "raw": "{\"first_name\":\"oz\",\"last_name\":\"\",\"email\":\"toy.lavern@example.net\",\"date_of_birth\":\"et\",\"address\":\"kr\",\"phone_number\":\"ucmnq\",\"role\":5169}"
                         },
                         "description": "",
                         "auth": {
@@ -765,66 +798,6 @@
                             "path": "api\/employees\/:garage_id",
                             "query": [],
                             "raw": "{{baseUrl}}\/api\/employees\/:garage_id",
-                            "variable": [
-                                {
-                                    "id": "garage_id",
-                                    "key": "garage_id",
-                                    "value": "3",
-                                    "description": "The ID of the garage."
-                                }
-                            ]
-                        },
-                        "method": "GET",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            }
-                        ],
-                        "body": null,
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
-                    },
-                    "response": [
-                        {
-                            "header": [
-                                {
-                                    "key": "cache-control",
-                                    "value": "no-cache, private"
-                                },
-                                {
-                                    "key": "content-type",
-                                    "value": "application\/json"
-                                },
-                                {
-                                    "key": "vary",
-                                    "value": "Origin"
-                                },
-                                {
-                                    "key": "set-cookie",
-                                    "value": "laravel_session=vezzpGfKYnSQrhLuagJa8MreXqqCC3hDvS04blT3; expires=Mon, 10-Jan-2022 15:53:32 GMT; Max-Age=7200; path=\/; httponly; samesite=lax"
-                                }
-                            ],
-                            "code": 401,
-                            "body": "{\"message\":\"Unauthenticated.\"}",
-                            "name": ""
-                        }
-                    ]
-                },
-                {
-                    "name": "api\/reservations\/{garage_id}",
-                    "request": {
-                        "url": {
-                            "host": "{{baseUrl}}",
-                            "path": "api\/reservations\/:garage_id",
-                            "query": [],
-                            "raw": "{{baseUrl}}\/api\/reservations\/:garage_id",
                             "variable": [
                                 {
                                     "id": "garage_id",
@@ -868,7 +841,7 @@
                                 },
                                 {
                                     "key": "set-cookie",
-                                    "value": "laravel_session=e4aUg1IuInuxdmWmNGIONb3FUxDoRuGIjN28sDoX; expires=Mon, 10-Jan-2022 15:53:32 GMT; Max-Age=7200; path=\/; httponly; samesite=lax"
+                                    "value": "laravel_session=4Rg1km6lbm9fVerADA6nSLmGrwxXhCkMLJCgyRI6; expires=Tue, 11-Jan-2022 15:02:40 GMT; Max-Age=7200; path=\/; httponly; samesite=lax"
                                 }
                             ],
                             "code": 401,
@@ -878,7 +851,67 @@
                     ]
                 },
                 {
-                    "name": "api\/garage\/client\/register",
+                    "name": "api\/reservations\/{garage_id}",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/reservations\/:garage_id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/reservations\/:garage_id",
+                            "variable": [
+                                {
+                                    "id": "garage_id",
+                                    "key": "garage_id",
+                                    "value": "1",
+                                    "description": "The ID of the garage."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "vary",
+                                    "value": "Origin"
+                                },
+                                {
+                                    "key": "set-cookie",
+                                    "value": "laravel_session=NNh357QQlHNqh7Mb7pzbt87E1pDsB704rhv3OWvQ; expires=Tue, 11-Jan-2022 15:02:40 GMT; Max-Age=7200; path=\/; httponly; samesite=lax"
+                                }
+                            ],
+                            "code": 401,
+                            "body": "{\"message\":\"Unauthenticated.\"}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "POST api\/client\/register",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -899,14 +932,27 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"first_name\":\"aspernatur\",\"last_name\":\"numquam\",\"email\":\"ykub@example.org\",\"date_of_birth\":\"est\",\"address\":\"iure\",\"phone_number\":\"aperiam\"}"
+                            "raw": "{\"first_name\":\"Luuk\",\"last_name\":\"van der Steen\",\"email\":\"gerhold.stephanie@example.org\",\"date_of_birth\":\"2001-02-06\",\"address\":\"Juan Leon Mera, 19, Av. Patria\",\"phone_number\":\"+5514123456\"}"
                         },
-                        "description": "",
+                        "description": "This endpoint is used to create client. The endpoint is used for development pupposes.",
                         "auth": {
                             "type": "noauth"
                         }
                     },
-                    "response": []
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"first_name\":\"Luuk\",\"last_name\":\"van der Steen\",\"email\":\"luckeeylssuddukss.633@gmail.com\",\"date_of_birth\":\"2001-02-06\",\"address\":\"Juan Leon Mera, 19, Av. Patria\",\"phone_number\":\"4 123 4567\",\"id\":14}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\"first_name\":[\"The first name field is required.\"],\"last_name\":[\"The last name field is required.\"],\"email\":[\"The email field is required.\"],\"date_of_birth\":[\"The date of birth field is required.\"],\"address\":[\"The address field is required.\"],\"phone_number\":[\"The phone number field is required.\"]}",
+                            "name": ""
+                        }
+                    ]
                 },
                 {
                     "name": "api\/garage\/client\/update\/{client_id}",
@@ -920,7 +966,7 @@
                                 {
                                     "id": "client_id",
                                     "key": "client_id",
-                                    "value": "aut",
+                                    "value": "sunt",
                                     "description": "The ID of the client."
                                 }
                             ]
@@ -938,7 +984,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"first_name\":\"explicabo\",\"last_name\":\"temporibus\",\"email\":\"luettgen.lavern@example.com\",\"date_of_birth\":\"temporibus\",\"address\":\"maxime\",\"phone_number\":\"earum\"}"
+                            "raw": "{\"first_name\":\"doloribus\",\"last_name\":\"est\",\"email\":\"ervin39@example.com\",\"date_of_birth\":\"suscipit\",\"address\":\"quia\",\"phone_number\":\"voluptas\"}"
                         },
                         "description": "",
                         "auth": {
@@ -959,7 +1005,7 @@
                                 {
                                     "id": "client_id",
                                     "key": "client_id",
-                                    "value": "10",
+                                    "value": "1",
                                     "description": "The ID of the client."
                                 }
                             ]
@@ -998,7 +1044,7 @@
                                 },
                                 {
                                     "key": "set-cookie",
-                                    "value": "laravel_session=RMC679hfrYutUrfCiAo7B9uczlHlmGdtedEtsLYH; expires=Mon, 10-Jan-2022 15:53:32 GMT; Max-Age=7200; path=\/; httponly; samesite=lax"
+                                    "value": "laravel_session=b2j9ymax51R5kEdSniOPliuUq3LZPfjC0k4TDjqV; expires=Tue, 11-Jan-2022 15:02:40 GMT; Max-Age=7200; path=\/; httponly; samesite=lax"
                                 }
                             ],
                             "code": 401,
@@ -1050,7 +1096,7 @@
                                 },
                                 {
                                     "key": "set-cookie",
-                                    "value": "laravel_session=5swHEczM4PN2tqDTBLooOpP6QxzsfZTy9MnzspOT; expires=Mon, 10-Jan-2022 15:53:32 GMT; Max-Age=7200; path=\/; httponly; samesite=lax"
+                                    "value": "laravel_session=6pSg0i2e5GfOppyf2xwN8Iiaq3ymQzbDhrDrDlRU; expires=Tue, 11-Jan-2022 15:02:40 GMT; Max-Age=7200; path=\/; httponly; samesite=lax"
                                 }
                             ],
                             "code": 401,
@@ -1102,7 +1148,7 @@
                                 },
                                 {
                                     "key": "set-cookie",
-                                    "value": "laravel_session=EafbKWDH6KEtDw1lSgS6DTm5X65U3q2voH3x4lU2; expires=Mon, 10-Jan-2022 15:53:32 GMT; Max-Age=7200; path=\/; httponly; samesite=lax"
+                                    "value": "laravel_session=wAHZIdjMHr125g9JF5UwG7YJCcRfTvd3cicUYZmM; expires=Tue, 11-Jan-2022 15:02:40 GMT; Max-Age=7200; path=\/; httponly; samesite=lax"
                                 }
                             ],
                             "code": 401,
@@ -1133,7 +1179,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"user_id\":\"id\",\"vin_number\":\"et\",\"plate\":\"est\",\"type\":\"consectetur\",\"fuel\":\"est\",\"make\":\"iste\",\"model\":\"deserunt\",\"engine\":\"quis\",\"gear_box\":\"quod\",\"air_conditioner\":\"nulla\",\"color\":\"ratione\"}"
+                            "raw": "{\"user_id\":\"minima\",\"vin_number\":\"modi\",\"plate\":\"delectus\",\"type\":\"iusto\",\"fuel\":\"iure\",\"make\":\"officiis\",\"model\":\"repellat\",\"engine\":\"aut\",\"gear_box\":\"nesciunt\",\"air_conditioner\":\"amet\",\"color\":\"itaque\"}"
                         },
                         "description": "",
                         "auth": {
@@ -1154,7 +1200,7 @@
                                 {
                                     "id": "car_id",
                                     "key": "car_id",
-                                    "value": "6",
+                                    "value": "14",
                                     "description": "The ID of the car."
                                 }
                             ]
@@ -1172,7 +1218,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"user_id\":\"ex\",\"vin_number\":\"amet\",\"plate\":\"dolor\",\"type\":\"est\",\"fuel\":\"aut\",\"make\":\"corporis\",\"model\":\"sint\",\"engine\":\"rerum\",\"gear_box\":\"recusandae\",\"air_conditioner\":\"quo\",\"color\":\"ratione\"}"
+                            "raw": "{\"user_id\":\"sed\",\"vin_number\":\"qui\",\"plate\":\"delectus\",\"type\":\"reiciendis\",\"fuel\":\"accusantium\",\"make\":\"ea\",\"model\":\"error\",\"engine\":\"non\",\"gear_box\":\"debitis\",\"air_conditioner\":\"harum\",\"color\":\"error\"}"
                         },
                         "description": "",
                         "auth": {
@@ -1193,7 +1239,7 @@
                                 {
                                     "id": "client_id",
                                     "key": "client_id",
-                                    "value": "10",
+                                    "value": "6",
                                     "description": "The ID of the client."
                                 }
                             ]
@@ -1232,7 +1278,7 @@
                                 },
                                 {
                                     "key": "set-cookie",
-                                    "value": "laravel_session=Lg63h3cKl8VIuqq3PBoryk7smfBvrbj7fpnb5iWI; expires=Mon, 10-Jan-2022 15:53:32 GMT; Max-Age=7200; path=\/; httponly; samesite=lax"
+                                    "value": "laravel_session=dC4FtosDMI3GOOsrkZeoiuRZR3DNeAzIjeTQRNQs; expires=Tue, 11-Jan-2022 15:02:40 GMT; Max-Age=7200; path=\/; httponly; samesite=lax"
                                 }
                             ],
                             "code": 401,
@@ -1253,7 +1299,7 @@
                                 {
                                     "id": "car_id",
                                     "key": "car_id",
-                                    "value": "11",
+                                    "value": "19",
                                     "description": "The ID of the car."
                                 }
                             ]
@@ -1320,7 +1366,7 @@
                                 },
                                 {
                                     "key": "set-cookie",
-                                    "value": "laravel_session=becuqrrHVeGMiBQxOsiVGgmj6Y4tDrOxbjuNwNVe; expires=Mon, 10-Jan-2022 15:53:32 GMT; Max-Age=7200; path=\/; httponly; samesite=lax"
+                                    "value": "laravel_session=zHlkIPupPXkCxDoPa8F5W5eot8qXELoP50QthNb6; expires=Tue, 11-Jan-2022 15:02:40 GMT; Max-Age=7200; path=\/; httponly; samesite=lax"
                                 }
                             ],
                             "code": 401,

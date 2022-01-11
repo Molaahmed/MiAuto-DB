@@ -8,8 +8,12 @@ endpoints:
       - POST
     uri: api/login
     metadata:
-      title: ''
-      description: ''
+      title: 'POST api/login'
+      description: |-
+        This endpoint is used by all types of users to be authenticated.
+        In the response, there will be a token that you need to use in every request that you make to the server.
+
+        <aside class="notice">Use the token in every request that you make in order to be authorized to access resources.</aside>
       authenticated: false
       custom: []
     headers:
@@ -17,16 +21,43 @@ endpoints:
       Accept: application/json
     urlParameters: []
     queryParameters: []
-    bodyParameters: []
-    responses: []
+    bodyParameters:
+      email:
+        name: email
+        description: 'The email of the user.'
+        required: true
+        example: example@gmail.com
+        type: string
+        custom: []
+      password:
+        name: password
+        description: 'Password of the user.'
+        required: true
+        example: password
+        type: string
+        custom: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+           "4|va23TB3m66Pr1W7ozSfDuRWMsHnf6fhwexyTY1Wg"
+          }
+        headers: []
+        description: '200, success'
+      -
+        status: 422
+        content: '{"message": "These credentials do not match out records."}'
+        headers: []
+        description: '422, user not found'
     responseFields: []
   -
     httpMethods:
       - POST
     uri: api/logout
     metadata:
-      title: ''
-      description: ''
+      title: 'POST api/logout'
+      description: 'This endpoint will log out the user and destroy the token that is used.'
       authenticated: false
       custom: []
     headers:
@@ -42,8 +73,8 @@ endpoints:
       - POST
     uri: api/client/register
     metadata:
-      title: ''
-      description: ''
+      title: 'POST api/client/register'
+      description: 'This endpoint is used to create client. The endpoint is used for development pupposes.'
       authenticated: false
       custom: []
     headers:
@@ -56,53 +87,65 @@ endpoints:
         name: first_name
         description: ''
         required: true
-        example: neque
+        example: Luuk
         type: string
         custom: []
       last_name:
         name: last_name
         description: ''
         required: true
-        example: quo
+        example: 'van der Steen'
         type: string
         custom: []
       email:
         name: email
         description: 'Must be a valid email address.'
         required: true
-        example: loren90@example.org
+        example: marquardt.anabelle@example.org
         type: string
         custom: []
       date_of_birth:
         name: date_of_birth
         description: ''
         required: true
-        example: harum
+        example: '2001-02-06'
         type: string
         custom: []
       address:
         name: address
         description: ''
         required: true
-        example: qui
+        example: 'Juan Leon Mera, 19, Av. Patria'
         type: string
         custom: []
       phone_number:
         name: phone_number
         description: ''
         required: true
-        example: ullam
+        example: '+5514123456'
         type: string
         custom: []
-    responses: []
+    responses:
+      -
+        status: 200
+        content: '{"first_name":"Luuk","last_name":"van der Steen","email":"luckeeylssuddukss.633@gmail.com","date_of_birth":"2001-02-06","address":"Juan Leon Mera, 19, Av. Patria","phone_number":"4 123 4567","id":14}'
+        headers: []
+        description: '200'
+      -
+        status: 422
+        content: '{"first_name":["The first name field is required."],"last_name":["The last name field is required."],"email":["The email field is required."],"date_of_birth":["The date of birth field is required."],"address":["The address field is required."],"phone_number":["The phone number field is required."]}'
+        headers: []
+        description: '422'
     responseFields: []
   -
     httpMethods:
       - POST
     uri: api/garage/register
     metadata:
-      title: ''
-      description: ''
+      title: 'POST api/garage/register'
+      description: |-
+        This endpoint will first create a user and then assign the garage to that user.
+        You need to pass the client credentials and the garage in the same request.
       authenticated: false
       custom: []
     headers:
@@ -113,54 +156,85 @@ endpoints:
     bodyParameters:
       first_name:
         name: first_name
-        description: 'Must be at least 2 characters.'
+        description: ''
         required: true
-        example: r
+        example: Luuk
         type: string
         custom: []
       last_name:
         name: last_name
-        description: 'Must be at least 2 characters.'
+        description: ''
         required: true
-        example: oq
+        example: 'van der Steen'
         type: string
         custom: []
       date_of_birth:
         name: date_of_birth
         description: ''
         required: true
-        example: ut
+        example: '2001-02-06'
         type: string
         custom: []
       address:
         name: address
         description: ''
         required: true
-        example: illum
+        example: 'Juan Leon Mera, 19, Av. Patria'
         type: string
         custom: []
       email:
         name: email
         description: ''
         required: true
-        example: aut
+        example: assumenda
         type: string
         custom: []
       phone_number:
         name: phone_number
         description: ''
         required: true
-        example: laborum
+        example: '+5514123456'
         type: string
         custom: []
       name:
         name: name
-        description: garage.
+        description: 'Name of the garage.'
         required: true
-        example: facilis
+        example: numquam
         type: string
         custom: []
-    responses: []
+      garage_address:
+        name: garage_address
+        description: 'Address of the garage.'
+        required: true
+        example: nesciunt
+        type: string
+        custom: []
+      garage_email:
+        name: garage_email
+        description: 'Email of the garage.'
+        required: true
+        example: recusandae
+        type: string
+        custom: []
+      garage_phone_number:
+        name: garage_phone_number
+        description: 'Phone number of the garage.'
+        required: true
+        example: animi
+        type: string
+        custom: []
+    responses:
+      -
+        status: 200
+        content: '{"user_id":15,"name":"ut","address":"placeat","email":"hic@gmail.com","phone_number":"+3125544785","id":6}'
+        headers: []
+        description: '200'
+      -
+        status: 422
+        content: '{"first_name":["The first name field is required."],"last_name":["The last name field is required."],"email":["The email field is required."],"date_of_birth":["The date of birth field is required."],"address":["The address field is required."],"phone_number":["The phone number field is required."],"garage_email":["The garage_email of garage field is required."],"garage_address":["The garage_address of garage field is required."],"name":["The name of garage field is required."],"garage_phone_number":["The garage_phone_number of garage field is required."]}'
+        headers: []
+        description: '422'
     responseFields: []
   -
     httpMethods:
@@ -185,7 +259,7 @@ endpoints:
           cache-control: 'no-cache, private'
           content-type: application/json
           vary: Origin
-          set-cookie: 'laravel_session=fVkFsGR8SILwqxUMhpYYTonvBAekMX7Lwq6cTU14; expires=Mon, 10-Jan-2022 15:53:32 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
+          set-cookie: 'laravel_session=XVymIpYoi4B7fKWtF9KbP73BmMrfMeh5QbmtNkO6; expires=Tue, 11-Jan-2022 15:02:40 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
         description: null
     responseFields: []
   -
@@ -193,9 +267,9 @@ endpoints:
       - GET
     uri: api/user
     metadata:
-      title: ''
-      description: ''
-      authenticated: false
+      title: 'GET api/user'
+      description: 'Returns the data for the user that is authenticated.'
+      authenticated: true
       custom: []
     headers:
       Content-Type: application/json
@@ -205,23 +279,24 @@ endpoints:
     bodyParameters: []
     responses:
       -
+        status: 200
+        content: '{"id":11,"first_name":"Dave","last_name":"van der Kaay","email":"amin.tahiri@ismail.nl","date_of_birth":"2021-12-18","address":"Ko\u00e7dreef 5-7\n3551GH Tilburg","phone_number":"+298159732","role":"garage_administration"}'
+        headers: []
+        description: '200'
+      -
         status: 401
-        content: '{"message":"Unauthenticated."}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          vary: Origin
-          set-cookie: 'laravel_session=zfOVAQLbYxzB91TbrS0kbjoHb6k17LsSvVjmoLQQ; expires=Mon, 10-Jan-2022 15:53:32 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
-        description: null
+        content: '{ "message": "Unauthenticated." }'
+        headers: []
+        description: '401'
     responseFields: []
   -
     httpMethods:
       - GET
     uri: api/users
     metadata:
-      title: ''
-      description: ''
-      authenticated: false
+      title: 'GET api/users'
+      description: 'Returns all the clients.'
+      authenticated: true
       custom: []
     headers:
       Content-Type: application/json
@@ -231,31 +306,89 @@ endpoints:
     bodyParameters: []
     responses:
       -
+        status: 200
+        content: '{"data":[{"id":1,"first_name":"Vaj\u00e8n","last_name":"Joosten","email":"chloe48@hoeks.nl","date_of_birth":"2021-12-25","address":"van Duvenvoirdestraat 16\n1949AN Beek","phone_number":"+316677260032"},{"id":2,"first_name":"Aaron","last_name":"van der Velden","email":"isis.peters@heinrichs.com","date_of_birth":"2021-12-21","address":"Blomring 1-p\n2685VZ Zwijndrecht","phone_number":"+8555950674310"}]}'
+        headers: []
+        description: '200'
+      -
         status: 401
-        content: '{"message":"Unauthenticated."}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          vary: Origin
-          set-cookie: 'laravel_session=iL0aInO2lGziswtMlATRkSMuqblGcwv8GfQanmdf; expires=Mon, 10-Jan-2022 15:53:32 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
-        description: null
+        content: '{ "message": "Unauthenticated." }'
+        headers: []
+        description: '401'
     responseFields: []
   -
     httpMethods:
       - PUT
     uri: api/user/update
     metadata:
-      title: ''
-      description: ''
-      authenticated: false
+      title: 'PUT api/user/update'
+      description: 'Update the user that is authenticated.'
+      authenticated: true
       custom: []
     headers:
       Content-Type: application/json
       Accept: application/json
     urlParameters: []
     queryParameters: []
-    bodyParameters: []
-    responses: []
+    bodyParameters:
+      first_name:
+        name: first_name
+        description: ''
+        required: true
+        example: consequatur
+        type: string
+        custom: []
+      last_name:
+        name: last_name
+        description: ''
+        required: true
+        example: eaque
+        type: string
+        custom: []
+      email:
+        name: email
+        description: 'Must be a valid email address.'
+        required: true
+        example: crawford.zboncak@example.com
+        type: string
+        custom: []
+      date_of_birth:
+        name: date_of_birth
+        description: ''
+        required: true
+        example: nulla
+        type: string
+        custom: []
+      address:
+        name: address
+        description: ''
+        required: true
+        example: ut
+        type: string
+        custom: []
+      phone_number:
+        name: phone_number
+        description: ''
+        required: true
+        example: ducimus
+        type: string
+        custom: []
+    responses:
+      -
+        status: 200
+        content: '{ "message": "Updated successful" }'
+        headers: []
+        description: '200, success'
+      -
+        status: 422
+        content: '{"errors":{"first_name":["The first name field is required."],"last_name":["The last name field is required."],"email":["The email field is required."],"date_of_birth":["The date of birth field is required."],"address":["The address field is required."],"phone_number":["The phone number field is required."]}}'
+        headers: []
+        description: '422'
+      -
+        status: 401
+        content: '{ "message": "Unauthenticated." }'
+        headers: []
+        description: '401'
     responseFields: []
   -
     httpMethods:
@@ -276,49 +409,49 @@ endpoints:
         name: user_id
         description: ''
         required: true
-        example: quia
+        example: vel
         type: string
         custom: []
       employee_id:
         name: employee_id
         description: ''
         required: true
-        example: quia
+        example: quasi
         type: string
         custom: []
       vin_number:
         name: vin_number
         description: ''
         required: true
-        example: rerum
+        example: illum
         type: string
         custom: []
       description:
         name: description
         description: ''
         required: true
-        example: fugiat
+        example: tenetur
         type: string
         custom: []
       date:
         name: date
         description: ''
         required: true
-        example: provident
+        example: reprehenderit
         type: string
         custom: []
       startingTime:
         name: startingTime
         description: ''
         required: true
-        example: consectetur
+        example: minus
         type: string
         custom: []
       endingTime:
         name: endingTime
         description: ''
         required: true
-        example: vel
+        example: ullam
         type: string
         custom: []
     responses: []
@@ -346,7 +479,7 @@ endpoints:
           cache-control: 'no-cache, private'
           content-type: application/json
           vary: Origin
-          set-cookie: 'laravel_session=X4e7hBPDXL4fV85SJKJ7pAbeHaaQks6M0jqOZwxF; expires=Mon, 10-Jan-2022 15:53:32 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
+          set-cookie: 'laravel_session=SDKD1g2X9fnQy8aU8F2jpMR8d5ksJ8aLLUVpeqZW; expires=Tue, 11-Jan-2022 15:02:40 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
         description: null
     responseFields: []
   -
@@ -366,7 +499,7 @@ endpoints:
         name: address
         description: ''
         required: true
-        example: odio
+        example: at
         type: string
         custom: []
     queryParameters: []
@@ -379,7 +512,7 @@ endpoints:
           cache-control: 'no-cache, private'
           content-type: application/json
           vary: Origin
-          set-cookie: 'laravel_session=mG3vxygHphaVvPg4XMz4AK6x2RUoDIUAfWzdKJvD; expires=Mon, 10-Jan-2022 15:53:32 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
+          set-cookie: 'laravel_session=6BJkJ8SVc0sn2FnmK9HCEHUfUXiTxsfPH82qODSo; expires=Tue, 11-Jan-2022 15:02:40 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
         description: null
     responseFields: []
   -
@@ -399,7 +532,7 @@ endpoints:
         name: id
         description: 'The ID of the garage.'
         required: true
-        example: 4
+        example: 15
         type: integer
         custom: []
     queryParameters: []
@@ -412,7 +545,7 @@ endpoints:
           cache-control: 'no-cache, private'
           content-type: application/json
           vary: Origin
-          set-cookie: 'laravel_session=ugXwlsgfOVtGsfkh6INrgc6hBOSAUOxb2PNgULk7; expires=Mon, 10-Jan-2022 15:53:32 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
+          set-cookie: 'laravel_session=jggYlvWtVmuXAG4anKOw4PtPbppF9LuczQaE6Kb3; expires=Tue, 11-Jan-2022 15:02:40 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
         description: null
     responseFields: []
   -
@@ -438,7 +571,7 @@ endpoints:
           cache-control: 'no-cache, private'
           content-type: application/json
           vary: Origin
-          set-cookie: 'laravel_session=yN6ZB4NoOpGM0NgigQPdMdvoTVoyy7ncFevWa8pu; expires=Mon, 10-Jan-2022 15:53:32 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
+          set-cookie: 'laravel_session=CmxxPq4VqOYGThgs52zw8NcsIGazZVb1pSnREpAK; expires=Tue, 11-Jan-2022 15:02:40 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
         description: null
     responseFields: []
   -
@@ -460,77 +593,77 @@ endpoints:
         name: user_id
         description: ''
         required: true
-        example: ut
+        example: accusamus
         type: string
         custom: []
       vin_number:
         name: vin_number
         description: ''
         required: true
-        example: exercitationem
+        example: eveniet
         type: string
         custom: []
       plate:
         name: plate
         description: ''
         required: true
-        example: quisquam
+        example: et
         type: string
         custom: []
       type:
         name: type
         description: ''
         required: true
-        example: odit
+        example: autem
         type: string
         custom: []
       fuel:
         name: fuel
         description: ''
         required: true
-        example: rerum
+        example: ut
         type: string
         custom: []
       make:
         name: make
         description: ''
         required: true
-        example: repellat
+        example: et
         type: string
         custom: []
       model:
         name: model
         description: ''
         required: true
-        example: eligendi
+        example: sit
         type: string
         custom: []
       engine:
         name: engine
         description: ''
         required: true
-        example: voluptatem
+        example: et
         type: string
         custom: []
       gear_box:
         name: gear_box
         description: ''
         required: true
-        example: officiis
+        example: esse
         type: string
         custom: []
       air_conditioner:
         name: air_conditioner
         description: ''
         required: true
-        example: ea
+        example: a
         type: string
         custom: []
       color:
         name: color
         description: ''
         required: true
-        example: porro
+        example: sint
         type: string
         custom: []
     responses: []
@@ -558,7 +691,7 @@ endpoints:
           cache-control: 'no-cache, private'
           content-type: application/json
           vary: Origin
-          set-cookie: 'laravel_session=epdhJ6ygvySvDOxQufIRktnpMJWdncSPqeiJHfjF; expires=Mon, 10-Jan-2022 15:53:32 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
+          set-cookie: 'laravel_session=vYWvv8YiMSZhWcpZfEMP739mILiV7LjnIv4n9GeD; expires=Tue, 11-Jan-2022 15:02:40 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
         description: null
     responseFields: []
   -
@@ -597,49 +730,49 @@ endpoints:
         name: first_name
         description: 'user table. Must be at least 2 characters.'
         required: true
-        example: ''
+        example: hr
         type: string
         custom: []
       last_name:
         name: last_name
         description: 'Must be at least 2 characters.'
         required: true
-        example: x
+        example: o
         type: string
         custom: []
       date_of_birth:
         name: date_of_birth
         description: ''
         required: true
-        example: mollitia
+        example: voluptate
         type: string
         custom: []
       address:
         name: address
         description: 'Must be at least 2 characters.'
         required: true
-        example: l
+        example: pg
         type: string
         custom: []
       phone_number:
         name: phone_number
         description: 'Must be at least 5 characters.'
         required: true
-        example: ''
+        example: uu
         type: string
         custom: []
       email:
         name: email
         description: 'Must be a valid email address.'
         required: true
-        example: irogahn@example.com
+        example: ssauer@example.org
         type: string
         custom: []
       garage_id:
         name: garage_id
         description: ''
         required: true
-        example: sed
+        example: dolor
         type: string
         custom: []
       role:
@@ -649,7 +782,7 @@ endpoints:
           'salary' => 'numeric',
           //role.
         required: false
-        example: 1396568.1678
+        example: 384.4024231
         type: number
         custom: []
     responses: []
@@ -680,49 +813,49 @@ endpoints:
         name: first_name
         description: 'user table. Must be at least 2 characters.'
         required: true
-        example: h
+        example: oz
         type: string
         custom: []
       last_name:
         name: last_name
         description: 'Must be at least 2 characters.'
         required: true
-        example: es
+        example: ''
         type: string
         custom: []
       email:
         name: email
         description: 'Must be a valid email address.'
         required: true
-        example: zachary.rogahn@example.org
+        example: toy.lavern@example.net
         type: string
         custom: []
       date_of_birth:
         name: date_of_birth
         description: ''
         required: true
-        example: modi
+        example: et
         type: string
         custom: []
       address:
         name: address
         description: 'Must be at least 2 characters.'
         required: true
-        example: jm
+        example: kr
         type: string
         custom: []
       phone_number:
         name: phone_number
         description: 'Must be at least 5 characters.'
         required: true
-        example: tace
+        example: ucmnq
         type: string
         custom: []
       role:
         name: role
         description: role.
         required: false
-        example: 9.0
+        example: 5169.0
         type: number
         custom: []
     responses: []
@@ -731,39 +864,6 @@ endpoints:
     httpMethods:
       - GET
     uri: 'api/employees/{garage_id}'
-    metadata:
-      title: ''
-      description: ''
-      authenticated: false
-      custom: []
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      garage_id:
-        name: garage_id
-        description: 'The ID of the garage.'
-        required: true
-        example: 3
-        type: integer
-        custom: []
-    queryParameters: []
-    bodyParameters: []
-    responses:
-      -
-        status: 401
-        content: '{"message":"Unauthenticated."}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          vary: Origin
-          set-cookie: 'laravel_session=vezzpGfKYnSQrhLuagJa8MreXqqCC3hDvS04blT3; expires=Mon, 10-Jan-2022 15:53:32 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
-        description: null
-    responseFields: []
-  -
-    httpMethods:
-      - GET
-    uri: 'api/reservations/{garage_id}'
     metadata:
       title: ''
       description: ''
@@ -790,7 +890,40 @@ endpoints:
           cache-control: 'no-cache, private'
           content-type: application/json
           vary: Origin
-          set-cookie: 'laravel_session=e4aUg1IuInuxdmWmNGIONb3FUxDoRuGIjN28sDoX; expires=Mon, 10-Jan-2022 15:53:32 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
+          set-cookie: 'laravel_session=4Rg1km6lbm9fVerADA6nSLmGrwxXhCkMLJCgyRI6; expires=Tue, 11-Jan-2022 15:02:40 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
+        description: null
+    responseFields: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/reservations/{garage_id}'
+    metadata:
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      garage_id:
+        name: garage_id
+        description: 'The ID of the garage.'
+        required: true
+        example: 1
+        type: integer
+        custom: []
+    queryParameters: []
+    bodyParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          vary: Origin
+          set-cookie: 'laravel_session=NNh357QQlHNqh7Mb7pzbt87E1pDsB704rhv3OWvQ; expires=Tue, 11-Jan-2022 15:02:40 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
         description: null
     responseFields: []
   -
@@ -798,8 +931,8 @@ endpoints:
       - POST
     uri: api/garage/client/register
     metadata:
-      title: ''
-      description: ''
+      title: 'POST api/client/register'
+      description: 'This endpoint is used to create client. The endpoint is used for development pupposes.'
       authenticated: false
       custom: []
     headers:
@@ -812,45 +945,55 @@ endpoints:
         name: first_name
         description: ''
         required: true
-        example: aspernatur
+        example: Luuk
         type: string
         custom: []
       last_name:
         name: last_name
         description: ''
         required: true
-        example: numquam
+        example: 'van der Steen'
         type: string
         custom: []
       email:
         name: email
         description: 'Must be a valid email address.'
         required: true
-        example: ykub@example.org
+        example: gerhold.stephanie@example.org
         type: string
         custom: []
       date_of_birth:
         name: date_of_birth
         description: ''
         required: true
-        example: est
+        example: '2001-02-06'
         type: string
         custom: []
       address:
         name: address
         description: ''
         required: true
-        example: iure
+        example: 'Juan Leon Mera, 19, Av. Patria'
         type: string
         custom: []
       phone_number:
         name: phone_number
         description: ''
         required: true
-        example: aperiam
+        example: '+5514123456'
         type: string
         custom: []
-    responses: []
+    responses:
+      -
+        status: 200
+        content: '{"first_name":"Luuk","last_name":"van der Steen","email":"luckeeylssuddukss.633@gmail.com","date_of_birth":"2001-02-06","address":"Juan Leon Mera, 19, Av. Patria","phone_number":"4 123 4567","id":14}'
+        headers: []
+        description: '200'
+      -
+        status: 422
+        content: '{"first_name":["The first name field is required."],"last_name":["The last name field is required."],"email":["The email field is required."],"date_of_birth":["The date of birth field is required."],"address":["The address field is required."],"phone_number":["The phone number field is required."]}'
+        headers: []
+        description: '422'
     responseFields: []
   -
     httpMethods:
@@ -869,7 +1012,7 @@ endpoints:
         name: client_id
         description: 'The ID of the client.'
         required: true
-        example: aut
+        example: sunt
         type: string
         custom: []
     queryParameters: []
@@ -878,42 +1021,42 @@ endpoints:
         name: first_name
         description: ''
         required: true
-        example: explicabo
+        example: doloribus
         type: string
         custom: []
       last_name:
         name: last_name
         description: ''
         required: true
-        example: temporibus
+        example: est
         type: string
         custom: []
       email:
         name: email
         description: 'Must be a valid email address.'
         required: true
-        example: luettgen.lavern@example.com
+        example: ervin39@example.com
         type: string
         custom: []
       date_of_birth:
         name: date_of_birth
         description: ''
         required: true
-        example: temporibus
+        example: suscipit
         type: string
         custom: []
       address:
         name: address
         description: ''
         required: true
-        example: maxime
+        example: quia
         type: string
         custom: []
       phone_number:
         name: phone_number
         description: ''
         required: true
-        example: earum
+        example: voluptas
         type: string
         custom: []
     responses: []
@@ -935,7 +1078,7 @@ endpoints:
         name: client_id
         description: 'The ID of the client.'
         required: true
-        example: 10
+        example: 1
         type: integer
         custom: []
     queryParameters: []
@@ -948,7 +1091,7 @@ endpoints:
           cache-control: 'no-cache, private'
           content-type: application/json
           vary: Origin
-          set-cookie: 'laravel_session=RMC679hfrYutUrfCiAo7B9uczlHlmGdtedEtsLYH; expires=Mon, 10-Jan-2022 15:53:32 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
+          set-cookie: 'laravel_session=b2j9ymax51R5kEdSniOPliuUq3LZPfjC0k4TDjqV; expires=Tue, 11-Jan-2022 15:02:40 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
         description: null
     responseFields: []
   -
@@ -974,7 +1117,7 @@ endpoints:
           cache-control: 'no-cache, private'
           content-type: application/json
           vary: Origin
-          set-cookie: 'laravel_session=5swHEczM4PN2tqDTBLooOpP6QxzsfZTy9MnzspOT; expires=Mon, 10-Jan-2022 15:53:32 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
+          set-cookie: 'laravel_session=6pSg0i2e5GfOppyf2xwN8Iiaq3ymQzbDhrDrDlRU; expires=Tue, 11-Jan-2022 15:02:40 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
         description: null
     responseFields: []
   -
@@ -1000,7 +1143,7 @@ endpoints:
           cache-control: 'no-cache, private'
           content-type: application/json
           vary: Origin
-          set-cookie: 'laravel_session=EafbKWDH6KEtDw1lSgS6DTm5X65U3q2voH3x4lU2; expires=Mon, 10-Jan-2022 15:53:32 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
+          set-cookie: 'laravel_session=wAHZIdjMHr125g9JF5UwG7YJCcRfTvd3cicUYZmM; expires=Tue, 11-Jan-2022 15:02:40 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
         description: null
     responseFields: []
   -
@@ -1022,77 +1165,77 @@ endpoints:
         name: user_id
         description: ''
         required: true
-        example: id
+        example: minima
         type: string
         custom: []
       vin_number:
         name: vin_number
         description: ''
         required: true
-        example: et
+        example: modi
         type: string
         custom: []
       plate:
         name: plate
         description: ''
         required: true
-        example: est
+        example: delectus
         type: string
         custom: []
       type:
         name: type
         description: ''
         required: true
-        example: consectetur
+        example: iusto
         type: string
         custom: []
       fuel:
         name: fuel
         description: ''
         required: true
-        example: est
+        example: iure
         type: string
         custom: []
       make:
         name: make
         description: ''
         required: true
-        example: iste
+        example: officiis
         type: string
         custom: []
       model:
         name: model
         description: ''
         required: true
-        example: deserunt
+        example: repellat
         type: string
         custom: []
       engine:
         name: engine
         description: ''
         required: true
-        example: quis
+        example: aut
         type: string
         custom: []
       gear_box:
         name: gear_box
         description: ''
         required: true
-        example: quod
+        example: nesciunt
         type: string
         custom: []
       air_conditioner:
         name: air_conditioner
         description: ''
         required: true
-        example: nulla
+        example: amet
         type: string
         custom: []
       color:
         name: color
         description: ''
         required: true
-        example: ratione
+        example: itaque
         type: string
         custom: []
     responses: []
@@ -1114,7 +1257,7 @@ endpoints:
         name: car_id
         description: 'The ID of the car.'
         required: true
-        example: 6
+        example: 14
         type: integer
         custom: []
     queryParameters: []
@@ -1123,77 +1266,77 @@ endpoints:
         name: user_id
         description: ''
         required: true
-        example: ex
+        example: sed
         type: string
         custom: []
       vin_number:
         name: vin_number
         description: ''
         required: true
-        example: amet
+        example: qui
         type: string
         custom: []
       plate:
         name: plate
         description: ''
         required: true
-        example: dolor
+        example: delectus
         type: string
         custom: []
       type:
         name: type
         description: ''
         required: true
-        example: est
+        example: reiciendis
         type: string
         custom: []
       fuel:
         name: fuel
         description: ''
         required: true
-        example: aut
+        example: accusantium
         type: string
         custom: []
       make:
         name: make
         description: ''
         required: true
-        example: corporis
+        example: ea
         type: string
         custom: []
       model:
         name: model
         description: ''
         required: true
-        example: sint
+        example: error
         type: string
         custom: []
       engine:
         name: engine
         description: ''
         required: true
-        example: rerum
+        example: non
         type: string
         custom: []
       gear_box:
         name: gear_box
         description: ''
         required: true
-        example: recusandae
+        example: debitis
         type: string
         custom: []
       air_conditioner:
         name: air_conditioner
         description: ''
         required: true
-        example: quo
+        example: harum
         type: string
         custom: []
       color:
         name: color
         description: ''
         required: true
-        example: ratione
+        example: error
         type: string
         custom: []
     responses: []
@@ -1215,7 +1358,7 @@ endpoints:
         name: client_id
         description: 'The ID of the client.'
         required: true
-        example: 10
+        example: 6
         type: integer
         custom: []
     queryParameters: []
@@ -1228,7 +1371,7 @@ endpoints:
           cache-control: 'no-cache, private'
           content-type: application/json
           vary: Origin
-          set-cookie: 'laravel_session=Lg63h3cKl8VIuqq3PBoryk7smfBvrbj7fpnb5iWI; expires=Mon, 10-Jan-2022 15:53:32 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
+          set-cookie: 'laravel_session=dC4FtosDMI3GOOsrkZeoiuRZR3DNeAzIjeTQRNQs; expires=Tue, 11-Jan-2022 15:02:40 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
         description: null
     responseFields: []
   -
@@ -1248,7 +1391,7 @@ endpoints:
         name: car_id
         description: 'The ID of the car.'
         required: true
-        example: 11
+        example: 19
         type: integer
         custom: []
     queryParameters: []
@@ -1278,6 +1421,6 @@ endpoints:
           cache-control: 'no-cache, private'
           content-type: application/json
           vary: Origin
-          set-cookie: 'laravel_session=becuqrrHVeGMiBQxOsiVGgmj6Y4tDrOxbjuNwNVe; expires=Mon, 10-Jan-2022 15:53:32 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
+          set-cookie: 'laravel_session=zHlkIPupPXkCxDoPa8F5W5eot8qXELoP50QthNb6; expires=Tue, 11-Jan-2022 15:02:40 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
         description: null
     responseFields: []

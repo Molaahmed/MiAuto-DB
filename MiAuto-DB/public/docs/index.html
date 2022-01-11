@@ -135,7 +135,7 @@
                         <a href="#endpoints-GETapi-reservations--garage_id-">GET api/reservations/{garage_id}</a>
                     </li>
                                     <li class="tocify-item level-2" data-unique="endpoints-POSTapi-garage-client-register">
-                        <a href="#endpoints-POSTapi-garage-client-register">POST api/garage/client/register</a>
+                        <a href="#endpoints-POSTapi-garage-client-register">POST api/client/register</a>
                     </li>
                                     <li class="tocify-item level-2" data-unique="endpoints-PUTapi-garage-client-update--client_id-">
                         <a href="#endpoints-PUTapi-garage-client-update--client_id-">PUT api/garage/client/update/{client_id}</a>
@@ -176,7 +176,7 @@
                             <li><a href="http://github.com/knuckleswtf/scribe">Documentation powered by Scribe ✍</a></li>
                     </ul>
         <ul class="toc-footer" id="last-updated">
-        <li>Last updated: January 10 2022</li>
+        <li>Last updated: January 11 2022</li>
     </ul>
 </div>
 
@@ -204,7 +204,9 @@ You can switch the language used with the tabs at the top right (or from the nav
 <p>
 </p>
 
-
+<p>This endpoint is used by all types of users to be authenticated.
+In the response, there will be a token that you need to use in every request that you make to the server.</p>
+<aside class="notice">Use the token in every request that you make in order to be authorized to access resources.</aside>
 
 <span id="example-requests-POSTapi-login">
 <blockquote>Example request:</blockquote>
@@ -214,7 +216,12 @@ You can switch the language used with the tabs at the top right (or from the nav
     <pre><code class="language-bash">curl --request POST \
     "http://localhost/api/login" \
     --header "Content-Type: application/json" \
-    --header "Accept: application/json"</code></pre></div>
+    --header "Accept: application/json" \
+    --data "{
+    \"email\": \"example@gmail.com\",
+    \"password\": \"password\"
+}"
+</code></pre></div>
 
 
 <div class="javascript-example">
@@ -227,15 +234,39 @@ const headers = {
     "Accept": "application/json",
 };
 
+let body = {
+    "email": "example@gmail.com",
+    "password": "password"
+};
+
 fetch(url, {
     method: "POST",
     headers,
+    body: JSON.stringify(body),
 }).then(response =&gt; response.json());</code></pre></div>
 
 </span>
 
 <span id="example-responses-POSTapi-login">
-</span>
+            <blockquote>
+            <p>Example response (200, success):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+ &quot;4|va23TB3m66Pr1W7ozSfDuRWMsHnf6fhwexyTY1Wg&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (422, user not found):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;message&quot;: &quot;These credentials do not match out records.&quot;
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-POSTapi-login" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-POSTapi-login"></span>:
@@ -275,14 +306,35 @@ fetch(url, {
             <small class="badge badge-black">POST</small>
             <b><code>api/login</code></b>
         </p>
-                    </form>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <p>
+            <b><code>email</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="email"
+               data-endpoint="POSTapi-login"
+               value="example@gmail.com"
+               data-component="body" hidden>
+    <br>
+<p>The email of the user.</p>
+        </p>
+                <p>
+            <b><code>password</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="password"
+               data-endpoint="POSTapi-login"
+               value="password"
+               data-component="body" hidden>
+    <br>
+<p>Password of the user.</p>
+        </p>
+        </form>
 
             <h2 id="endpoints-POSTapi-logout">POST api/logout</h2>
 
 <p>
 </p>
 
-
+<p>This endpoint will log out the user and destroy the token that is used.</p>
 
 <span id="example-requests-POSTapi-logout">
 <blockquote>Example request:</blockquote>
@@ -360,7 +412,7 @@ fetch(url, {
 <p>
 </p>
 
-
+<p>This endpoint is used to create client. The endpoint is used for development pupposes.</p>
 
 <span id="example-requests-POSTapi-client-register">
 <blockquote>Example request:</blockquote>
@@ -372,12 +424,12 @@ fetch(url, {
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"first_name\": \"neque\",
-    \"last_name\": \"quo\",
-    \"email\": \"loren90@example.org\",
-    \"date_of_birth\": \"harum\",
-    \"address\": \"qui\",
-    \"phone_number\": \"ullam\"
+    \"first_name\": \"Luuk\",
+    \"last_name\": \"van der Steen\",
+    \"email\": \"marquardt.anabelle@example.org\",
+    \"date_of_birth\": \"2001-02-06\",
+    \"address\": \"Juan Leon Mera, 19, Av. Patria\",
+    \"phone_number\": \"+5514123456\"
 }"
 </code></pre></div>
 
@@ -393,12 +445,12 @@ const headers = {
 };
 
 let body = {
-    "first_name": "neque",
-    "last_name": "quo",
-    "email": "loren90@example.org",
-    "date_of_birth": "harum",
-    "address": "qui",
-    "phone_number": "ullam"
+    "first_name": "Luuk",
+    "last_name": "van der Steen",
+    "email": "marquardt.anabelle@example.org",
+    "date_of_birth": "2001-02-06",
+    "address": "Juan Leon Mera, 19, Av. Patria",
+    "phone_number": "+5514123456"
 };
 
 fetch(url, {
@@ -410,7 +462,48 @@ fetch(url, {
 </span>
 
 <span id="example-responses-POSTapi-client-register">
-</span>
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;first_name&quot;: &quot;Luuk&quot;,
+    &quot;last_name&quot;: &quot;van der Steen&quot;,
+    &quot;email&quot;: &quot;luckeeylssuddukss.633@gmail.com&quot;,
+    &quot;date_of_birth&quot;: &quot;2001-02-06&quot;,
+    &quot;address&quot;: &quot;Juan Leon Mera, 19, Av. Patria&quot;,
+    &quot;phone_number&quot;: &quot;4 123 4567&quot;,
+    &quot;id&quot;: 14
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (422):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;first_name&quot;: [
+        &quot;The first name field is required.&quot;
+    ],
+    &quot;last_name&quot;: [
+        &quot;The last name field is required.&quot;
+    ],
+    &quot;email&quot;: [
+        &quot;The email field is required.&quot;
+    ],
+    &quot;date_of_birth&quot;: [
+        &quot;The date of birth field is required.&quot;
+    ],
+    &quot;address&quot;: [
+        &quot;The address field is required.&quot;
+    ],
+    &quot;phone_number&quot;: [
+        &quot;The phone number field is required.&quot;
+    ]
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-POSTapi-client-register" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-POSTapi-client-register"></span>:
@@ -456,7 +549,7 @@ fetch(url, {
                 <input type="text"
                name="first_name"
                data-endpoint="POSTapi-client-register"
-               value="neque"
+               value="Luuk"
                data-component="body" hidden>
     <br>
 
@@ -466,7 +559,7 @@ fetch(url, {
                 <input type="text"
                name="last_name"
                data-endpoint="POSTapi-client-register"
-               value="quo"
+               value="van der Steen"
                data-component="body" hidden>
     <br>
 
@@ -476,7 +569,7 @@ fetch(url, {
                 <input type="text"
                name="email"
                data-endpoint="POSTapi-client-register"
-               value="loren90@example.org"
+               value="marquardt.anabelle@example.org"
                data-component="body" hidden>
     <br>
 <p>Must be a valid email address.</p>
@@ -486,7 +579,7 @@ fetch(url, {
                 <input type="text"
                name="date_of_birth"
                data-endpoint="POSTapi-client-register"
-               value="harum"
+               value="2001-02-06"
                data-component="body" hidden>
     <br>
 
@@ -496,7 +589,7 @@ fetch(url, {
                 <input type="text"
                name="address"
                data-endpoint="POSTapi-client-register"
-               value="qui"
+               value="Juan Leon Mera, 19, Av. Patria"
                data-component="body" hidden>
     <br>
 
@@ -506,7 +599,7 @@ fetch(url, {
                 <input type="text"
                name="phone_number"
                data-endpoint="POSTapi-client-register"
-               value="ullam"
+               value="+5514123456"
                data-component="body" hidden>
     <br>
 
@@ -518,7 +611,8 @@ fetch(url, {
 <p>
 </p>
 
-
+<p>This endpoint will first create a user and then assign the garage to that user.
+You need to pass the client credentials and the garage in the same request.</p>
 
 <span id="example-requests-POSTapi-garage-register">
 <blockquote>Example request:</blockquote>
@@ -530,13 +624,16 @@ fetch(url, {
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"first_name\": \"r\",
-    \"last_name\": \"oq\",
-    \"date_of_birth\": \"ut\",
-    \"address\": \"illum\",
-    \"email\": \"aut\",
-    \"phone_number\": \"laborum\",
-    \"name\": \"facilis\"
+    \"first_name\": \"Luuk\",
+    \"last_name\": \"van der Steen\",
+    \"date_of_birth\": \"2001-02-06\",
+    \"address\": \"Juan Leon Mera, 19, Av. Patria\",
+    \"email\": \"assumenda\",
+    \"phone_number\": \"+5514123456\",
+    \"name\": \"numquam\",
+    \"garage_address\": \"nesciunt\",
+    \"garage_email\": \"recusandae\",
+    \"garage_phone_number\": \"animi\"
 }"
 </code></pre></div>
 
@@ -552,13 +649,16 @@ const headers = {
 };
 
 let body = {
-    "first_name": "r",
-    "last_name": "oq",
-    "date_of_birth": "ut",
-    "address": "illum",
-    "email": "aut",
-    "phone_number": "laborum",
-    "name": "facilis"
+    "first_name": "Luuk",
+    "last_name": "van der Steen",
+    "date_of_birth": "2001-02-06",
+    "address": "Juan Leon Mera, 19, Av. Patria",
+    "email": "assumenda",
+    "phone_number": "+5514123456",
+    "name": "numquam",
+    "garage_address": "nesciunt",
+    "garage_email": "recusandae",
+    "garage_phone_number": "animi"
 };
 
 fetch(url, {
@@ -570,7 +670,59 @@ fetch(url, {
 </span>
 
 <span id="example-responses-POSTapi-garage-register">
-</span>
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;user_id&quot;: 15,
+    &quot;name&quot;: &quot;ut&quot;,
+    &quot;address&quot;: &quot;placeat&quot;,
+    &quot;email&quot;: &quot;hic@gmail.com&quot;,
+    &quot;phone_number&quot;: &quot;+3125544785&quot;,
+    &quot;id&quot;: 6
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (422):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;first_name&quot;: [
+        &quot;The first name field is required.&quot;
+    ],
+    &quot;last_name&quot;: [
+        &quot;The last name field is required.&quot;
+    ],
+    &quot;email&quot;: [
+        &quot;The email field is required.&quot;
+    ],
+    &quot;date_of_birth&quot;: [
+        &quot;The date of birth field is required.&quot;
+    ],
+    &quot;address&quot;: [
+        &quot;The address field is required.&quot;
+    ],
+    &quot;phone_number&quot;: [
+        &quot;The phone number field is required.&quot;
+    ],
+    &quot;garage_email&quot;: [
+        &quot;The garage_email of garage field is required.&quot;
+    ],
+    &quot;garage_address&quot;: [
+        &quot;The garage_address of garage field is required.&quot;
+    ],
+    &quot;name&quot;: [
+        &quot;The name of garage field is required.&quot;
+    ],
+    &quot;garage_phone_number&quot;: [
+        &quot;The garage_phone_number of garage field is required.&quot;
+    ]
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-POSTapi-garage-register" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-POSTapi-garage-register"></span>:
@@ -616,27 +768,27 @@ fetch(url, {
                 <input type="text"
                name="first_name"
                data-endpoint="POSTapi-garage-register"
-               value="r"
+               value="Luuk"
                data-component="body" hidden>
     <br>
-<p>Must be at least 2 characters.</p>
+
         </p>
                 <p>
             <b><code>last_name</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
                 <input type="text"
                name="last_name"
                data-endpoint="POSTapi-garage-register"
-               value="oq"
+               value="van der Steen"
                data-component="body" hidden>
     <br>
-<p>Must be at least 2 characters.</p>
+
         </p>
                 <p>
             <b><code>date_of_birth</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
                 <input type="text"
                name="date_of_birth"
                data-endpoint="POSTapi-garage-register"
-               value="ut"
+               value="2001-02-06"
                data-component="body" hidden>
     <br>
 
@@ -646,7 +798,7 @@ fetch(url, {
                 <input type="text"
                name="address"
                data-endpoint="POSTapi-garage-register"
-               value="illum"
+               value="Juan Leon Mera, 19, Av. Patria"
                data-component="body" hidden>
     <br>
 
@@ -656,7 +808,7 @@ fetch(url, {
                 <input type="text"
                name="email"
                data-endpoint="POSTapi-garage-register"
-               value="aut"
+               value="assumenda"
                data-component="body" hidden>
     <br>
 
@@ -666,7 +818,7 @@ fetch(url, {
                 <input type="text"
                name="phone_number"
                data-endpoint="POSTapi-garage-register"
-               value="laborum"
+               value="+5514123456"
                data-component="body" hidden>
     <br>
 
@@ -676,10 +828,40 @@ fetch(url, {
                 <input type="text"
                name="name"
                data-endpoint="POSTapi-garage-register"
-               value="facilis"
+               value="numquam"
                data-component="body" hidden>
     <br>
-<p>garage.</p>
+<p>Name of the garage.</p>
+        </p>
+                <p>
+            <b><code>garage_address</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="garage_address"
+               data-endpoint="POSTapi-garage-register"
+               value="nesciunt"
+               data-component="body" hidden>
+    <br>
+<p>Address of the garage.</p>
+        </p>
+                <p>
+            <b><code>garage_email</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="garage_email"
+               data-endpoint="POSTapi-garage-register"
+               value="recusandae"
+               data-component="body" hidden>
+    <br>
+<p>Email of the garage.</p>
+        </p>
+                <p>
+            <b><code>garage_phone_number</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="garage_phone_number"
+               data-endpoint="POSTapi-garage-register"
+               value="animi"
+               data-component="body" hidden>
+    <br>
+<p>Phone number of the garage.</p>
         </p>
         </form>
 
@@ -729,7 +911,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 vary: Origin
-set-cookie: laravel_session=fVkFsGR8SILwqxUMhpYYTonvBAekMX7Lwq6cTU14; expires=Mon, 10-Jan-2022 15:53:32 GMT; Max-Age=7200; path=/; httponly; samesite=lax
+set-cookie: laravel_session=XVymIpYoi4B7fKWtF9KbP73BmMrfMeh5QbmtNkO6; expires=Tue, 11-Jan-2022 15:02:40 GMT; Max-Age=7200; path=/; httponly; samesite=lax
  </code></pre>
         </details>         <pre>
 
@@ -782,9 +964,10 @@ set-cookie: laravel_session=fVkFsGR8SILwqxUMhpYYTonvBAekMX7Lwq6cTU14; expires=Mo
             <h2 id="endpoints-GETapi-user">GET api/user</h2>
 
 <p>
+<small class="badge badge-darkred">requires authentication</small>
 </p>
 
-
+<p>Returns the data for the user that is authenticated.</p>
 
 <span id="example-requests-GETapi-user">
 <blockquote>Example request:</blockquote>
@@ -816,18 +999,25 @@ fetch(url, {
 
 <span id="example-responses-GETapi-user">
             <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;id&quot;: 11,
+    &quot;first_name&quot;: &quot;Dave&quot;,
+    &quot;last_name&quot;: &quot;van der Kaay&quot;,
+    &quot;email&quot;: &quot;amin.tahiri@ismail.nl&quot;,
+    &quot;date_of_birth&quot;: &quot;2021-12-18&quot;,
+    &quot;address&quot;: &quot;Ko&ccedil;dreef 5-7\n3551GH Tilburg&quot;,
+    &quot;phone_number&quot;: &quot;+298159732&quot;,
+    &quot;role&quot;: &quot;garage_administration&quot;
+}</code>
+ </pre>
+            <blockquote>
             <p>Example response (401):</p>
         </blockquote>
-                <details class="annotation">
-            <summary>
-                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
-            </summary>
-            <pre><code class="language-http">cache-control: no-cache, private
-content-type: application/json
-vary: Origin
-set-cookie: laravel_session=zfOVAQLbYxzB91TbrS0kbjoHb6k17LsSvVjmoLQQ; expires=Mon, 10-Jan-2022 15:53:32 GMT; Max-Age=7200; path=/; httponly; samesite=lax
- </code></pre>
-        </details>         <pre>
+                <pre>
 
 <code class="language-json">{
     &quot;message&quot;: &quot;Unauthenticated.&quot;
@@ -846,7 +1036,7 @@ set-cookie: laravel_session=zfOVAQLbYxzB91TbrS0kbjoHb6k17LsSvVjmoLQQ; expires=Mo
 </span>
 <form id="form-GETapi-user" data-method="GET"
       data-path="api/user"
-      data-authed="0"
+      data-authed="1"
       data-hasfiles="0"
       data-isarraybody="0"
       data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
@@ -873,14 +1063,23 @@ set-cookie: laravel_session=zfOVAQLbYxzB91TbrS0kbjoHb6k17LsSvVjmoLQQ; expires=Mo
             <small class="badge badge-green">GET</small>
             <b><code>api/user</code></b>
         </p>
-                    </form>
+                <p>
+            <label id="auth-GETapi-user" hidden>Authorization header:
+                <b><code>Bearer </code></b><input type="text"
+                                                                name="Authorization"
+                                                                data-prefix="Bearer "
+                                                                data-endpoint="GETapi-user"
+                                                                data-component="header"></label>
+        </p>
+                </form>
 
             <h2 id="endpoints-GETapi-users">GET api/users</h2>
 
 <p>
+<small class="badge badge-darkred">requires authentication</small>
 </p>
 
-
+<p>Returns all the clients.</p>
 
 <span id="example-requests-GETapi-users">
 <blockquote>Example request:</blockquote>
@@ -912,18 +1111,37 @@ fetch(url, {
 
 <span id="example-responses-GETapi-users">
             <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;data&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;first_name&quot;: &quot;Vaj&egrave;n&quot;,
+            &quot;last_name&quot;: &quot;Joosten&quot;,
+            &quot;email&quot;: &quot;chloe48@hoeks.nl&quot;,
+            &quot;date_of_birth&quot;: &quot;2021-12-25&quot;,
+            &quot;address&quot;: &quot;van Duvenvoirdestraat 16\n1949AN Beek&quot;,
+            &quot;phone_number&quot;: &quot;+316677260032&quot;
+        },
+        {
+            &quot;id&quot;: 2,
+            &quot;first_name&quot;: &quot;Aaron&quot;,
+            &quot;last_name&quot;: &quot;van der Velden&quot;,
+            &quot;email&quot;: &quot;isis.peters@heinrichs.com&quot;,
+            &quot;date_of_birth&quot;: &quot;2021-12-21&quot;,
+            &quot;address&quot;: &quot;Blomring 1-p\n2685VZ Zwijndrecht&quot;,
+            &quot;phone_number&quot;: &quot;+8555950674310&quot;
+        }
+    ]
+}</code>
+ </pre>
+            <blockquote>
             <p>Example response (401):</p>
         </blockquote>
-                <details class="annotation">
-            <summary>
-                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
-            </summary>
-            <pre><code class="language-http">cache-control: no-cache, private
-content-type: application/json
-vary: Origin
-set-cookie: laravel_session=iL0aInO2lGziswtMlATRkSMuqblGcwv8GfQanmdf; expires=Mon, 10-Jan-2022 15:53:32 GMT; Max-Age=7200; path=/; httponly; samesite=lax
- </code></pre>
-        </details>         <pre>
+                <pre>
 
 <code class="language-json">{
     &quot;message&quot;: &quot;Unauthenticated.&quot;
@@ -942,7 +1160,7 @@ set-cookie: laravel_session=iL0aInO2lGziswtMlATRkSMuqblGcwv8GfQanmdf; expires=Mo
 </span>
 <form id="form-GETapi-users" data-method="GET"
       data-path="api/users"
-      data-authed="0"
+      data-authed="1"
       data-hasfiles="0"
       data-isarraybody="0"
       data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
@@ -969,14 +1187,23 @@ set-cookie: laravel_session=iL0aInO2lGziswtMlATRkSMuqblGcwv8GfQanmdf; expires=Mo
             <small class="badge badge-green">GET</small>
             <b><code>api/users</code></b>
         </p>
-                    </form>
+                <p>
+            <label id="auth-GETapi-users" hidden>Authorization header:
+                <b><code>Bearer </code></b><input type="text"
+                                                                name="Authorization"
+                                                                data-prefix="Bearer "
+                                                                data-endpoint="GETapi-users"
+                                                                data-component="header"></label>
+        </p>
+                </form>
 
             <h2 id="endpoints-PUTapi-user-update">PUT api/user/update</h2>
 
 <p>
+<small class="badge badge-darkred">requires authentication</small>
 </p>
 
-
+<p>Update the user that is authenticated.</p>
 
 <span id="example-requests-PUTapi-user-update">
 <blockquote>Example request:</blockquote>
@@ -986,7 +1213,16 @@ set-cookie: laravel_session=iL0aInO2lGziswtMlATRkSMuqblGcwv8GfQanmdf; expires=Mo
     <pre><code class="language-bash">curl --request PUT \
     "http://localhost/api/user/update" \
     --header "Content-Type: application/json" \
-    --header "Accept: application/json"</code></pre></div>
+    --header "Accept: application/json" \
+    --data "{
+    \"first_name\": \"consequatur\",
+    \"last_name\": \"eaque\",
+    \"email\": \"crawford.zboncak@example.com\",
+    \"date_of_birth\": \"nulla\",
+    \"address\": \"ut\",
+    \"phone_number\": \"ducimus\"
+}"
+</code></pre></div>
 
 
 <div class="javascript-example">
@@ -999,15 +1235,71 @@ const headers = {
     "Accept": "application/json",
 };
 
+let body = {
+    "first_name": "consequatur",
+    "last_name": "eaque",
+    "email": "crawford.zboncak@example.com",
+    "date_of_birth": "nulla",
+    "address": "ut",
+    "phone_number": "ducimus"
+};
+
 fetch(url, {
     method: "PUT",
     headers,
+    body: JSON.stringify(body),
 }).then(response =&gt; response.json());</code></pre></div>
 
 </span>
 
 <span id="example-responses-PUTapi-user-update">
-</span>
+            <blockquote>
+            <p>Example response (200, success):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;message&quot;: &quot;Updated successful&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (422):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;errors&quot;: {
+        &quot;first_name&quot;: [
+            &quot;The first name field is required.&quot;
+        ],
+        &quot;last_name&quot;: [
+            &quot;The last name field is required.&quot;
+        ],
+        &quot;email&quot;: [
+            &quot;The email field is required.&quot;
+        ],
+        &quot;date_of_birth&quot;: [
+            &quot;The date of birth field is required.&quot;
+        ],
+        &quot;address&quot;: [
+            &quot;The address field is required.&quot;
+        ],
+        &quot;phone_number&quot;: [
+            &quot;The phone number field is required.&quot;
+        ]
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (401):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;message&quot;: &quot;Unauthenticated.&quot;
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-PUTapi-user-update" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-PUTapi-user-update"></span>:
@@ -1020,7 +1312,7 @@ fetch(url, {
 </span>
 <form id="form-PUTapi-user-update" data-method="PUT"
       data-path="api/user/update"
-      data-authed="0"
+      data-authed="1"
       data-hasfiles="0"
       data-isarraybody="0"
       data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
@@ -1047,7 +1339,76 @@ fetch(url, {
             <small class="badge badge-darkblue">PUT</small>
             <b><code>api/user/update</code></b>
         </p>
-                    </form>
+                <p>
+            <label id="auth-PUTapi-user-update" hidden>Authorization header:
+                <b><code>Bearer </code></b><input type="text"
+                                                                name="Authorization"
+                                                                data-prefix="Bearer "
+                                                                data-endpoint="PUTapi-user-update"
+                                                                data-component="header"></label>
+        </p>
+                        <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <p>
+            <b><code>first_name</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="first_name"
+               data-endpoint="PUTapi-user-update"
+               value="consequatur"
+               data-component="body" hidden>
+    <br>
+
+        </p>
+                <p>
+            <b><code>last_name</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="last_name"
+               data-endpoint="PUTapi-user-update"
+               value="eaque"
+               data-component="body" hidden>
+    <br>
+
+        </p>
+                <p>
+            <b><code>email</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="email"
+               data-endpoint="PUTapi-user-update"
+               value="crawford.zboncak@example.com"
+               data-component="body" hidden>
+    <br>
+<p>Must be a valid email address.</p>
+        </p>
+                <p>
+            <b><code>date_of_birth</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="date_of_birth"
+               data-endpoint="PUTapi-user-update"
+               value="nulla"
+               data-component="body" hidden>
+    <br>
+
+        </p>
+                <p>
+            <b><code>address</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="address"
+               data-endpoint="PUTapi-user-update"
+               value="ut"
+               data-component="body" hidden>
+    <br>
+
+        </p>
+                <p>
+            <b><code>phone_number</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="phone_number"
+               data-endpoint="PUTapi-user-update"
+               value="ducimus"
+               data-component="body" hidden>
+    <br>
+
+        </p>
+        </form>
 
             <h2 id="endpoints-PUTapi-reservation">PUT api/reservation</h2>
 
@@ -1066,13 +1427,13 @@ fetch(url, {
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"user_id\": \"quia\",
-    \"employee_id\": \"quia\",
-    \"vin_number\": \"rerum\",
-    \"description\": \"fugiat\",
-    \"date\": \"provident\",
-    \"startingTime\": \"consectetur\",
-    \"endingTime\": \"vel\"
+    \"user_id\": \"vel\",
+    \"employee_id\": \"quasi\",
+    \"vin_number\": \"illum\",
+    \"description\": \"tenetur\",
+    \"date\": \"reprehenderit\",
+    \"startingTime\": \"minus\",
+    \"endingTime\": \"ullam\"
 }"
 </code></pre></div>
 
@@ -1088,13 +1449,13 @@ const headers = {
 };
 
 let body = {
-    "user_id": "quia",
-    "employee_id": "quia",
-    "vin_number": "rerum",
-    "description": "fugiat",
-    "date": "provident",
-    "startingTime": "consectetur",
-    "endingTime": "vel"
+    "user_id": "vel",
+    "employee_id": "quasi",
+    "vin_number": "illum",
+    "description": "tenetur",
+    "date": "reprehenderit",
+    "startingTime": "minus",
+    "endingTime": "ullam"
 };
 
 fetch(url, {
@@ -1152,7 +1513,7 @@ fetch(url, {
                 <input type="text"
                name="user_id"
                data-endpoint="PUTapi-reservation"
-               value="quia"
+               value="vel"
                data-component="body" hidden>
     <br>
 
@@ -1162,7 +1523,7 @@ fetch(url, {
                 <input type="text"
                name="employee_id"
                data-endpoint="PUTapi-reservation"
-               value="quia"
+               value="quasi"
                data-component="body" hidden>
     <br>
 
@@ -1172,7 +1533,7 @@ fetch(url, {
                 <input type="text"
                name="vin_number"
                data-endpoint="PUTapi-reservation"
-               value="rerum"
+               value="illum"
                data-component="body" hidden>
     <br>
 
@@ -1182,7 +1543,7 @@ fetch(url, {
                 <input type="text"
                name="description"
                data-endpoint="PUTapi-reservation"
-               value="fugiat"
+               value="tenetur"
                data-component="body" hidden>
     <br>
 
@@ -1192,7 +1553,7 @@ fetch(url, {
                 <input type="text"
                name="date"
                data-endpoint="PUTapi-reservation"
-               value="provident"
+               value="reprehenderit"
                data-component="body" hidden>
     <br>
 
@@ -1202,7 +1563,7 @@ fetch(url, {
                 <input type="text"
                name="startingTime"
                data-endpoint="PUTapi-reservation"
-               value="consectetur"
+               value="minus"
                data-component="body" hidden>
     <br>
 
@@ -1212,7 +1573,7 @@ fetch(url, {
                 <input type="text"
                name="endingTime"
                data-endpoint="PUTapi-reservation"
-               value="vel"
+               value="ullam"
                data-component="body" hidden>
     <br>
 
@@ -1265,7 +1626,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 vary: Origin
-set-cookie: laravel_session=X4e7hBPDXL4fV85SJKJ7pAbeHaaQks6M0jqOZwxF; expires=Mon, 10-Jan-2022 15:53:32 GMT; Max-Age=7200; path=/; httponly; samesite=lax
+set-cookie: laravel_session=SDKD1g2X9fnQy8aU8F2jpMR8d5ksJ8aLLUVpeqZW; expires=Tue, 11-Jan-2022 15:02:40 GMT; Max-Age=7200; path=/; httponly; samesite=lax
  </code></pre>
         </details>         <pre>
 
@@ -1328,14 +1689,14 @@ set-cookie: laravel_session=X4e7hBPDXL4fV85SJKJ7pAbeHaaQks6M0jqOZwxF; expires=Mo
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/garages/address/odio" \
+    --get "http://localhost/api/garages/address/at" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/garages/address/odio"
+    "http://localhost/api/garages/address/at"
 );
 
 const headers = {
@@ -1361,7 +1722,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 vary: Origin
-set-cookie: laravel_session=mG3vxygHphaVvPg4XMz4AK6x2RUoDIUAfWzdKJvD; expires=Mon, 10-Jan-2022 15:53:32 GMT; Max-Age=7200; path=/; httponly; samesite=lax
+set-cookie: laravel_session=6BJkJ8SVc0sn2FnmK9HCEHUfUXiTxsfPH82qODSo; expires=Tue, 11-Jan-2022 15:02:40 GMT; Max-Age=7200; path=/; httponly; samesite=lax
  </code></pre>
         </details>         <pre>
 
@@ -1415,7 +1776,7 @@ set-cookie: laravel_session=mG3vxygHphaVvPg4XMz4AK6x2RUoDIUAfWzdKJvD; expires=Mo
                 <input type="text"
                name="address"
                data-endpoint="GETapi-garages-address--address-"
-               value="odio"
+               value="at"
                data-component="url" hidden>
     <br>
 
@@ -1435,14 +1796,14 @@ set-cookie: laravel_session=mG3vxygHphaVvPg4XMz4AK6x2RUoDIUAfWzdKJvD; expires=Mo
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/garages/4" \
+    --get "http://localhost/api/garages/15" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/garages/4"
+    "http://localhost/api/garages/15"
 );
 
 const headers = {
@@ -1468,7 +1829,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 vary: Origin
-set-cookie: laravel_session=ugXwlsgfOVtGsfkh6INrgc6hBOSAUOxb2PNgULk7; expires=Mon, 10-Jan-2022 15:53:32 GMT; Max-Age=7200; path=/; httponly; samesite=lax
+set-cookie: laravel_session=jggYlvWtVmuXAG4anKOw4PtPbppF9LuczQaE6Kb3; expires=Tue, 11-Jan-2022 15:02:40 GMT; Max-Age=7200; path=/; httponly; samesite=lax
  </code></pre>
         </details>         <pre>
 
@@ -1522,7 +1883,7 @@ set-cookie: laravel_session=ugXwlsgfOVtGsfkh6INrgc6hBOSAUOxb2PNgULk7; expires=Mo
                 <input type="number"
                name="id"
                data-endpoint="GETapi-garages--id-"
-               value="4"
+               value="15"
                data-component="url" hidden>
     <br>
 <p>The ID of the garage.</p>
@@ -1575,7 +1936,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 vary: Origin
-set-cookie: laravel_session=yN6ZB4NoOpGM0NgigQPdMdvoTVoyy7ncFevWa8pu; expires=Mon, 10-Jan-2022 15:53:32 GMT; Max-Age=7200; path=/; httponly; samesite=lax
+set-cookie: laravel_session=CmxxPq4VqOYGThgs52zw8NcsIGazZVb1pSnREpAK; expires=Tue, 11-Jan-2022 15:02:40 GMT; Max-Age=7200; path=/; httponly; samesite=lax
  </code></pre>
         </details>         <pre>
 
@@ -1642,17 +2003,17 @@ set-cookie: laravel_session=yN6ZB4NoOpGM0NgigQPdMdvoTVoyy7ncFevWa8pu; expires=Mo
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"user_id\": \"ut\",
-    \"vin_number\": \"exercitationem\",
-    \"plate\": \"quisquam\",
-    \"type\": \"odit\",
-    \"fuel\": \"rerum\",
-    \"make\": \"repellat\",
-    \"model\": \"eligendi\",
-    \"engine\": \"voluptatem\",
-    \"gear_box\": \"officiis\",
-    \"air_conditioner\": \"ea\",
-    \"color\": \"porro\"
+    \"user_id\": \"accusamus\",
+    \"vin_number\": \"eveniet\",
+    \"plate\": \"et\",
+    \"type\": \"autem\",
+    \"fuel\": \"ut\",
+    \"make\": \"et\",
+    \"model\": \"sit\",
+    \"engine\": \"et\",
+    \"gear_box\": \"esse\",
+    \"air_conditioner\": \"a\",
+    \"color\": \"sint\"
 }"
 </code></pre></div>
 
@@ -1668,17 +2029,17 @@ const headers = {
 };
 
 let body = {
-    "user_id": "ut",
-    "vin_number": "exercitationem",
-    "plate": "quisquam",
-    "type": "odit",
-    "fuel": "rerum",
-    "make": "repellat",
-    "model": "eligendi",
-    "engine": "voluptatem",
-    "gear_box": "officiis",
-    "air_conditioner": "ea",
-    "color": "porro"
+    "user_id": "accusamus",
+    "vin_number": "eveniet",
+    "plate": "et",
+    "type": "autem",
+    "fuel": "ut",
+    "make": "et",
+    "model": "sit",
+    "engine": "et",
+    "gear_box": "esse",
+    "air_conditioner": "a",
+    "color": "sint"
 };
 
 fetch(url, {
@@ -1736,7 +2097,7 @@ fetch(url, {
                 <input type="text"
                name="user_id"
                data-endpoint="POSTapi-cars-create"
-               value="ut"
+               value="accusamus"
                data-component="body" hidden>
     <br>
 
@@ -1746,7 +2107,7 @@ fetch(url, {
                 <input type="text"
                name="vin_number"
                data-endpoint="POSTapi-cars-create"
-               value="exercitationem"
+               value="eveniet"
                data-component="body" hidden>
     <br>
 
@@ -1756,7 +2117,7 @@ fetch(url, {
                 <input type="text"
                name="plate"
                data-endpoint="POSTapi-cars-create"
-               value="quisquam"
+               value="et"
                data-component="body" hidden>
     <br>
 
@@ -1766,7 +2127,7 @@ fetch(url, {
                 <input type="text"
                name="type"
                data-endpoint="POSTapi-cars-create"
-               value="odit"
+               value="autem"
                data-component="body" hidden>
     <br>
 
@@ -1776,7 +2137,7 @@ fetch(url, {
                 <input type="text"
                name="fuel"
                data-endpoint="POSTapi-cars-create"
-               value="rerum"
+               value="ut"
                data-component="body" hidden>
     <br>
 
@@ -1786,7 +2147,7 @@ fetch(url, {
                 <input type="text"
                name="make"
                data-endpoint="POSTapi-cars-create"
-               value="repellat"
+               value="et"
                data-component="body" hidden>
     <br>
 
@@ -1796,7 +2157,7 @@ fetch(url, {
                 <input type="text"
                name="model"
                data-endpoint="POSTapi-cars-create"
-               value="eligendi"
+               value="sit"
                data-component="body" hidden>
     <br>
 
@@ -1806,7 +2167,7 @@ fetch(url, {
                 <input type="text"
                name="engine"
                data-endpoint="POSTapi-cars-create"
-               value="voluptatem"
+               value="et"
                data-component="body" hidden>
     <br>
 
@@ -1816,7 +2177,7 @@ fetch(url, {
                 <input type="text"
                name="gear_box"
                data-endpoint="POSTapi-cars-create"
-               value="officiis"
+               value="esse"
                data-component="body" hidden>
     <br>
 
@@ -1826,7 +2187,7 @@ fetch(url, {
                 <input type="text"
                name="air_conditioner"
                data-endpoint="POSTapi-cars-create"
-               value="ea"
+               value="a"
                data-component="body" hidden>
     <br>
 
@@ -1836,7 +2197,7 @@ fetch(url, {
                 <input type="text"
                name="color"
                data-endpoint="POSTapi-cars-create"
-               value="porro"
+               value="sint"
                data-component="body" hidden>
     <br>
 
@@ -1889,7 +2250,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 vary: Origin
-set-cookie: laravel_session=epdhJ6ygvySvDOxQufIRktnpMJWdncSPqeiJHfjF; expires=Mon, 10-Jan-2022 15:53:32 GMT; Max-Age=7200; path=/; httponly; samesite=lax
+set-cookie: laravel_session=vYWvv8YiMSZhWcpZfEMP739mILiV7LjnIv4n9GeD; expires=Tue, 11-Jan-2022 15:02:40 GMT; Max-Age=7200; path=/; httponly; samesite=lax
  </code></pre>
         </details>         <pre>
 
@@ -2034,14 +2395,14 @@ fetch(url, {
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"first_name\": \"\",
-    \"last_name\": \"x\",
-    \"date_of_birth\": \"mollitia\",
-    \"address\": \"l\",
-    \"phone_number\": \"\",
-    \"email\": \"irogahn@example.com\",
-    \"garage_id\": \"sed\",
-    \"role\": 1396568.1678
+    \"first_name\": \"hr\",
+    \"last_name\": \"o\",
+    \"date_of_birth\": \"voluptate\",
+    \"address\": \"pg\",
+    \"phone_number\": \"uu\",
+    \"email\": \"ssauer@example.org\",
+    \"garage_id\": \"dolor\",
+    \"role\": 384.4024231
 }"
 </code></pre></div>
 
@@ -2057,14 +2418,14 @@ const headers = {
 };
 
 let body = {
-    "first_name": "",
-    "last_name": "x",
-    "date_of_birth": "mollitia",
-    "address": "l",
-    "phone_number": "",
-    "email": "irogahn@example.com",
-    "garage_id": "sed",
-    "role": 1396568.1678
+    "first_name": "hr",
+    "last_name": "o",
+    "date_of_birth": "voluptate",
+    "address": "pg",
+    "phone_number": "uu",
+    "email": "ssauer@example.org",
+    "garage_id": "dolor",
+    "role": 384.4024231
 };
 
 fetch(url, {
@@ -2122,7 +2483,7 @@ fetch(url, {
                 <input type="text"
                name="first_name"
                data-endpoint="POSTapi-employee-create"
-               value=""
+               value="hr"
                data-component="body" hidden>
     <br>
 <p>user table. Must be at least 2 characters.</p>
@@ -2132,7 +2493,7 @@ fetch(url, {
                 <input type="text"
                name="last_name"
                data-endpoint="POSTapi-employee-create"
-               value="x"
+               value="o"
                data-component="body" hidden>
     <br>
 <p>Must be at least 2 characters.</p>
@@ -2142,7 +2503,7 @@ fetch(url, {
                 <input type="text"
                name="date_of_birth"
                data-endpoint="POSTapi-employee-create"
-               value="mollitia"
+               value="voluptate"
                data-component="body" hidden>
     <br>
 
@@ -2152,7 +2513,7 @@ fetch(url, {
                 <input type="text"
                name="address"
                data-endpoint="POSTapi-employee-create"
-               value="l"
+               value="pg"
                data-component="body" hidden>
     <br>
 <p>Must be at least 2 characters.</p>
@@ -2162,7 +2523,7 @@ fetch(url, {
                 <input type="text"
                name="phone_number"
                data-endpoint="POSTapi-employee-create"
-               value=""
+               value="uu"
                data-component="body" hidden>
     <br>
 <p>Must be at least 5 characters.</p>
@@ -2172,7 +2533,7 @@ fetch(url, {
                 <input type="text"
                name="email"
                data-endpoint="POSTapi-employee-create"
-               value="irogahn@example.com"
+               value="ssauer@example.org"
                data-component="body" hidden>
     <br>
 <p>Must be a valid email address.</p>
@@ -2182,7 +2543,7 @@ fetch(url, {
                 <input type="text"
                name="garage_id"
                data-endpoint="POSTapi-employee-create"
-               value="sed"
+               value="dolor"
                data-component="body" hidden>
     <br>
 
@@ -2192,7 +2553,7 @@ fetch(url, {
                 <input type="number"
                name="role"
                data-endpoint="POSTapi-employee-create"
-               value="1396568.1678"
+               value="384.4024231"
                data-component="body" hidden>
     <br>
 <p>//employee table
@@ -2218,13 +2579,13 @@ fetch(url, {
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"first_name\": \"h\",
-    \"last_name\": \"es\",
-    \"email\": \"zachary.rogahn@example.org\",
-    \"date_of_birth\": \"modi\",
-    \"address\": \"jm\",
-    \"phone_number\": \"tace\",
-    \"role\": 9
+    \"first_name\": \"oz\",
+    \"last_name\": \"\",
+    \"email\": \"toy.lavern@example.net\",
+    \"date_of_birth\": \"et\",
+    \"address\": \"kr\",
+    \"phone_number\": \"ucmnq\",
+    \"role\": 5169
 }"
 </code></pre></div>
 
@@ -2240,13 +2601,13 @@ const headers = {
 };
 
 let body = {
-    "first_name": "h",
-    "last_name": "es",
-    "email": "zachary.rogahn@example.org",
-    "date_of_birth": "modi",
-    "address": "jm",
-    "phone_number": "tace",
-    "role": 9
+    "first_name": "oz",
+    "last_name": "",
+    "email": "toy.lavern@example.net",
+    "date_of_birth": "et",
+    "address": "kr",
+    "phone_number": "ucmnq",
+    "role": 5169
 };
 
 fetch(url, {
@@ -2315,7 +2676,7 @@ fetch(url, {
                 <input type="text"
                name="first_name"
                data-endpoint="PUTapi-employee-update--employee_id-"
-               value="h"
+               value="oz"
                data-component="body" hidden>
     <br>
 <p>user table. Must be at least 2 characters.</p>
@@ -2325,7 +2686,7 @@ fetch(url, {
                 <input type="text"
                name="last_name"
                data-endpoint="PUTapi-employee-update--employee_id-"
-               value="es"
+               value=""
                data-component="body" hidden>
     <br>
 <p>Must be at least 2 characters.</p>
@@ -2335,7 +2696,7 @@ fetch(url, {
                 <input type="text"
                name="email"
                data-endpoint="PUTapi-employee-update--employee_id-"
-               value="zachary.rogahn@example.org"
+               value="toy.lavern@example.net"
                data-component="body" hidden>
     <br>
 <p>Must be a valid email address.</p>
@@ -2345,7 +2706,7 @@ fetch(url, {
                 <input type="text"
                name="date_of_birth"
                data-endpoint="PUTapi-employee-update--employee_id-"
-               value="modi"
+               value="et"
                data-component="body" hidden>
     <br>
 
@@ -2355,7 +2716,7 @@ fetch(url, {
                 <input type="text"
                name="address"
                data-endpoint="PUTapi-employee-update--employee_id-"
-               value="jm"
+               value="kr"
                data-component="body" hidden>
     <br>
 <p>Must be at least 2 characters.</p>
@@ -2365,7 +2726,7 @@ fetch(url, {
                 <input type="text"
                name="phone_number"
                data-endpoint="PUTapi-employee-update--employee_id-"
-               value="tace"
+               value="ucmnq"
                data-component="body" hidden>
     <br>
 <p>Must be at least 5 characters.</p>
@@ -2375,7 +2736,7 @@ fetch(url, {
                 <input type="number"
                name="role"
                data-endpoint="PUTapi-employee-update--employee_id-"
-               value="9"
+               value="5169"
                data-component="body" hidden>
     <br>
 <p>role.</p>
@@ -2395,14 +2756,14 @@ fetch(url, {
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/employees/3" \
+    --get "http://localhost/api/employees/11" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/employees/3"
+    "http://localhost/api/employees/11"
 );
 
 const headers = {
@@ -2428,7 +2789,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 vary: Origin
-set-cookie: laravel_session=vezzpGfKYnSQrhLuagJa8MreXqqCC3hDvS04blT3; expires=Mon, 10-Jan-2022 15:53:32 GMT; Max-Age=7200; path=/; httponly; samesite=lax
+set-cookie: laravel_session=4Rg1km6lbm9fVerADA6nSLmGrwxXhCkMLJCgyRI6; expires=Tue, 11-Jan-2022 15:02:40 GMT; Max-Age=7200; path=/; httponly; samesite=lax
  </code></pre>
         </details>         <pre>
 
@@ -2482,7 +2843,7 @@ set-cookie: laravel_session=vezzpGfKYnSQrhLuagJa8MreXqqCC3hDvS04blT3; expires=Mo
                 <input type="number"
                name="garage_id"
                data-endpoint="GETapi-employees--garage_id-"
-               value="3"
+               value="11"
                data-component="url" hidden>
     <br>
 <p>The ID of the garage.</p>
@@ -2502,14 +2863,14 @@ set-cookie: laravel_session=vezzpGfKYnSQrhLuagJa8MreXqqCC3hDvS04blT3; expires=Mo
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/reservations/11" \
+    --get "http://localhost/api/reservations/1" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/reservations/11"
+    "http://localhost/api/reservations/1"
 );
 
 const headers = {
@@ -2535,7 +2896,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 vary: Origin
-set-cookie: laravel_session=e4aUg1IuInuxdmWmNGIONb3FUxDoRuGIjN28sDoX; expires=Mon, 10-Jan-2022 15:53:32 GMT; Max-Age=7200; path=/; httponly; samesite=lax
+set-cookie: laravel_session=NNh357QQlHNqh7Mb7pzbt87E1pDsB704rhv3OWvQ; expires=Tue, 11-Jan-2022 15:02:40 GMT; Max-Age=7200; path=/; httponly; samesite=lax
  </code></pre>
         </details>         <pre>
 
@@ -2589,19 +2950,19 @@ set-cookie: laravel_session=e4aUg1IuInuxdmWmNGIONb3FUxDoRuGIjN28sDoX; expires=Mo
                 <input type="number"
                name="garage_id"
                data-endpoint="GETapi-reservations--garage_id-"
-               value="11"
+               value="1"
                data-component="url" hidden>
     <br>
 <p>The ID of the garage.</p>
             </p>
                     </form>
 
-            <h2 id="endpoints-POSTapi-garage-client-register">POST api/garage/client/register</h2>
+            <h2 id="endpoints-POSTapi-garage-client-register">POST api/client/register</h2>
 
 <p>
 </p>
 
-
+<p>This endpoint is used to create client. The endpoint is used for development pupposes.</p>
 
 <span id="example-requests-POSTapi-garage-client-register">
 <blockquote>Example request:</blockquote>
@@ -2613,12 +2974,12 @@ set-cookie: laravel_session=e4aUg1IuInuxdmWmNGIONb3FUxDoRuGIjN28sDoX; expires=Mo
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"first_name\": \"aspernatur\",
-    \"last_name\": \"numquam\",
-    \"email\": \"ykub@example.org\",
-    \"date_of_birth\": \"est\",
-    \"address\": \"iure\",
-    \"phone_number\": \"aperiam\"
+    \"first_name\": \"Luuk\",
+    \"last_name\": \"van der Steen\",
+    \"email\": \"gerhold.stephanie@example.org\",
+    \"date_of_birth\": \"2001-02-06\",
+    \"address\": \"Juan Leon Mera, 19, Av. Patria\",
+    \"phone_number\": \"+5514123456\"
 }"
 </code></pre></div>
 
@@ -2634,12 +2995,12 @@ const headers = {
 };
 
 let body = {
-    "first_name": "aspernatur",
-    "last_name": "numquam",
-    "email": "ykub@example.org",
-    "date_of_birth": "est",
-    "address": "iure",
-    "phone_number": "aperiam"
+    "first_name": "Luuk",
+    "last_name": "van der Steen",
+    "email": "gerhold.stephanie@example.org",
+    "date_of_birth": "2001-02-06",
+    "address": "Juan Leon Mera, 19, Av. Patria",
+    "phone_number": "+5514123456"
 };
 
 fetch(url, {
@@ -2651,7 +3012,48 @@ fetch(url, {
 </span>
 
 <span id="example-responses-POSTapi-garage-client-register">
-</span>
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;first_name&quot;: &quot;Luuk&quot;,
+    &quot;last_name&quot;: &quot;van der Steen&quot;,
+    &quot;email&quot;: &quot;luckeeylssuddukss.633@gmail.com&quot;,
+    &quot;date_of_birth&quot;: &quot;2001-02-06&quot;,
+    &quot;address&quot;: &quot;Juan Leon Mera, 19, Av. Patria&quot;,
+    &quot;phone_number&quot;: &quot;4 123 4567&quot;,
+    &quot;id&quot;: 14
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (422):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;first_name&quot;: [
+        &quot;The first name field is required.&quot;
+    ],
+    &quot;last_name&quot;: [
+        &quot;The last name field is required.&quot;
+    ],
+    &quot;email&quot;: [
+        &quot;The email field is required.&quot;
+    ],
+    &quot;date_of_birth&quot;: [
+        &quot;The date of birth field is required.&quot;
+    ],
+    &quot;address&quot;: [
+        &quot;The address field is required.&quot;
+    ],
+    &quot;phone_number&quot;: [
+        &quot;The phone number field is required.&quot;
+    ]
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-POSTapi-garage-client-register" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-POSTapi-garage-client-register"></span>:
@@ -2697,7 +3099,7 @@ fetch(url, {
                 <input type="text"
                name="first_name"
                data-endpoint="POSTapi-garage-client-register"
-               value="aspernatur"
+               value="Luuk"
                data-component="body" hidden>
     <br>
 
@@ -2707,7 +3109,7 @@ fetch(url, {
                 <input type="text"
                name="last_name"
                data-endpoint="POSTapi-garage-client-register"
-               value="numquam"
+               value="van der Steen"
                data-component="body" hidden>
     <br>
 
@@ -2717,7 +3119,7 @@ fetch(url, {
                 <input type="text"
                name="email"
                data-endpoint="POSTapi-garage-client-register"
-               value="ykub@example.org"
+               value="gerhold.stephanie@example.org"
                data-component="body" hidden>
     <br>
 <p>Must be a valid email address.</p>
@@ -2727,7 +3129,7 @@ fetch(url, {
                 <input type="text"
                name="date_of_birth"
                data-endpoint="POSTapi-garage-client-register"
-               value="est"
+               value="2001-02-06"
                data-component="body" hidden>
     <br>
 
@@ -2737,7 +3139,7 @@ fetch(url, {
                 <input type="text"
                name="address"
                data-endpoint="POSTapi-garage-client-register"
-               value="iure"
+               value="Juan Leon Mera, 19, Av. Patria"
                data-component="body" hidden>
     <br>
 
@@ -2747,7 +3149,7 @@ fetch(url, {
                 <input type="text"
                name="phone_number"
                data-endpoint="POSTapi-garage-client-register"
-               value="aperiam"
+               value="+5514123456"
                data-component="body" hidden>
     <br>
 
@@ -2767,23 +3169,23 @@ fetch(url, {
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/garage/client/update/aut" \
+    "http://localhost/api/garage/client/update/sunt" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"first_name\": \"explicabo\",
-    \"last_name\": \"temporibus\",
-    \"email\": \"luettgen.lavern@example.com\",
-    \"date_of_birth\": \"temporibus\",
-    \"address\": \"maxime\",
-    \"phone_number\": \"earum\"
+    \"first_name\": \"doloribus\",
+    \"last_name\": \"est\",
+    \"email\": \"ervin39@example.com\",
+    \"date_of_birth\": \"suscipit\",
+    \"address\": \"quia\",
+    \"phone_number\": \"voluptas\"
 }"
 </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/garage/client/update/aut"
+    "http://localhost/api/garage/client/update/sunt"
 );
 
 const headers = {
@@ -2792,12 +3194,12 @@ const headers = {
 };
 
 let body = {
-    "first_name": "explicabo",
-    "last_name": "temporibus",
-    "email": "luettgen.lavern@example.com",
-    "date_of_birth": "temporibus",
-    "address": "maxime",
-    "phone_number": "earum"
+    "first_name": "doloribus",
+    "last_name": "est",
+    "email": "ervin39@example.com",
+    "date_of_birth": "suscipit",
+    "address": "quia",
+    "phone_number": "voluptas"
 };
 
 fetch(url, {
@@ -2855,7 +3257,7 @@ fetch(url, {
                 <input type="text"
                name="client_id"
                data-endpoint="PUTapi-garage-client-update--client_id-"
-               value="aut"
+               value="sunt"
                data-component="url" hidden>
     <br>
 <p>The ID of the client.</p>
@@ -2866,7 +3268,7 @@ fetch(url, {
                 <input type="text"
                name="first_name"
                data-endpoint="PUTapi-garage-client-update--client_id-"
-               value="explicabo"
+               value="doloribus"
                data-component="body" hidden>
     <br>
 
@@ -2876,7 +3278,7 @@ fetch(url, {
                 <input type="text"
                name="last_name"
                data-endpoint="PUTapi-garage-client-update--client_id-"
-               value="temporibus"
+               value="est"
                data-component="body" hidden>
     <br>
 
@@ -2886,7 +3288,7 @@ fetch(url, {
                 <input type="text"
                name="email"
                data-endpoint="PUTapi-garage-client-update--client_id-"
-               value="luettgen.lavern@example.com"
+               value="ervin39@example.com"
                data-component="body" hidden>
     <br>
 <p>Must be a valid email address.</p>
@@ -2896,7 +3298,7 @@ fetch(url, {
                 <input type="text"
                name="date_of_birth"
                data-endpoint="PUTapi-garage-client-update--client_id-"
-               value="temporibus"
+               value="suscipit"
                data-component="body" hidden>
     <br>
 
@@ -2906,7 +3308,7 @@ fetch(url, {
                 <input type="text"
                name="address"
                data-endpoint="PUTapi-garage-client-update--client_id-"
-               value="maxime"
+               value="quia"
                data-component="body" hidden>
     <br>
 
@@ -2916,7 +3318,7 @@ fetch(url, {
                 <input type="text"
                name="phone_number"
                data-endpoint="PUTapi-garage-client-update--client_id-"
-               value="earum"
+               value="voluptas"
                data-component="body" hidden>
     <br>
 
@@ -2936,14 +3338,14 @@ fetch(url, {
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/garage/client/cars/10" \
+    --get "http://localhost/api/garage/client/cars/1" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/garage/client/cars/10"
+    "http://localhost/api/garage/client/cars/1"
 );
 
 const headers = {
@@ -2969,7 +3371,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 vary: Origin
-set-cookie: laravel_session=RMC679hfrYutUrfCiAo7B9uczlHlmGdtedEtsLYH; expires=Mon, 10-Jan-2022 15:53:32 GMT; Max-Age=7200; path=/; httponly; samesite=lax
+set-cookie: laravel_session=b2j9ymax51R5kEdSniOPliuUq3LZPfjC0k4TDjqV; expires=Tue, 11-Jan-2022 15:02:40 GMT; Max-Age=7200; path=/; httponly; samesite=lax
  </code></pre>
         </details>         <pre>
 
@@ -3023,7 +3425,7 @@ set-cookie: laravel_session=RMC679hfrYutUrfCiAo7B9uczlHlmGdtedEtsLYH; expires=Mo
                 <input type="number"
                name="client_id"
                data-endpoint="GETapi-garage-client-cars--client_id-"
-               value="10"
+               value="1"
                data-component="url" hidden>
     <br>
 <p>The ID of the client.</p>
@@ -3076,7 +3478,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 vary: Origin
-set-cookie: laravel_session=5swHEczM4PN2tqDTBLooOpP6QxzsfZTy9MnzspOT; expires=Mon, 10-Jan-2022 15:53:32 GMT; Max-Age=7200; path=/; httponly; samesite=lax
+set-cookie: laravel_session=6pSg0i2e5GfOppyf2xwN8Iiaq3ymQzbDhrDrDlRU; expires=Tue, 11-Jan-2022 15:02:40 GMT; Max-Age=7200; path=/; httponly; samesite=lax
  </code></pre>
         </details>         <pre>
 
@@ -3172,7 +3574,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 vary: Origin
-set-cookie: laravel_session=EafbKWDH6KEtDw1lSgS6DTm5X65U3q2voH3x4lU2; expires=Mon, 10-Jan-2022 15:53:32 GMT; Max-Age=7200; path=/; httponly; samesite=lax
+set-cookie: laravel_session=wAHZIdjMHr125g9JF5UwG7YJCcRfTvd3cicUYZmM; expires=Tue, 11-Jan-2022 15:02:40 GMT; Max-Age=7200; path=/; httponly; samesite=lax
  </code></pre>
         </details>         <pre>
 
@@ -3239,17 +3641,17 @@ set-cookie: laravel_session=EafbKWDH6KEtDw1lSgS6DTm5X65U3q2voH3x4lU2; expires=Mo
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"user_id\": \"id\",
-    \"vin_number\": \"et\",
-    \"plate\": \"est\",
-    \"type\": \"consectetur\",
-    \"fuel\": \"est\",
-    \"make\": \"iste\",
-    \"model\": \"deserunt\",
-    \"engine\": \"quis\",
-    \"gear_box\": \"quod\",
-    \"air_conditioner\": \"nulla\",
-    \"color\": \"ratione\"
+    \"user_id\": \"minima\",
+    \"vin_number\": \"modi\",
+    \"plate\": \"delectus\",
+    \"type\": \"iusto\",
+    \"fuel\": \"iure\",
+    \"make\": \"officiis\",
+    \"model\": \"repellat\",
+    \"engine\": \"aut\",
+    \"gear_box\": \"nesciunt\",
+    \"air_conditioner\": \"amet\",
+    \"color\": \"itaque\"
 }"
 </code></pre></div>
 
@@ -3265,17 +3667,17 @@ const headers = {
 };
 
 let body = {
-    "user_id": "id",
-    "vin_number": "et",
-    "plate": "est",
-    "type": "consectetur",
-    "fuel": "est",
-    "make": "iste",
-    "model": "deserunt",
-    "engine": "quis",
-    "gear_box": "quod",
-    "air_conditioner": "nulla",
-    "color": "ratione"
+    "user_id": "minima",
+    "vin_number": "modi",
+    "plate": "delectus",
+    "type": "iusto",
+    "fuel": "iure",
+    "make": "officiis",
+    "model": "repellat",
+    "engine": "aut",
+    "gear_box": "nesciunt",
+    "air_conditioner": "amet",
+    "color": "itaque"
 };
 
 fetch(url, {
@@ -3333,7 +3735,7 @@ fetch(url, {
                 <input type="text"
                name="user_id"
                data-endpoint="POSTapi-client-cars"
-               value="id"
+               value="minima"
                data-component="body" hidden>
     <br>
 
@@ -3343,7 +3745,7 @@ fetch(url, {
                 <input type="text"
                name="vin_number"
                data-endpoint="POSTapi-client-cars"
-               value="et"
+               value="modi"
                data-component="body" hidden>
     <br>
 
@@ -3353,7 +3755,7 @@ fetch(url, {
                 <input type="text"
                name="plate"
                data-endpoint="POSTapi-client-cars"
-               value="est"
+               value="delectus"
                data-component="body" hidden>
     <br>
 
@@ -3363,7 +3765,7 @@ fetch(url, {
                 <input type="text"
                name="type"
                data-endpoint="POSTapi-client-cars"
-               value="consectetur"
+               value="iusto"
                data-component="body" hidden>
     <br>
 
@@ -3373,7 +3775,7 @@ fetch(url, {
                 <input type="text"
                name="fuel"
                data-endpoint="POSTapi-client-cars"
-               value="est"
+               value="iure"
                data-component="body" hidden>
     <br>
 
@@ -3383,7 +3785,7 @@ fetch(url, {
                 <input type="text"
                name="make"
                data-endpoint="POSTapi-client-cars"
-               value="iste"
+               value="officiis"
                data-component="body" hidden>
     <br>
 
@@ -3393,7 +3795,7 @@ fetch(url, {
                 <input type="text"
                name="model"
                data-endpoint="POSTapi-client-cars"
-               value="deserunt"
+               value="repellat"
                data-component="body" hidden>
     <br>
 
@@ -3403,7 +3805,7 @@ fetch(url, {
                 <input type="text"
                name="engine"
                data-endpoint="POSTapi-client-cars"
-               value="quis"
+               value="aut"
                data-component="body" hidden>
     <br>
 
@@ -3413,7 +3815,7 @@ fetch(url, {
                 <input type="text"
                name="gear_box"
                data-endpoint="POSTapi-client-cars"
-               value="quod"
+               value="nesciunt"
                data-component="body" hidden>
     <br>
 
@@ -3423,7 +3825,7 @@ fetch(url, {
                 <input type="text"
                name="air_conditioner"
                data-endpoint="POSTapi-client-cars"
-               value="nulla"
+               value="amet"
                data-component="body" hidden>
     <br>
 
@@ -3433,7 +3835,7 @@ fetch(url, {
                 <input type="text"
                name="color"
                data-endpoint="POSTapi-client-cars"
-               value="ratione"
+               value="itaque"
                data-component="body" hidden>
     <br>
 
@@ -3453,28 +3855,28 @@ fetch(url, {
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/client/cars/6" \
+    "http://localhost/api/client/cars/14" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"user_id\": \"ex\",
-    \"vin_number\": \"amet\",
-    \"plate\": \"dolor\",
-    \"type\": \"est\",
-    \"fuel\": \"aut\",
-    \"make\": \"corporis\",
-    \"model\": \"sint\",
-    \"engine\": \"rerum\",
-    \"gear_box\": \"recusandae\",
-    \"air_conditioner\": \"quo\",
-    \"color\": \"ratione\"
+    \"user_id\": \"sed\",
+    \"vin_number\": \"qui\",
+    \"plate\": \"delectus\",
+    \"type\": \"reiciendis\",
+    \"fuel\": \"accusantium\",
+    \"make\": \"ea\",
+    \"model\": \"error\",
+    \"engine\": \"non\",
+    \"gear_box\": \"debitis\",
+    \"air_conditioner\": \"harum\",
+    \"color\": \"error\"
 }"
 </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/client/cars/6"
+    "http://localhost/api/client/cars/14"
 );
 
 const headers = {
@@ -3483,17 +3885,17 @@ const headers = {
 };
 
 let body = {
-    "user_id": "ex",
-    "vin_number": "amet",
-    "plate": "dolor",
-    "type": "est",
-    "fuel": "aut",
-    "make": "corporis",
-    "model": "sint",
-    "engine": "rerum",
-    "gear_box": "recusandae",
-    "air_conditioner": "quo",
-    "color": "ratione"
+    "user_id": "sed",
+    "vin_number": "qui",
+    "plate": "delectus",
+    "type": "reiciendis",
+    "fuel": "accusantium",
+    "make": "ea",
+    "model": "error",
+    "engine": "non",
+    "gear_box": "debitis",
+    "air_conditioner": "harum",
+    "color": "error"
 };
 
 fetch(url, {
@@ -3551,7 +3953,7 @@ fetch(url, {
                 <input type="number"
                name="car_id"
                data-endpoint="PUTapi-client-cars--car_id-"
-               value="6"
+               value="14"
                data-component="url" hidden>
     <br>
 <p>The ID of the car.</p>
@@ -3562,7 +3964,7 @@ fetch(url, {
                 <input type="text"
                name="user_id"
                data-endpoint="PUTapi-client-cars--car_id-"
-               value="ex"
+               value="sed"
                data-component="body" hidden>
     <br>
 
@@ -3572,7 +3974,7 @@ fetch(url, {
                 <input type="text"
                name="vin_number"
                data-endpoint="PUTapi-client-cars--car_id-"
-               value="amet"
+               value="qui"
                data-component="body" hidden>
     <br>
 
@@ -3582,7 +3984,7 @@ fetch(url, {
                 <input type="text"
                name="plate"
                data-endpoint="PUTapi-client-cars--car_id-"
-               value="dolor"
+               value="delectus"
                data-component="body" hidden>
     <br>
 
@@ -3592,7 +3994,7 @@ fetch(url, {
                 <input type="text"
                name="type"
                data-endpoint="PUTapi-client-cars--car_id-"
-               value="est"
+               value="reiciendis"
                data-component="body" hidden>
     <br>
 
@@ -3602,7 +4004,7 @@ fetch(url, {
                 <input type="text"
                name="fuel"
                data-endpoint="PUTapi-client-cars--car_id-"
-               value="aut"
+               value="accusantium"
                data-component="body" hidden>
     <br>
 
@@ -3612,7 +4014,7 @@ fetch(url, {
                 <input type="text"
                name="make"
                data-endpoint="PUTapi-client-cars--car_id-"
-               value="corporis"
+               value="ea"
                data-component="body" hidden>
     <br>
 
@@ -3622,7 +4024,7 @@ fetch(url, {
                 <input type="text"
                name="model"
                data-endpoint="PUTapi-client-cars--car_id-"
-               value="sint"
+               value="error"
                data-component="body" hidden>
     <br>
 
@@ -3632,7 +4034,7 @@ fetch(url, {
                 <input type="text"
                name="engine"
                data-endpoint="PUTapi-client-cars--car_id-"
-               value="rerum"
+               value="non"
                data-component="body" hidden>
     <br>
 
@@ -3642,7 +4044,7 @@ fetch(url, {
                 <input type="text"
                name="gear_box"
                data-endpoint="PUTapi-client-cars--car_id-"
-               value="recusandae"
+               value="debitis"
                data-component="body" hidden>
     <br>
 
@@ -3652,7 +4054,7 @@ fetch(url, {
                 <input type="text"
                name="air_conditioner"
                data-endpoint="PUTapi-client-cars--car_id-"
-               value="quo"
+               value="harum"
                data-component="body" hidden>
     <br>
 
@@ -3662,7 +4064,7 @@ fetch(url, {
                 <input type="text"
                name="color"
                data-endpoint="PUTapi-client-cars--car_id-"
-               value="ratione"
+               value="error"
                data-component="body" hidden>
     <br>
 
@@ -3682,14 +4084,14 @@ fetch(url, {
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/client/cars/10" \
+    --get "http://localhost/api/client/cars/6" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/client/cars/10"
+    "http://localhost/api/client/cars/6"
 );
 
 const headers = {
@@ -3715,7 +4117,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 vary: Origin
-set-cookie: laravel_session=Lg63h3cKl8VIuqq3PBoryk7smfBvrbj7fpnb5iWI; expires=Mon, 10-Jan-2022 15:53:32 GMT; Max-Age=7200; path=/; httponly; samesite=lax
+set-cookie: laravel_session=dC4FtosDMI3GOOsrkZeoiuRZR3DNeAzIjeTQRNQs; expires=Tue, 11-Jan-2022 15:02:40 GMT; Max-Age=7200; path=/; httponly; samesite=lax
  </code></pre>
         </details>         <pre>
 
@@ -3769,7 +4171,7 @@ set-cookie: laravel_session=Lg63h3cKl8VIuqq3PBoryk7smfBvrbj7fpnb5iWI; expires=Mo
                 <input type="number"
                name="client_id"
                data-endpoint="GETapi-client-cars--client_id-"
-               value="10"
+               value="6"
                data-component="url" hidden>
     <br>
 <p>The ID of the client.</p>
@@ -3789,14 +4191,14 @@ set-cookie: laravel_session=Lg63h3cKl8VIuqq3PBoryk7smfBvrbj7fpnb5iWI; expires=Mo
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/client/cars/11" \
+    "http://localhost/api/client/cars/19" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/client/cars/11"
+    "http://localhost/api/client/cars/19"
 );
 
 const headers = {
@@ -3858,7 +4260,7 @@ fetch(url, {
                 <input type="number"
                name="car_id"
                data-endpoint="DELETEapi-client-cars--car_id-"
-               value="11"
+               value="19"
                data-component="url" hidden>
     <br>
 <p>The ID of the car.</p>
@@ -3911,7 +4313,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 vary: Origin
-set-cookie: laravel_session=becuqrrHVeGMiBQxOsiVGgmj6Y4tDrOxbjuNwNVe; expires=Mon, 10-Jan-2022 15:53:32 GMT; Max-Age=7200; path=/; httponly; samesite=lax
+set-cookie: laravel_session=zHlkIPupPXkCxDoPa8F5W5eot8qXELoP50QthNb6; expires=Tue, 11-Jan-2022 15:02:40 GMT; Max-Age=7200; path=/; httponly; samesite=lax
  </code></pre>
         </details>         <pre>
 

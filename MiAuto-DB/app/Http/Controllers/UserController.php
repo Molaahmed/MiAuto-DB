@@ -14,6 +14,21 @@ use App\Http\Resources\UserResource;
 class UserController extends Controller
 {
 
+
+
+    
+
+    /**
+     * GET api/users
+     * 
+     * Returns all the clients.
+     * 
+     * @response {"data":[{"id":1,"first_name":"Vaj\u00e8n","last_name":"Joosten","email":"chloe48@hoeks.nl","date_of_birth":"2021-12-25","address":"van Duvenvoirdestraat 16\n1949AN Beek","phone_number":"+316677260032"},{"id":2,"first_name":"Aaron","last_name":"van der Velden","email":"isis.peters@heinrichs.com","date_of_birth":"2021-12-21","address":"Blomring 1-p\n2685VZ Zwijndrecht","phone_number":"+8555950674310"}]}
+     *
+     * @response status=401 { "message": "Unauthenticated." }
+     * @authenticated
+     */
+
     public function index()
     {
         $clients = DB::table('users')
@@ -25,57 +40,45 @@ class UserController extends Controller
         
     }
 
+
+
+    /**
+     * GET api/user
+     * 
+     * Returns the data for the user that is authenticated.
+     * 
+     * @response {"id":11,"first_name":"Dave","last_name":"van der Kaay","email":"amin.tahiri@ismail.nl","date_of_birth":"2021-12-18","address":"Ko\u00e7dreef 5-7\n3551GH Tilburg","phone_number":"+298159732","role":"garage_administration"}
+     * @response status=401 { "message": "Unauthenticated." }
+     * 
+     * @authenticated
+     */
     public function User()
     {
-        //  $role_id = DB::table('users')
-        // ->join('user_role','user_role.user_id','=','users.id')
-        // ->where('users.id',Auth::user()->id)
-        // ->select('user_role.role_id')->value('role_id');
-
         return new JsonResponse( DB::table('users')
         ->join('user_role','user_role.user_id','=','users.id')
         ->join('roles','roles.id','=','user_role.role_id')
         ->where('users.id',Auth::user()->id)
         ->select('users.id','users.first_name','users.last_name', 'users.email' ,'users.date_of_birth' ,'users.address' ,'users.phone_number','roles.name as role')
         ->first(), 200);
-
-        // return Auth::user();
-        //if its a garage owner or employee we return the garage he's/she's working at
-        // if($role_id == 2 || $role_id == 3 || $role_id == 4)
-        // {
-        //     return DB::table('users')
-        // ->join('user_role','user_role.user_id','=','users.id')
-        // ->join('roles','roles.id','=','user_role.role_id')
-        // ->join('employees','employees.user_id','users.id')
-        // ->join('garages','garages.user_id','=','users.id')
-        // ->where('users.id',Auth::user()->id)
-        // ->select('users.*','garages.name as Garage','garages.address as GarageAddress','garages.email as GarageEmail','garages.phone_number as GaragePhoneNumber','roles.name as role','employees.salary')
-        // ->first();
-        // }
-
-        // else{
-        //     return DB::table('users')
-        //     ->join('user_role','user_role.user_id','=','users.id')
-        //     ->join('roles','roles.id','=','user_role.role_id')
-        //     ->where('users.id',Auth::user()->id)
-        //     ->select('users.*','roles.name as role')
-        //     ->first();
-        // // }
-        
     }
 
+
+
+    /**
+     * PUT api/user/update
+     * 
+     * Update the user that is authenticated.
+     * 
+     * @response scenario=success { "message": "Updated successful" }
+     * @response status=422 {"errors":{"first_name":["The first name field is required."],"last_name":["The last name field is required."],"email":["The email field is required."],"date_of_birth":["The date of birth field is required."],"address":["The address field is required."],"phone_number":["The phone number field is required."]}}
+     * @response status=401 { "message": "Unauthenticated." }
+     * @authenticated
+     */
     public function updateProfile(Request $request)
     {
-        $user = User::where('id', Auth::user()->id)->first();
+        $user = User::findOrFail(Auth::user()->id);
 
-        if(!$user)
-        {
-            return response([
-                'message' => ['User not found'] 
-            ],404);
-        }
-
-        $request->validate([
+        $validator = Validator::make($request->all(),[
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required|email',
@@ -83,12 +86,18 @@ class UserController extends Controller
             'address'=> 'required',
             'phone_number'=> 'required'
         ]);
-        
-        $user->update($request->all());
 
-        return new JsonResponse('Updated successful', 200);
+        if($validator->fails()){
+            return new JsonResponse(['errors'=>$validator->messages()],422);
+        }else{
+            $user->update($request->all());
+
+            return new JsonResponse('Updated successful', 200);
+        }
     }
 
+
+ 
     public function updateClientProfile(Request $request, $client_id)
     {
 

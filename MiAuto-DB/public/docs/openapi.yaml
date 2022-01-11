@@ -9,8 +9,8 @@ servers:
 paths:
   /api/login:
     post:
-      summary: ''
-      description: ''
+      summary: 'POST api/login'
+      description: "This endpoint is used by all types of users to be authenticated.\nIn the response, there will be a token that you need to use in every request that you make to the server.\n\n<aside class=\"notice\">Use the token in every request that you make in order to be authorized to access resources.</aside>"
       parameters:
         -
           in: header
@@ -26,14 +26,51 @@ paths:
           example: application/json
           schema:
             type: string
-      responses: {  }
+      responses:
+        200:
+          description: success
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "{\n \"4|va23TB3m66Pr1W7ozSfDuRWMsHnf6fhwexyTY1Wg\"\n}"
+        422:
+          description: 'user not found'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'These credentials do not match out records.'
+                properties:
+                  message:
+                    type: string
+                    example: 'These credentials do not match out records.'
       tags:
         - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'The email of the user.'
+                  example: example@gmail.com
+                password:
+                  type: string
+                  description: 'Password of the user.'
+                  example: password
+              required:
+                - email
+                - password
       security: []
   /api/logout:
     post:
-      summary: ''
-      description: ''
+      summary: 'POST api/logout'
+      description: 'This endpoint will log out the user and destroy the token that is used.'
       parameters:
         -
           in: header
@@ -55,8 +92,8 @@ paths:
       security: []
   /api/client/register:
     post:
-      summary: ''
-      description: ''
+      summary: 'POST api/client/register'
+      description: 'This endpoint is used to create client. The endpoint is used for development pupposes.'
       parameters:
         -
           in: header
@@ -72,7 +109,99 @@ paths:
           example: application/json
           schema:
             type: string
-      responses: {  }
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  first_name: Luuk
+                  last_name: 'van der Steen'
+                  email: luckeeylssuddukss.633@gmail.com
+                  date_of_birth: '2001-02-06'
+                  address: 'Juan Leon Mera, 19, Av. Patria'
+                  phone_number: '4 123 4567'
+                  id: 14
+                properties:
+                  first_name:
+                    type: string
+                    example: Luuk
+                  last_name:
+                    type: string
+                    example: 'van der Steen'
+                  email:
+                    type: string
+                    example: luckeeylssuddukss.633@gmail.com
+                  date_of_birth:
+                    type: string
+                    example: '2001-02-06'
+                  address:
+                    type: string
+                    example: 'Juan Leon Mera, 19, Av. Patria'
+                  phone_number:
+                    type: string
+                    example: '4 123 4567'
+                  id:
+                    type: integer
+                    example: 14
+        422:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  first_name:
+                    - 'The first name field is required.'
+                  last_name:
+                    - 'The last name field is required.'
+                  email:
+                    - 'The email field is required.'
+                  date_of_birth:
+                    - 'The date of birth field is required.'
+                  address:
+                    - 'The address field is required.'
+                  phone_number:
+                    - 'The phone number field is required.'
+                properties:
+                  first_name:
+                    type: array
+                    example:
+                      - 'The first name field is required.'
+                    items:
+                      type: string
+                  last_name:
+                    type: array
+                    example:
+                      - 'The last name field is required.'
+                    items:
+                      type: string
+                  email:
+                    type: array
+                    example:
+                      - 'The email field is required.'
+                    items:
+                      type: string
+                  date_of_birth:
+                    type: array
+                    example:
+                      - 'The date of birth field is required.'
+                    items:
+                      type: string
+                  address:
+                    type: array
+                    example:
+                      - 'The address field is required.'
+                    items:
+                      type: string
+                  phone_number:
+                    type: array
+                    example:
+                      - 'The phone number field is required.'
+                    items:
+                      type: string
       tags:
         - Endpoints
       requestBody:
@@ -85,27 +214,27 @@ paths:
                 first_name:
                   type: string
                   description: ''
-                  example: neque
+                  example: Luuk
                 last_name:
                   type: string
                   description: ''
-                  example: quo
+                  example: 'van der Steen'
                 email:
                   type: string
                   description: 'Must be a valid email address.'
-                  example: loren90@example.org
+                  example: marquardt.anabelle@example.org
                 date_of_birth:
                   type: string
                   description: ''
-                  example: harum
+                  example: '2001-02-06'
                 address:
                   type: string
                   description: ''
-                  example: qui
+                  example: 'Juan Leon Mera, 19, Av. Patria'
                 phone_number:
                   type: string
                   description: ''
-                  example: ullam
+                  example: '+5514123456'
               required:
                 - first_name
                 - last_name
@@ -116,8 +245,8 @@ paths:
       security: []
   /api/garage/register:
     post:
-      summary: ''
-      description: ''
+      summary: 'POST api/garage/register'
+      description: "This endpoint will first create a user and then assign the garage to that user.\nYou need to pass the client credentials and the garage in the same request."
       parameters:
         -
           in: header
@@ -133,7 +262,127 @@ paths:
           example: application/json
           schema:
             type: string
-      responses: {  }
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  user_id: 15
+                  name: ut
+                  address: placeat
+                  email: hic@gmail.com
+                  phone_number: '+3125544785'
+                  id: 6
+                properties:
+                  user_id:
+                    type: integer
+                    example: 15
+                  name:
+                    type: string
+                    example: ut
+                  address:
+                    type: string
+                    example: placeat
+                  email:
+                    type: string
+                    example: hic@gmail.com
+                  phone_number:
+                    type: string
+                    example: '+3125544785'
+                  id:
+                    type: integer
+                    example: 6
+        422:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  first_name:
+                    - 'The first name field is required.'
+                  last_name:
+                    - 'The last name field is required.'
+                  email:
+                    - 'The email field is required.'
+                  date_of_birth:
+                    - 'The date of birth field is required.'
+                  address:
+                    - 'The address field is required.'
+                  phone_number:
+                    - 'The phone number field is required.'
+                  garage_email:
+                    - 'The garage_email of garage field is required.'
+                  garage_address:
+                    - 'The garage_address of garage field is required.'
+                  name:
+                    - 'The name of garage field is required.'
+                  garage_phone_number:
+                    - 'The garage_phone_number of garage field is required.'
+                properties:
+                  first_name:
+                    type: array
+                    example:
+                      - 'The first name field is required.'
+                    items:
+                      type: string
+                  last_name:
+                    type: array
+                    example:
+                      - 'The last name field is required.'
+                    items:
+                      type: string
+                  email:
+                    type: array
+                    example:
+                      - 'The email field is required.'
+                    items:
+                      type: string
+                  date_of_birth:
+                    type: array
+                    example:
+                      - 'The date of birth field is required.'
+                    items:
+                      type: string
+                  address:
+                    type: array
+                    example:
+                      - 'The address field is required.'
+                    items:
+                      type: string
+                  phone_number:
+                    type: array
+                    example:
+                      - 'The phone number field is required.'
+                    items:
+                      type: string
+                  garage_email:
+                    type: array
+                    example:
+                      - 'The garage_email of garage field is required.'
+                    items:
+                      type: string
+                  garage_address:
+                    type: array
+                    example:
+                      - 'The garage_address of garage field is required.'
+                    items:
+                      type: string
+                  name:
+                    type: array
+                    example:
+                      - 'The name of garage field is required.'
+                    items:
+                      type: string
+                  garage_phone_number:
+                    type: array
+                    example:
+                      - 'The garage_phone_number of garage field is required.'
+                    items:
+                      type: string
       tags:
         - Endpoints
       requestBody:
@@ -145,32 +394,44 @@ paths:
               properties:
                 first_name:
                   type: string
-                  description: 'Must be at least 2 characters.'
-                  example: r
+                  description: ''
+                  example: Luuk
                 last_name:
                   type: string
-                  description: 'Must be at least 2 characters.'
-                  example: oq
+                  description: ''
+                  example: 'van der Steen'
                 date_of_birth:
                   type: string
                   description: ''
-                  example: ut
+                  example: '2001-02-06'
                 address:
                   type: string
                   description: ''
-                  example: illum
+                  example: 'Juan Leon Mera, 19, Av. Patria'
                 email:
                   type: string
                   description: ''
-                  example: aut
+                  example: assumenda
                 phone_number:
                   type: string
                   description: ''
-                  example: laborum
+                  example: '+5514123456'
                 name:
                   type: string
-                  description: garage.
-                  example: facilis
+                  description: 'Name of the garage.'
+                  example: numquam
+                garage_address:
+                  type: string
+                  description: 'Address of the garage.'
+                  example: nesciunt
+                garage_email:
+                  type: string
+                  description: 'Email of the garage.'
+                  example: recusandae
+                garage_phone_number:
+                  type: string
+                  description: 'Phone number of the garage.'
+                  example: animi
               required:
                 - first_name
                 - last_name
@@ -179,6 +440,9 @@ paths:
                 - email
                 - phone_number
                 - name
+                - garage_address
+                - garage_email
+                - garage_phone_number
       security: []
   /api/authenticated:
     get:
@@ -217,8 +481,8 @@ paths:
       security: []
   /api/user:
     get:
-      summary: ''
-      description: ''
+      summary: 'GET api/user'
+      description: 'Returns the data for the user that is authenticated.'
       parameters:
         -
           in: header
@@ -235,6 +499,46 @@ paths:
           schema:
             type: string
       responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 11
+                  first_name: Dave
+                  last_name: 'van der Kaay'
+                  email: amin.tahiri@ismail.nl
+                  date_of_birth: '2021-12-18'
+                  address: "Koçdreef 5-7\n3551GH Tilburg"
+                  phone_number: '+298159732'
+                  role: garage_administration
+                properties:
+                  id:
+                    type: integer
+                    example: 11
+                  first_name:
+                    type: string
+                    example: Dave
+                  last_name:
+                    type: string
+                    example: 'van der Kaay'
+                  email:
+                    type: string
+                    example: amin.tahiri@ismail.nl
+                  date_of_birth:
+                    type: string
+                    example: '2021-12-18'
+                  address:
+                    type: string
+                    example: "Koçdreef 5-7\n3551GH Tilburg"
+                  phone_number:
+                    type: string
+                    example: '+298159732'
+                  role:
+                    type: string
+                    example: garage_administration
         401:
           description: ''
           content:
@@ -249,11 +553,10 @@ paths:
                     example: Unauthenticated.
       tags:
         - Endpoints
-      security: []
   /api/users:
     get:
-      summary: ''
-      description: ''
+      summary: 'GET api/users'
+      description: 'Returns all the clients.'
       parameters:
         -
           in: header
@@ -270,6 +573,52 @@ paths:
           schema:
             type: string
       responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: 1
+                      first_name: Vajèn
+                      last_name: Joosten
+                      email: chloe48@hoeks.nl
+                      date_of_birth: '2021-12-25'
+                      address: "van Duvenvoirdestraat 16\n1949AN Beek"
+                      phone_number: '+316677260032'
+                    -
+                      id: 2
+                      first_name: Aaron
+                      last_name: 'van der Velden'
+                      email: isis.peters@heinrichs.com
+                      date_of_birth: '2021-12-21'
+                      address: "Blomring 1-p\n2685VZ Zwijndrecht"
+                      phone_number: '+8555950674310'
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        first_name: Vajèn
+                        last_name: Joosten
+                        email: chloe48@hoeks.nl
+                        date_of_birth: '2021-12-25'
+                        address: "van Duvenvoirdestraat 16\n1949AN Beek"
+                        phone_number: '+316677260032'
+                      -
+                        id: 2
+                        first_name: Aaron
+                        last_name: 'van der Velden'
+                        email: isis.peters@heinrichs.com
+                        date_of_birth: '2021-12-21'
+                        address: "Blomring 1-p\n2685VZ Zwijndrecht"
+                        phone_number: '+8555950674310'
+                    items:
+                      type: object
         401:
           description: ''
           content:
@@ -284,11 +633,10 @@ paths:
                     example: Unauthenticated.
       tags:
         - Endpoints
-      security: []
   /api/user/update:
     put:
-      summary: ''
-      description: ''
+      summary: 'PUT api/user/update'
+      description: 'Update the user that is authenticated.'
       parameters:
         -
           in: header
@@ -304,10 +652,107 @@ paths:
           example: application/json
           schema:
             type: string
-      responses: {  }
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Updated successful'
+                properties:
+                  message:
+                    type: string
+                    example: 'Updated successful'
+        422:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  errors:
+                    first_name:
+                      - 'The first name field is required.'
+                    last_name:
+                      - 'The last name field is required.'
+                    email:
+                      - 'The email field is required.'
+                    date_of_birth:
+                      - 'The date of birth field is required.'
+                    address:
+                      - 'The address field is required.'
+                    phone_number:
+                      - 'The phone number field is required.'
+                properties:
+                  errors:
+                    type: object
+                    example:
+                      first_name:
+                        - 'The first name field is required.'
+                      last_name:
+                        - 'The last name field is required.'
+                      email:
+                        - 'The email field is required.'
+                      date_of_birth:
+                        - 'The date of birth field is required.'
+                      address:
+                        - 'The address field is required.'
+                      phone_number:
+                        - 'The phone number field is required.'
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
       tags:
         - Endpoints
-      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                  description: ''
+                  example: consequatur
+                last_name:
+                  type: string
+                  description: ''
+                  example: eaque
+                email:
+                  type: string
+                  description: 'Must be a valid email address.'
+                  example: crawford.zboncak@example.com
+                date_of_birth:
+                  type: string
+                  description: ''
+                  example: nulla
+                address:
+                  type: string
+                  description: ''
+                  example: ut
+                phone_number:
+                  type: string
+                  description: ''
+                  example: ducimus
+              required:
+                - first_name
+                - last_name
+                - email
+                - date_of_birth
+                - address
+                - phone_number
   /api/reservation:
     put:
       summary: ''
@@ -340,31 +785,31 @@ paths:
                 user_id:
                   type: string
                   description: ''
-                  example: quia
+                  example: vel
                 employee_id:
                   type: string
                   description: ''
-                  example: quia
+                  example: quasi
                 vin_number:
                   type: string
                   description: ''
-                  example: rerum
+                  example: illum
                 description:
                   type: string
                   description: ''
-                  example: fugiat
+                  example: tenetur
                 date:
                   type: string
                   description: ''
-                  example: provident
+                  example: reprehenderit
                 startingTime:
                   type: string
                   description: ''
-                  example: consectetur
+                  example: minus
                 endingTime:
                   type: string
                   description: ''
-                  example: vel
+                  example: ullam
               required:
                 - user_id
                 - employee_id
@@ -483,7 +928,7 @@ paths:
         in: path
         name: address
         description: ''
-        example: odio
+        example: at
         required: true
         schema:
           type: string
@@ -527,7 +972,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the garage.'
-        example: 4
+        example: 15
         required: true
         schema:
           type: integer
@@ -598,47 +1043,47 @@ paths:
                 user_id:
                   type: string
                   description: ''
-                  example: ut
+                  example: accusamus
                 vin_number:
                   type: string
                   description: ''
-                  example: exercitationem
+                  example: eveniet
                 plate:
                   type: string
                   description: ''
-                  example: quisquam
+                  example: et
                 type:
                   type: string
                   description: ''
-                  example: odit
+                  example: autem
                 fuel:
                   type: string
                   description: ''
-                  example: rerum
+                  example: ut
                 make:
                   type: string
                   description: ''
-                  example: repellat
+                  example: et
                 model:
                   type: string
                   description: ''
-                  example: eligendi
+                  example: sit
                 engine:
                   type: string
                   description: ''
-                  example: voluptatem
+                  example: et
                 gear_box:
                   type: string
                   description: ''
-                  example: officiis
+                  example: esse
                 air_conditioner:
                   type: string
                   description: ''
-                  example: ea
+                  example: a
                 color:
                   type: string
                   description: ''
-                  example: porro
+                  example: sint
               required:
                 - user_id
                 - vin_number
@@ -742,35 +1187,35 @@ paths:
                 first_name:
                   type: string
                   description: 'user table. Must be at least 2 characters.'
-                  example: ''
+                  example: hr
                 last_name:
                   type: string
                   description: 'Must be at least 2 characters.'
-                  example: x
+                  example: o
                 date_of_birth:
                   type: string
                   description: ''
-                  example: mollitia
+                  example: voluptate
                 address:
                   type: string
                   description: 'Must be at least 2 characters.'
-                  example: l
+                  example: pg
                 phone_number:
                   type: string
                   description: 'Must be at least 5 characters.'
-                  example: ''
+                  example: uu
                 email:
                   type: string
                   description: 'Must be a valid email address.'
-                  example: irogahn@example.com
+                  example: ssauer@example.org
                 garage_id:
                   type: string
                   description: ''
-                  example: sed
+                  example: dolor
                 role:
                   type: number
                   description: "//employee table\n'salary' => 'numeric',\n//role."
-                  example: 1396568.1678
+                  example: 384.4024231
               required:
                 - first_name
                 - last_name
@@ -812,31 +1257,31 @@ paths:
                 first_name:
                   type: string
                   description: 'user table. Must be at least 2 characters.'
-                  example: h
+                  example: oz
                 last_name:
                   type: string
                   description: 'Must be at least 2 characters.'
-                  example: es
+                  example: ''
                 email:
                   type: string
                   description: 'Must be a valid email address.'
-                  example: zachary.rogahn@example.org
+                  example: toy.lavern@example.net
                 date_of_birth:
                   type: string
                   description: ''
-                  example: modi
+                  example: et
                 address:
                   type: string
                   description: 'Must be at least 2 characters.'
-                  example: jm
+                  example: kr
                 phone_number:
                   type: string
                   description: 'Must be at least 5 characters.'
-                  example: tace
+                  example: ucmnq
                 role:
                   type: number
                   description: role.
-                  example: 9.0
+                  example: 5169.0
               required:
                 - first_name
                 - last_name
@@ -894,7 +1339,7 @@ paths:
         in: path
         name: garage_id
         description: 'The ID of the garage.'
-        example: 3
+        example: 11
         required: true
         schema:
           type: integer
@@ -938,14 +1383,14 @@ paths:
         in: path
         name: garage_id
         description: 'The ID of the garage.'
-        example: 11
+        example: 1
         required: true
         schema:
           type: integer
   /api/garage/client/register:
     post:
-      summary: ''
-      description: ''
+      summary: 'POST api/client/register'
+      description: 'This endpoint is used to create client. The endpoint is used for development pupposes.'
       parameters:
         -
           in: header
@@ -961,7 +1406,99 @@ paths:
           example: application/json
           schema:
             type: string
-      responses: {  }
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  first_name: Luuk
+                  last_name: 'van der Steen'
+                  email: luckeeylssuddukss.633@gmail.com
+                  date_of_birth: '2001-02-06'
+                  address: 'Juan Leon Mera, 19, Av. Patria'
+                  phone_number: '4 123 4567'
+                  id: 14
+                properties:
+                  first_name:
+                    type: string
+                    example: Luuk
+                  last_name:
+                    type: string
+                    example: 'van der Steen'
+                  email:
+                    type: string
+                    example: luckeeylssuddukss.633@gmail.com
+                  date_of_birth:
+                    type: string
+                    example: '2001-02-06'
+                  address:
+                    type: string
+                    example: 'Juan Leon Mera, 19, Av. Patria'
+                  phone_number:
+                    type: string
+                    example: '4 123 4567'
+                  id:
+                    type: integer
+                    example: 14
+        422:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  first_name:
+                    - 'The first name field is required.'
+                  last_name:
+                    - 'The last name field is required.'
+                  email:
+                    - 'The email field is required.'
+                  date_of_birth:
+                    - 'The date of birth field is required.'
+                  address:
+                    - 'The address field is required.'
+                  phone_number:
+                    - 'The phone number field is required.'
+                properties:
+                  first_name:
+                    type: array
+                    example:
+                      - 'The first name field is required.'
+                    items:
+                      type: string
+                  last_name:
+                    type: array
+                    example:
+                      - 'The last name field is required.'
+                    items:
+                      type: string
+                  email:
+                    type: array
+                    example:
+                      - 'The email field is required.'
+                    items:
+                      type: string
+                  date_of_birth:
+                    type: array
+                    example:
+                      - 'The date of birth field is required.'
+                    items:
+                      type: string
+                  address:
+                    type: array
+                    example:
+                      - 'The address field is required.'
+                    items:
+                      type: string
+                  phone_number:
+                    type: array
+                    example:
+                      - 'The phone number field is required.'
+                    items:
+                      type: string
       tags:
         - Endpoints
       requestBody:
@@ -974,27 +1511,27 @@ paths:
                 first_name:
                   type: string
                   description: ''
-                  example: aspernatur
+                  example: Luuk
                 last_name:
                   type: string
                   description: ''
-                  example: numquam
+                  example: 'van der Steen'
                 email:
                   type: string
                   description: 'Must be a valid email address.'
-                  example: ykub@example.org
+                  example: gerhold.stephanie@example.org
                 date_of_birth:
                   type: string
                   description: ''
-                  example: est
+                  example: '2001-02-06'
                 address:
                   type: string
                   description: ''
-                  example: iure
+                  example: 'Juan Leon Mera, 19, Av. Patria'
                 phone_number:
                   type: string
                   description: ''
-                  example: aperiam
+                  example: '+5514123456'
               required:
                 - first_name
                 - last_name
@@ -1035,27 +1572,27 @@ paths:
                 first_name:
                   type: string
                   description: ''
-                  example: explicabo
+                  example: doloribus
                 last_name:
                   type: string
                   description: ''
-                  example: temporibus
+                  example: est
                 email:
                   type: string
                   description: 'Must be a valid email address.'
-                  example: luettgen.lavern@example.com
+                  example: ervin39@example.com
                 date_of_birth:
                   type: string
                   description: ''
-                  example: temporibus
+                  example: suscipit
                 address:
                   type: string
                   description: ''
-                  example: maxime
+                  example: quia
                 phone_number:
                   type: string
                   description: ''
-                  example: earum
+                  example: voluptas
               required:
                 - first_name
                 - last_name
@@ -1069,7 +1606,7 @@ paths:
         in: path
         name: client_id
         description: 'The ID of the client.'
-        example: aut
+        example: sunt
         required: true
         schema:
           type: string
@@ -1113,7 +1650,7 @@ paths:
         in: path
         name: client_id
         description: 'The ID of the client.'
-        example: 10
+        example: 1
         required: true
         schema:
           type: integer
@@ -1218,47 +1755,47 @@ paths:
                 user_id:
                   type: string
                   description: ''
-                  example: id
+                  example: minima
                 vin_number:
                   type: string
                   description: ''
-                  example: et
+                  example: modi
                 plate:
                   type: string
                   description: ''
-                  example: est
+                  example: delectus
                 type:
                   type: string
                   description: ''
-                  example: consectetur
+                  example: iusto
                 fuel:
                   type: string
                   description: ''
-                  example: est
+                  example: iure
                 make:
                   type: string
                   description: ''
-                  example: iste
+                  example: officiis
                 model:
                   type: string
                   description: ''
-                  example: deserunt
+                  example: repellat
                 engine:
                   type: string
                   description: ''
-                  example: quis
+                  example: aut
                 gear_box:
                   type: string
                   description: ''
-                  example: quod
+                  example: nesciunt
                 air_conditioner:
                   type: string
                   description: ''
-                  example: nulla
+                  example: amet
                 color:
                   type: string
                   description: ''
-                  example: ratione
+                  example: itaque
               required:
                 - user_id
                 - vin_number
@@ -1304,47 +1841,47 @@ paths:
                 user_id:
                   type: string
                   description: ''
-                  example: ex
+                  example: sed
                 vin_number:
                   type: string
                   description: ''
-                  example: amet
+                  example: qui
                 plate:
                   type: string
                   description: ''
-                  example: dolor
+                  example: delectus
                 type:
                   type: string
                   description: ''
-                  example: est
+                  example: reiciendis
                 fuel:
                   type: string
                   description: ''
-                  example: aut
+                  example: accusantium
                 make:
                   type: string
                   description: ''
-                  example: corporis
+                  example: ea
                 model:
                   type: string
                   description: ''
-                  example: sint
+                  example: error
                 engine:
                   type: string
                   description: ''
-                  example: rerum
+                  example: non
                 gear_box:
                   type: string
                   description: ''
-                  example: recusandae
+                  example: debitis
                 air_conditioner:
                   type: string
                   description: ''
-                  example: quo
+                  example: harum
                 color:
                   type: string
                   description: ''
-                  example: ratione
+                  example: error
               required:
                 - user_id
                 - vin_number
@@ -1385,7 +1922,7 @@ paths:
         in: path
         name: car_id
         description: 'The ID of the car.'
-        example: 6
+        example: 14
         required: true
         schema:
           type: integer
@@ -1429,7 +1966,7 @@ paths:
         in: path
         name: client_id
         description: 'The ID of the client.'
-        example: 10
+        example: 6
         required: true
         schema:
           type: integer

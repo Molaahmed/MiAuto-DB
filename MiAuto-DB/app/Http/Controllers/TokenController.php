@@ -10,6 +10,24 @@ use App\Models\User;
 class TokenController extends Controller
 {
     
+
+    /**
+     * POST api/login
+     * 
+     * This endpoint is used by all types of users to be authenticated. 
+     * In the response, there will be a token that you need to use in every request that you make to the server.
+     *
+     * <aside class="notice">Use the token in every request that you make in order to be authorized to access resources.</aside>
+     * 
+     * @bodyParam email string required The email of the user.  Example: example@gmail.com
+     * @bodyParam password string required Password of the user. Example: password
+     * 
+     * @response scenario=success {
+     *  "4|va23TB3m66Pr1W7ozSfDuRWMsHnf6fhwexyTY1Wg"
+     * }
+     * 
+     * @response status=422 scenario="user not found" {"message": "These credentials do not match out records."}
+     */
     public function store(Request $request)
     {
         $request->validate([
@@ -30,7 +48,11 @@ class TokenController extends Controller
 
     }
 
-
+    /**
+     * POST api/logout
+     * 
+     * This endpoint will log out the user and destroy the token that is used.
+     */
     public function destroy(Request $request)
     {
         Auth::logout();
