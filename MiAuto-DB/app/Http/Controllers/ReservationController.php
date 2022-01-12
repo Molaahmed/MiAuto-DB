@@ -54,7 +54,7 @@ class ReservationController extends Controller
     {
         $validator = Validator::make($request->all(),[
             'user_id' => 'required',
-            'employee_id' => 'required',
+            'garage_id' => 'required',
             'vin_number' => 'required',
             'description' => 'required',
             'date'=> 'required',
@@ -65,7 +65,7 @@ class ReservationController extends Controller
         $reservation = Reservation::where($request->id)
         ->update([
             'user_id' => $request->user_id,
-            'employee_id' => $request->employee_id,
+            'garage_id' => $request->garage_id,
             'vin_number' => $request->vin_number,
             'description' => $request->description,
             'date'=> $request->date,
