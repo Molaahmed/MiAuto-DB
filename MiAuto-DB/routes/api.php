@@ -43,7 +43,7 @@ Route::middleware('auth:sanctum')->group( function(){
     Route::get('/user' ,[UserController::class, 'User']);
     Route::get('/users', [UserController::class, 'index']);
     Route::put('/user/update', [UserController::class, 'updateProfile']);
-    Route::put('/reservation' ,[ReservationController::class, 'store']);
+    Route::post('/reservation' ,[ReservationController::class, 'store']);
     Route::get('/garages' ,[GarageController::class, 'index']);
     Route::get('/garages/address/{address}' ,[GarageController::class, 'searchByAddress']);
     Route::get('/garages/{id}' ,[GarageController::class, 'show']);
@@ -62,7 +62,9 @@ Route::middleware(['auth:sanctum','garage.admin'])->group(function() {
     Route::post('/employee/create',[GarageAdminController::class,'registerEmployee']);
     Route::put('/employee/update/{employee_id}',[GarageAdminController::class,'modifyEmployee']);
     Route::get('/employees/{garage_id}',[GarageAdminController::class,'getEmployees']);
+    //reservations
     Route::get('/reservations/{garage_id}' ,[ReservationController::class, 'getByGarageId']);
+    Route::post('/reservations/update',[ReservationController::class,'updateReservation']);
     Route::post('/garage/client/register', [RegistrationController::class, 'storeClient']);
     Route::put('/garage/client/update/{client_id}', [UserController::class, 'updateClientProfile']);
     Route::get('/garage/client/cars/{client_id}' ,[ClientCarController::class, 'show']);
