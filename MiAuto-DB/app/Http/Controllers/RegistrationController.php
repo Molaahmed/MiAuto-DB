@@ -29,7 +29,7 @@ class RegistrationController extends Controller
      * 
      * 
      * @response status=200  {"first_name":"Luuk","last_name":"van der Steen","email":"luckeeylssuddukss.633@gmail.com","date_of_birth":"2001-02-06","address":"Juan Leon Mera, 19, Av. Patria","phone_number":"4 123 4567","id":14}
-     * @response status=422  {"first_name":["The first name field is required."],"last_name":["The last name field is required."],"email":["The email field is required."],"date_of_birth":["The date of birth field is required."],"address":["The address field is required."],"phone_number":["The phone number field is required."]}
+     * @response status=422  {"first_name":["The first name field is required."],"last_name":["The last name field is required."],"email":["The email field is required."],"date_of_birth":["The date of birth field is required."],"address":["The address field is required."],"phone_number":["The phone number field is required."],"password":["The password field is required."]}
      * 
      */
     public function storeClient(Request $request)
@@ -41,6 +41,7 @@ class RegistrationController extends Controller
             'date_of_birth' => 'required',
             'address' => 'required',
             'phone_number' => 'required',
+            'password' => 'required',
         ]);
 
         if ($validated->fails()) {

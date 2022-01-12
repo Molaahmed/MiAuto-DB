@@ -43,7 +43,7 @@ Route::middleware('auth:sanctum')->group( function(){
     Route::get('/user' ,[UserController::class, 'User']);
     Route::get('/users', [UserController::class, 'index']);
     Route::put('/user/update', [UserController::class, 'updateProfile']);
-    Route::put('/reservation' ,[ReservationController::class, 'store']);
+    Route::post('/reservation' ,[ReservationController::class, 'store']);
     Route::get('/garages' ,[GarageController::class, 'index']);
     Route::get('/garages/address/{address}' ,[GarageController::class, 'searchByAddress']);
     Route::get('/garages/{id}' ,[GarageController::class, 'show']);

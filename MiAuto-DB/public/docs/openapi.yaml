@@ -165,6 +165,8 @@ paths:
                     - 'The address field is required.'
                   phone_number:
                     - 'The phone number field is required.'
+                  password:
+                    - 'The password field is required.'
                 properties:
                   first_name:
                     type: array
@@ -202,6 +204,12 @@ paths:
                       - 'The phone number field is required.'
                     items:
                       type: string
+                  password:
+                    type: array
+                    example:
+                      - 'The password field is required.'
+                    items:
+                      type: string
       tags:
         - Endpoints
       requestBody:
@@ -222,7 +230,7 @@ paths:
                 email:
                   type: string
                   description: 'Must be a valid email address.'
-                  example: marquardt.anabelle@example.org
+                  example: skye03@example.org
                 date_of_birth:
                   type: string
                   description: ''
@@ -235,6 +243,10 @@ paths:
                   type: string
                   description: ''
                   example: '+5514123456'
+                password:
+                  type: string
+                  description: ''
+                  example: dolorum
               required:
                 - first_name
                 - last_name
@@ -242,6 +254,7 @@ paths:
                 - date_of_birth
                 - address
                 - phone_number
+                - password
       security: []
   /api/garage/register:
     post:
@@ -411,7 +424,7 @@ paths:
                 email:
                   type: string
                   description: ''
-                  example: assumenda
+                  example: distinctio
                 phone_number:
                   type: string
                   description: ''
@@ -419,19 +432,19 @@ paths:
                 name:
                   type: string
                   description: 'Name of the garage.'
-                  example: numquam
+                  example: nulla
                 garage_address:
                   type: string
                   description: 'Address of the garage.'
-                  example: nesciunt
+                  example: voluptatum
                 garage_email:
                   type: string
                   description: 'Email of the garage.'
-                  example: recusandae
+                  example: ducimus
                 garage_phone_number:
                   type: string
                   description: 'Phone number of the garage.'
-                  example: animi
+                  example: iure
               required:
                 - first_name
                 - last_name
@@ -725,19 +738,19 @@ paths:
                 first_name:
                   type: string
                   description: ''
-                  example: consequatur
+                  example: ad
                 last_name:
                   type: string
                   description: ''
-                  example: eaque
+                  example: et
                 email:
                   type: string
                   description: 'Must be a valid email address.'
-                  example: crawford.zboncak@example.com
+                  example: kraig49@example.org
                 date_of_birth:
                   type: string
                   description: ''
-                  example: nulla
+                  example: eos
                 address:
                   type: string
                   description: ''
@@ -745,7 +758,7 @@ paths:
                 phone_number:
                   type: string
                   description: ''
-                  example: ducimus
+                  example: et
               required:
                 - first_name
                 - last_name
@@ -753,110 +766,10 @@ paths:
                 - date_of_birth
                 - address
                 - phone_number
-  /api/reservation:
-    put:
-      summary: ''
-      description: ''
-      parameters:
-        -
-          in: header
-          name: Content-Type
-          description: ''
-          example: application/json
-          schema:
-            type: string
-        -
-          in: header
-          name: Accept
-          description: ''
-          example: application/json
-          schema:
-            type: string
-      responses: {  }
-      tags:
-        - Endpoints
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                user_id:
-                  type: string
-                  description: ''
-                  example: vel
-                employee_id:
-                  type: string
-                  description: ''
-                  example: quasi
-                vin_number:
-                  type: string
-                  description: ''
-                  example: illum
-                description:
-                  type: string
-                  description: ''
-                  example: tenetur
-                date:
-                  type: string
-                  description: ''
-                  example: reprehenderit
-                startingTime:
-                  type: string
-                  description: ''
-                  example: minus
-                endingTime:
-                  type: string
-                  description: ''
-                  example: ullam
-              required:
-                - user_id
-                - employee_id
-                - vin_number
-                - description
-                - date
-                - startingTime
-                - endingTime
-      security: []
-    get:
-      summary: ''
-      description: ''
-      parameters:
-        -
-          in: header
-          name: Content-Type
-          description: ''
-          example: application/json
-          schema:
-            type: string
-        -
-          in: header
-          name: Accept
-          description: ''
-          example: application/json
-          schema:
-            type: string
-      responses:
-        401:
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  message: Unauthenticated.
-                properties:
-                  message:
-                    type: string
-                    example: Unauthenticated.
-      tags:
-        - Endpoints
-      security: []
   /api/garages:
     get:
-      summary: 'Display a listing of the resource.'
-      description: ''
+      summary: 'GET api/garages'
+      description: 'Retuns all the garages.'
       parameters:
         -
           in: header
@@ -873,6 +786,40 @@ paths:
           schema:
             type: string
       responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      name: 'Sten Haselaar'
+                      address: "van Dokkumhof 3\n9801TA Westerhaar-Vriezenveensewijk"
+                      phone_number: '+41682531929'
+                      email: lveenstra@gmail.com
+                    -
+                      name: ut
+                      address: placeat
+                      phone_number: '+3125544785'
+                      email: hic@gmail.com
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        name: 'Sten Haselaar'
+                        address: "van Dokkumhof 3\n9801TA Westerhaar-Vriezenveensewijk"
+                        phone_number: '+41682531929'
+                        email: lveenstra@gmail.com
+                      -
+                        name: ut
+                        address: placeat
+                        phone_number: '+3125544785'
+                        email: hic@gmail.com
+                    items:
+                      type: object
         401:
           description: ''
           content:
@@ -887,11 +834,10 @@ paths:
                     example: Unauthenticated.
       tags:
         - Endpoints
-      security: []
   '/api/garages/address/{address}':
     get:
-      summary: 'Store a newly created resource in storage.'
-      description: ''
+      summary: 'GET api/garages/address/{address}'
+      description: 'Search garages by address.'
       parameters:
         -
           in: header
@@ -908,6 +854,30 @@ paths:
           schema:
             type: string
       responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      name: 'Sten Haselaar'
+                      address: "van Dokkumhof 3\n9801TA Westerhaar-Vriezenveensewijk"
+                      phone_number: '+41682531929'
+                      email: lveenstra@gmail.com
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        name: 'Sten Haselaar'
+                        address: "van Dokkumhof 3\n9801TA Westerhaar-Vriezenveensewijk"
+                        phone_number: '+41682531929'
+                        email: lveenstra@gmail.com
+                    items:
+                      type: object
         401:
           description: ''
           content:
@@ -922,20 +892,19 @@ paths:
                     example: Unauthenticated.
       tags:
         - Endpoints
-      security: []
     parameters:
       -
         in: path
         name: address
         description: ''
-        example: at
+        example: sint
         required: true
         schema:
           type: string
   '/api/garages/{id}':
     get:
-      summary: ''
-      description: ''
+      summary: 'GET api/garages/{id}'
+      description: 'Search garage by ID.'
       parameters:
         -
           in: header
@@ -952,6 +921,38 @@ paths:
           schema:
             type: string
       responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 1
+                  user_id: 12
+                  name: 'Sten Haselaar'
+                  address: "van Dokkumhof 3\n9801TA Westerhaar-Vriezenveensewijk"
+                  email: lveenstra@gmail.com
+                  phone_number: '+41682531929'
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  user_id:
+                    type: integer
+                    example: 12
+                  name:
+                    type: string
+                    example: 'Sten Haselaar'
+                  address:
+                    type: string
+                    example: "van Dokkumhof 3\n9801TA Westerhaar-Vriezenveensewijk"
+                  email:
+                    type: string
+                    example: lveenstra@gmail.com
+                  phone_number:
+                    type: string
+                    example: '+41682531929'
         401:
           description: ''
           content:
@@ -966,20 +967,19 @@ paths:
                     example: Unauthenticated.
       tags:
         - Endpoints
-      security: []
     parameters:
       -
         in: path
         name: id
         description: 'The ID of the garage.'
-        example: 15
+        example: 14
         required: true
         schema:
           type: integer
   /api/cars:
     get:
-      summary: ''
-      description: ''
+      summary: 'GET api/cars'
+      description: 'Get all the cars in the Database.'
       parameters:
         -
           in: header
@@ -996,6 +996,98 @@ paths:
           schema:
             type: string
       responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: 1
+                      user_id: 13
+                      vin_number: 5kkt4y594A38e7y7h
+                      plate: UZK-611
+                      type: small
+                      fuel: hybrid
+                      make: Ford
+                      model: '46'
+                      engine: '4'
+                      gear_box: automatic
+                      air_conditioner: 1
+                      color: red
+                    -
+                      id: 2
+                      user_id: 9
+                      vin_number: 6ys7t1ej1A6xhv8rc
+                      plate: ZFD-892
+                      type: hatchback
+                      fuel: hybrid
+                      make: Chrysler
+                      model: Kingte
+                      engine: Attiva
+                      gear_box: automatic
+                      air_conditioner: 1
+                      color: red
+                    -
+                      id: 3
+                      user_id: 11
+                      vin_number: 3l2az2zw0Ayhv6nv6
+                      plate: KLC-009
+                      type: SUV
+                      fuel: electric
+                      make: Innocenti
+                      model: Beast
+                      engine: H3
+                      gear_box: automatic
+                      air_conditioner: 1
+                      color: red
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        user_id: 13
+                        vin_number: 5kkt4y594A38e7y7h
+                        plate: UZK-611
+                        type: small
+                        fuel: hybrid
+                        make: Ford
+                        model: '46'
+                        engine: '4'
+                        gear_box: automatic
+                        air_conditioner: 1
+                        color: red
+                      -
+                        id: 2
+                        user_id: 9
+                        vin_number: 6ys7t1ej1A6xhv8rc
+                        plate: ZFD-892
+                        type: hatchback
+                        fuel: hybrid
+                        make: Chrysler
+                        model: Kingte
+                        engine: Attiva
+                        gear_box: automatic
+                        air_conditioner: 1
+                        color: red
+                      -
+                        id: 3
+                        user_id: 11
+                        vin_number: 3l2az2zw0Ayhv6nv6
+                        plate: KLC-009
+                        type: SUV
+                        fuel: electric
+                        make: Innocenti
+                        model: Beast
+                        engine: H3
+                        gear_box: automatic
+                        air_conditioner: 1
+                        color: red
+                    items:
+                      type: object
         401:
           description: ''
           content:
@@ -1010,11 +1102,10 @@ paths:
                     example: Unauthenticated.
       tags:
         - Endpoints
-      security: []
   /api/cars/create:
     post:
-      summary: ''
-      description: ''
+      summary: 'POST api/cars/create'
+      description: 'Adding new car as Garage Administrator'
       parameters:
         -
           in: header
@@ -1030,7 +1121,87 @@ paths:
           example: application/json
           schema:
             type: string
-      responses: {  }
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Successfully created'
+                properties:
+                  message:
+                    type: string
+                    example: 'Successfully created'
+        422:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  errors:
+                    user_id:
+                      - 'The user id field is required.'
+                    vin_number:
+                      - 'The vin number field is required.'
+                    plate:
+                      - 'The plate field is required.'
+                    type:
+                      - 'The type field is required.'
+                    fuel:
+                      - 'The fuel field is required.'
+                    make:
+                      - 'The make field is required.'
+                    model:
+                      - 'The model field is required.'
+                    engine:
+                      - 'The engine field is required.'
+                    gear_box:
+                      - 'The gear box field is required.'
+                    air_conditioner:
+                      - 'The air conditioner field is required.'
+                    color:
+                      - 'The color field is required.'
+                properties:
+                  errors:
+                    type: object
+                    example:
+                      user_id:
+                        - 'The user id field is required.'
+                      vin_number:
+                        - 'The vin number field is required.'
+                      plate:
+                        - 'The plate field is required.'
+                      type:
+                        - 'The type field is required.'
+                      fuel:
+                        - 'The fuel field is required.'
+                      make:
+                        - 'The make field is required.'
+                      model:
+                        - 'The model field is required.'
+                      engine:
+                        - 'The engine field is required.'
+                      gear_box:
+                        - 'The gear box field is required.'
+                      air_conditioner:
+                        - 'The air conditioner field is required.'
+                      color:
+                        - 'The color field is required.'
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
       tags:
         - Endpoints
       requestBody:
@@ -1041,49 +1212,49 @@ paths:
               type: object
               properties:
                 user_id:
-                  type: string
+                  type: integer
                   description: ''
-                  example: accusamus
+                  example: 8
                 vin_number:
                   type: string
                   description: ''
-                  example: eveniet
+                  example: quo
                 plate:
                   type: string
                   description: ''
-                  example: et
+                  example: rerum
                 type:
                   type: string
                   description: ''
-                  example: autem
+                  example: nihil
                 fuel:
                   type: string
                   description: ''
-                  example: ut
+                  example: facilis
                 make:
                   type: string
                   description: ''
-                  example: et
+                  example: nihil
                 model:
                   type: string
                   description: ''
-                  example: sit
+                  example: eos
                 engine:
                   type: string
                   description: ''
-                  example: et
+                  example: vel
                 gear_box:
                   type: string
                   description: ''
-                  example: esse
+                  example: deserunt
                 air_conditioner:
-                  type: string
+                  type: boolean
                   description: ''
-                  example: a
+                  example: true
                 color:
                   type: string
                   description: ''
-                  example: sint
+                  example: repellendus
               required:
                 - user_id
                 - vin_number
@@ -1096,11 +1267,10 @@ paths:
                 - gear_box
                 - air_conditioner
                 - color
-      security: []
   /api/garage:
     get:
-      summary: ''
-      description: ''
+      summary: 'GET api/garage'
+      description: 'Returns the garages of the user that is authenticated.'
       parameters:
         -
           in: header
@@ -1117,6 +1287,29 @@ paths:
           schema:
             type: string
       responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                example:
+                  -
+                    id: 1
+                    user_id: 12
+                    name: 'Sten Haselaar'
+                    address: "van Dokkumhof 3\n9801TA Westerhaar-Vriezenveensewijk"
+                    email: lveenstra@gmail.com
+                    phone_number: '+41682531929'
+                  -
+                    id: 6
+                    user_id: 12
+                    name: ut
+                    address: placeat
+                    email: hic@gmail.com
+                    phone_number: '+3125544785'
         401:
           description: ''
           content:
@@ -1131,11 +1324,10 @@ paths:
                     example: Unauthenticated.
       tags:
         - Endpoints
-      security: []
   /api/client/create:
     post:
-      summary: ''
-      description: ''
+      summary: 'POST api/client/create'
+      description: 'Create new client as Garage Administrator'
       parameters:
         -
           in: header
@@ -1151,14 +1343,139 @@ paths:
           example: application/json
           schema:
             type: string
-      responses: {  }
+      responses:
+        200:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: ''
+        422:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  first_name:
+                    - 'The first name field is required.'
+                  last_name:
+                    - 'The last name field is required.'
+                  email:
+                    - 'The email field is required.'
+                  date_of_birth:
+                    - 'The date of birth field is required.'
+                  address:
+                    - 'The address field is required.'
+                  phone_number:
+                    - 'The phone number field is required.'
+                  password:
+                    - 'The password field is required.'
+                properties:
+                  first_name:
+                    type: array
+                    example:
+                      - 'The first name field is required.'
+                    items:
+                      type: string
+                  last_name:
+                    type: array
+                    example:
+                      - 'The last name field is required.'
+                    items:
+                      type: string
+                  email:
+                    type: array
+                    example:
+                      - 'The email field is required.'
+                    items:
+                      type: string
+                  date_of_birth:
+                    type: array
+                    example:
+                      - 'The date of birth field is required.'
+                    items:
+                      type: string
+                  address:
+                    type: array
+                    example:
+                      - 'The address field is required.'
+                    items:
+                      type: string
+                  phone_number:
+                    type: array
+                    example:
+                      - 'The phone number field is required.'
+                    items:
+                      type: string
+                  password:
+                    type: array
+                    example:
+                      - 'The password field is required.'
+                    items:
+                      type: string
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
       tags:
         - Endpoints
-      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                  description: ''
+                  example: Luuk
+                last_name:
+                  type: string
+                  description: ''
+                  example: 'van der Steen'
+                email:
+                  type: string
+                  description: 'Must be a valid email address.'
+                  example: edison.collins@example.org
+                date_of_birth:
+                  type: string
+                  description: ''
+                  example: '2001-02-06'
+                address:
+                  type: string
+                  description: ''
+                  example: 'Juan Leon Mera, 19, Av. Patria'
+                phone_number:
+                  type: string
+                  description: ''
+                  example: '+5514123456'
+                password:
+                  type: string
+                  description: ''
+                  example: password
+              required:
+                - first_name
+                - last_name
+                - email
+                - date_of_birth
+                - address
+                - phone_number
+                - password
   /api/employee/create:
     post:
-      summary: ''
-      description: ''
+      summary: 'POST api/employee/create'
+      description: "Create new employee.\nAdd that employee to the garage"
       parameters:
         -
           in: header
@@ -1174,7 +1491,83 @@ paths:
           example: application/json
           schema:
             type: string
-      responses: {  }
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Successfully created'
+                properties:
+                  message:
+                    type: string
+                    example: 'Successfully created'
+        422:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  errors:
+                    first_name:
+                      - 'The first name field is required.'
+                    last_name:
+                      - 'The last name field is required.'
+                    date_of_birth:
+                      - 'The date of birth field is required.'
+                    address:
+                      - 'The address field is required.'
+                    phone_number:
+                      - 'The phone number field is required.'
+                    email:
+                      - 'The email field is required.'
+                    garage_id:
+                      - 'The garage id field is required.'
+                properties:
+                  errors:
+                    type: object
+                    example:
+                      first_name:
+                        - 'The first name field is required.'
+                      last_name:
+                        - 'The last name field is required.'
+                      date_of_birth:
+                        - 'The date of birth field is required.'
+                      address:
+                        - 'The address field is required.'
+                      phone_number:
+                        - 'The phone number field is required.'
+                      email:
+                        - 'The email field is required.'
+                      garage_id:
+                        - 'The garage id field is required.'
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  Error: 'Employee not saved'
+                properties:
+                  Error:
+                    type: string
+                    example: 'Employee not saved'
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
       tags:
         - Endpoints
       requestBody:
@@ -1187,35 +1580,35 @@ paths:
                 first_name:
                   type: string
                   description: 'user table. Must be at least 2 characters.'
-                  example: hr
+                  example: nq
                 last_name:
                   type: string
                   description: 'Must be at least 2 characters.'
-                  example: o
+                  example: ''
                 date_of_birth:
                   type: string
                   description: ''
-                  example: voluptate
+                  example: reprehenderit
                 address:
                   type: string
                   description: 'Must be at least 2 characters.'
-                  example: pg
+                  example: ij
                 phone_number:
                   type: string
                   description: 'Must be at least 5 characters.'
-                  example: uu
+                  example: enmn
                 email:
                   type: string
                   description: 'Must be a valid email address.'
-                  example: ssauer@example.org
+                  example: nick63@example.net
                 garage_id:
                   type: string
                   description: ''
-                  example: dolor
+                  example: ut
                 role:
                   type: number
-                  description: "//employee table\n'salary' => 'numeric',\n//role."
-                  example: 384.4024231
+                  description: ''
+                  example: 16382905.7826
               required:
                 - first_name
                 - last_name
@@ -1224,11 +1617,10 @@ paths:
                 - phone_number
                 - email
                 - garage_id
-      security: []
   '/api/employee/update/{employee_id}':
     put:
-      summary: ''
-      description: ''
+      summary: 'PUT api/employee/update/{employee_id}'
+      description: 'Edit employee employee working in the garage.'
       parameters:
         -
           in: header
@@ -1244,7 +1636,55 @@ paths:
           example: application/json
           schema:
             type: string
-      responses: {  }
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Successfully updated'
+                properties:
+                  message:
+                    type: string
+                    example: 'Successfully updated'
+        422:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  'error: record not found': 'Employee not found'
+                properties:
+                  'error: record not found':
+                    type: string
+                    example: 'Employee not found'
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  Error: 'Employee not saved'
+                properties:
+                  Error:
+                    type: string
+                    example: 'Employee not saved'
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
       tags:
         - Endpoints
       requestBody:
@@ -1257,31 +1697,35 @@ paths:
                 first_name:
                   type: string
                   description: 'user table. Must be at least 2 characters.'
-                  example: oz
+                  example: ''
                 last_name:
                   type: string
                   description: 'Must be at least 2 characters.'
-                  example: ''
+                  example: sf
                 email:
                   type: string
                   description: 'Must be a valid email address.'
-                  example: toy.lavern@example.net
+                  example: harmony.ferry@example.com
                 date_of_birth:
                   type: string
                   description: ''
-                  example: et
+                  example: voluptatibus
                 address:
                   type: string
                   description: 'Must be at least 2 characters.'
-                  example: kr
+                  example: ''
                 phone_number:
                   type: string
                   description: 'Must be at least 5 characters.'
-                  example: ucmnq
+                  example: ''
+                garage_id:
+                  type: integer
+                  description: ''
+                  example: 6
                 role:
                   type: number
                   description: role.
-                  example: 5169.0
+                  example: 11.50387
               required:
                 - first_name
                 - last_name
@@ -1289,20 +1733,20 @@ paths:
                 - date_of_birth
                 - address
                 - phone_number
-      security: []
+                - garage_id
     parameters:
       -
         in: path
         name: employee_id
         description: 'The ID of the employee.'
-        example: rerum
+        example: cupiditate
         required: true
         schema:
           type: string
   '/api/employees/{garage_id}':
     get:
-      summary: ''
-      description: ''
+      summary: 'GET api/employees/{garage_id}'
+      description: 'Returning all the employees in the garage.'
       parameters:
         -
           in: header
@@ -1319,6 +1763,45 @@ paths:
           schema:
             type: string
       responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                example:
+                  -
+                    id: 6
+                    first_name: Chris
+                    last_name: Blom
+                    email: jdachgeldt@vanderberg.com
+                    phone_number: '+23671905652'
+                    date_of_birth: '2021-12-27'
+                    address: "Kriensstraat 87-u\n4401CG Kommerzijl"
+                    role: mechanic
+                    salary: 500
+                  -
+                    id: 7
+                    first_name: Lola
+                    last_name: Dirksen
+                    email: mvanhetheerenveen@winnrich.nl
+                    phone_number: '+600830017408'
+                    date_of_birth: '2021-12-14'
+                    address: "Moetdreef 6\n9269SZ Wekerom"
+                    role: mechanic
+                    salary: 200
+                  -
+                    id: 12
+                    first_name: Benjamin
+                    last_name: 'Zuérius Boxhorn van Miggrode'
+                    email: pham.maud@vanembden.org
+                    phone_number: '+6802172188'
+                    date_of_birth: '2021-12-24'
+                    address: "van de Walweg 94-p\n7606XL Poortvliet"
+                    role: garage_administration
+                    salary: 200
         401:
           description: ''
           content:
@@ -1333,20 +1816,19 @@ paths:
                     example: Unauthenticated.
       tags:
         - Endpoints
-      security: []
     parameters:
       -
         in: path
         name: garage_id
         description: 'The ID of the garage.'
-        example: 11
+        example: 9
         required: true
         schema:
           type: integer
   '/api/reservations/{garage_id}':
     get:
-      summary: ''
-      description: ''
+      summary: 'GET api/reservations/{garage_id}'
+      description: 'Get all the reservation per garage.'
       parameters:
         -
           in: header
@@ -1363,6 +1845,51 @@ paths:
           schema:
             type: string
       responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                example:
+                  -
+                    id: 1
+                    user_id: 3
+                    garage_id: 1
+                    vin_number: 5kkt4y594A38e7y7h
+                    description: 'Accusamus dolores officia totam dolorem doloribus eaque consequatur tempora. Sunt sed magni et omnis earum deleniti. Voluptatem officia et mollitia expedita qui.'
+                    date: '1991-05-09'
+                    startingTime: '16:59:01'
+                    endingTime: '17:24:57'
+                  -
+                    id: 2
+                    user_id: 4
+                    garage_id: 1
+                    vin_number: 1r0pu3w1XAbfn5l30
+                    description: 'Cupiditate in vel commodi rerum unde. Vel exercitationem consequatur iusto aperiam dolor maiores sunt modi. At molestiae numquam tempora vel velit ipsam iure explicabo.'
+                    date: '2013-11-26'
+                    startingTime: '23:35:23'
+                    endingTime: '18:23:15'
+                  -
+                    id: 3
+                    user_id: 5
+                    garage_id: 1
+                    vin_number: 6ys7t1ej1A6xhv8rc
+                    description: 'Optio commodi modi itaque eius. Et non ratione est excepturi id. Iusto tempore est velit adipisci ad in.'
+                    date: '2000-04-10'
+                    startingTime: '16:20:45'
+                    endingTime: '04:34:26'
+                  -
+                    id: 4
+                    user_id: 2
+                    garage_id: 1
+                    vin_number: 337vp16w9A7kj9jcp
+                    description: 'Tenetur voluptatem atque unde et veniam qui est tempora. Quia numquam sed dicta earum quia velit similique sint. Veritatis dolores ut quis magni quidem suscipit dolorem natus.'
+                    date: '1996-01-25'
+                    startingTime: '11:26:08'
+                    endingTime: '22:20:34'
         401:
           description: ''
           content:
@@ -1377,13 +1904,12 @@ paths:
                     example: Unauthenticated.
       tags:
         - Endpoints
-      security: []
     parameters:
       -
         in: path
         name: garage_id
         description: 'The ID of the garage.'
-        example: 1
+        example: 13
         required: true
         schema:
           type: integer
@@ -1462,6 +1988,8 @@ paths:
                     - 'The address field is required.'
                   phone_number:
                     - 'The phone number field is required.'
+                  password:
+                    - 'The password field is required.'
                 properties:
                   first_name:
                     type: array
@@ -1499,6 +2027,12 @@ paths:
                       - 'The phone number field is required.'
                     items:
                       type: string
+                  password:
+                    type: array
+                    example:
+                      - 'The password field is required.'
+                    items:
+                      type: string
       tags:
         - Endpoints
       requestBody:
@@ -1519,7 +2053,7 @@ paths:
                 email:
                   type: string
                   description: 'Must be a valid email address.'
-                  example: gerhold.stephanie@example.org
+                  example: halvorson.taryn@example.org
                 date_of_birth:
                   type: string
                   description: ''
@@ -1532,6 +2066,10 @@ paths:
                   type: string
                   description: ''
                   example: '+5514123456'
+                password:
+                  type: string
+                  description: ''
+                  example: sed
               required:
                 - first_name
                 - last_name
@@ -1539,11 +2077,12 @@ paths:
                 - date_of_birth
                 - address
                 - phone_number
+                - password
       security: []
   '/api/garage/client/update/{client_id}':
     put:
-      summary: ''
-      description: ''
+      summary: 'PUT api/garage/client/update/{client_id}'
+      description: 'Update client of the garage.'
       parameters:
         -
           in: header
@@ -1559,7 +2098,79 @@ paths:
           example: application/json
           schema:
             type: string
-      responses: {  }
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Updated successful'
+                properties:
+                  message:
+                    type: string
+                    example: 'Updated successful'
+        404:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Not Found.'
+                properties:
+                  message:
+                    type: string
+                    example: 'Not Found.'
+        422:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  errors:
+                    first_name:
+                      - 'The first name field is required.'
+                    last_name:
+                      - 'The last name field is required.'
+                    email:
+                      - 'The email field is required.'
+                    date_of_birth:
+                      - 'The date of birth field is required.'
+                    address:
+                      - 'The address field is required.'
+                    phone_number:
+                      - 'The phone number field is required.'
+                properties:
+                  errors:
+                    type: object
+                    example:
+                      first_name:
+                        - 'The first name field is required.'
+                      last_name:
+                        - 'The last name field is required.'
+                      email:
+                        - 'The email field is required.'
+                      date_of_birth:
+                        - 'The date of birth field is required.'
+                      address:
+                        - 'The address field is required.'
+                      phone_number:
+                        - 'The phone number field is required.'
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
       tags:
         - Endpoints
       requestBody:
@@ -1572,27 +2183,27 @@ paths:
                 first_name:
                   type: string
                   description: ''
-                  example: doloribus
+                  example: autem
                 last_name:
                   type: string
                   description: ''
-                  example: est
+                  example: magni
                 email:
                   type: string
                   description: 'Must be a valid email address.'
-                  example: ervin39@example.com
+                  example: gutmann.leland@example.org
                 date_of_birth:
                   type: string
                   description: ''
-                  example: suscipit
+                  example: debitis
                 address:
                   type: string
                   description: ''
-                  example: quia
+                  example: sit
                 phone_number:
                   type: string
                   description: ''
-                  example: voluptas
+                  example: dignissimos
               required:
                 - first_name
                 - last_name
@@ -1600,20 +2211,19 @@ paths:
                 - date_of_birth
                 - address
                 - phone_number
-      security: []
     parameters:
       -
         in: path
         name: client_id
         description: 'The ID of the client.'
-        example: sunt
+        example: blanditiis
         required: true
         schema:
           type: string
   '/api/garage/client/cars/{client_id}':
     get:
-      summary: ''
-      description: ''
+      summary: 'GET api/garage/client/cars/{client_id}'
+      description: 'Returns all the cars of the client.'
       parameters:
         -
           in: header
@@ -1630,6 +2240,72 @@ paths:
           schema:
             type: string
       responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: 4
+                      user_id: 3
+                      vin_number: 337vp16w9A7kj9jcp
+                      plate: IIL-805
+                      type: sedan
+                      fuel: diesel
+                      make: Mazda
+                      model: 'SuperВ Combi'
+                      engine: 'PS 160'
+                      gear_box: automatic
+                      air_conditioner: 1
+                      color: red
+                    -
+                      id: 5
+                      user_id: 3
+                      vin_number: 1r0pu3w1XAbfn5l30
+                      plate: RSV-723
+                      type: SUV
+                      fuel: hybrid
+                      make: Adler
+                      model: Metro
+                      engine: Freeclimber
+                      gear_box: manual
+                      air_conditioner: 1
+                      color: red
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 4
+                        user_id: 3
+                        vin_number: 337vp16w9A7kj9jcp
+                        plate: IIL-805
+                        type: sedan
+                        fuel: diesel
+                        make: Mazda
+                        model: 'SuperВ Combi'
+                        engine: 'PS 160'
+                        gear_box: automatic
+                        air_conditioner: 1
+                        color: red
+                      -
+                        id: 5
+                        user_id: 3
+                        vin_number: 1r0pu3w1XAbfn5l30
+                        plate: RSV-723
+                        type: SUV
+                        fuel: hybrid
+                        make: Adler
+                        model: Metro
+                        engine: Freeclimber
+                        gear_box: manual
+                        air_conditioner: 1
+                        color: red
+                    items:
+                      type: object
         401:
           description: ''
           content:
@@ -1644,7 +2320,6 @@ paths:
                     example: Unauthenticated.
       tags:
         - Endpoints
-      security: []
     parameters:
       -
         in: path
@@ -1656,8 +2331,8 @@ paths:
           type: integer
   /api/garage/id:
     get:
-      summary: ''
-      description: ''
+      summary: 'GET api/garage/id'
+      description: 'Returns the ID of the garage that you are working.'
       parameters:
         -
           in: header
@@ -1674,6 +2349,13 @@ paths:
           schema:
             type: string
       responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: integer
+                example: 1
         401:
           description: ''
           content:
@@ -1688,11 +2370,10 @@ paths:
                     example: Unauthenticated.
       tags:
         - Endpoints
-      security: []
   /api/client/cars:
     get:
-      summary: 'Display a listing of the resource.'
-      description: 'Return all the cars of the client'
+      summary: 'GET api/client/cars'
+      description: 'Return all the cars of the client that is authenticated'
       parameters:
         -
           in: header
@@ -1709,6 +2390,72 @@ paths:
           schema:
             type: string
       responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: 1
+                      user_id: 1
+                      vin_number: 5kkt4y594A38e7y7h
+                      plate: UZK-611
+                      type: small
+                      fuel: hybrid
+                      make: Ford
+                      model: '46'
+                      engine: '4'
+                      gear_box: automatic
+                      air_conditioner: 1
+                      color: red
+                    -
+                      id: 2
+                      user_id: 1
+                      vin_number: 6ys7t1ej1A6xhv8rc
+                      plate: ZFD-892
+                      type: hatchback
+                      fuel: hybrid
+                      make: Chrysler
+                      model: Kingte
+                      engine: Attiva
+                      gear_box: automatic
+                      air_conditioner: 1
+                      color: red
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        user_id: 1
+                        vin_number: 5kkt4y594A38e7y7h
+                        plate: UZK-611
+                        type: small
+                        fuel: hybrid
+                        make: Ford
+                        model: '46'
+                        engine: '4'
+                        gear_box: automatic
+                        air_conditioner: 1
+                        color: red
+                      -
+                        id: 2
+                        user_id: 1
+                        vin_number: 6ys7t1ej1A6xhv8rc
+                        plate: ZFD-892
+                        type: hatchback
+                        fuel: hybrid
+                        make: Chrysler
+                        model: Kingte
+                        engine: Attiva
+                        gear_box: automatic
+                        air_conditioner: 1
+                        color: red
+                    items:
+                      type: object
         401:
           description: ''
           content:
@@ -1723,10 +2470,9 @@ paths:
                     example: Unauthenticated.
       tags:
         - Endpoints
-      security: []
     post:
-      summary: 'Store a newly created resource in storage.'
-      description: ''
+      summary: 'POST api/client/cars'
+      description: 'Client post new car in their profile.'
       parameters:
         -
           in: header
@@ -1753,49 +2499,49 @@ paths:
               type: object
               properties:
                 user_id:
-                  type: string
+                  type: integer
                   description: ''
-                  example: minima
+                  example: 8
                 vin_number:
                   type: string
                   description: ''
-                  example: modi
+                  example: fugit
                 plate:
                   type: string
                   description: ''
-                  example: delectus
+                  example: voluptatem
                 type:
                   type: string
                   description: ''
-                  example: iusto
+                  example: mollitia
                 fuel:
                   type: string
                   description: ''
-                  example: iure
+                  example: voluptate
                 make:
                   type: string
                   description: ''
-                  example: officiis
+                  example: nostrum
                 model:
                   type: string
                   description: ''
-                  example: repellat
+                  example: eum
                 engine:
                   type: string
                   description: ''
-                  example: aut
+                  example: esse
                 gear_box:
                   type: string
                   description: ''
-                  example: nesciunt
+                  example: quidem
                 air_conditioner:
-                  type: string
+                  type: boolean
                   description: ''
-                  example: amet
+                  example: true
                 color:
                   type: string
                   description: ''
-                  example: itaque
+                  example: voluptates
               required:
                 - user_id
                 - vin_number
@@ -1841,47 +2587,47 @@ paths:
                 user_id:
                   type: string
                   description: ''
-                  example: sed
+                  example: sapiente
                 vin_number:
                   type: string
                   description: ''
-                  example: qui
+                  example: placeat
                 plate:
                   type: string
                   description: ''
-                  example: delectus
+                  example: commodi
                 type:
                   type: string
                   description: ''
-                  example: reiciendis
+                  example: quasi
                 fuel:
                   type: string
                   description: ''
-                  example: accusantium
+                  example: ullam
                 make:
                   type: string
                   description: ''
-                  example: ea
+                  example: eum
                 model:
                   type: string
                   description: ''
-                  example: error
+                  example: facilis
                 engine:
                   type: string
                   description: ''
-                  example: non
+                  example: atque
                 gear_box:
                   type: string
                   description: ''
-                  example: debitis
+                  example: aut
                 air_conditioner:
                   type: string
                   description: ''
-                  example: harum
+                  example: molestiae
                 color:
                   type: string
                   description: ''
-                  example: error
+                  example: optio
               required:
                 - user_id
                 - vin_number
@@ -1922,11 +2668,120 @@ paths:
         in: path
         name: car_id
         description: 'The ID of the car.'
-        example: 14
+        example: 20
         required: true
         schema:
           type: integer
   '/api/client/cars/{client_id}':
+    get:
+      summary: 'GET api/garage/client/cars/{client_id}'
+      description: 'Returns all the cars of the client.'
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: 4
+                      user_id: 3
+                      vin_number: 337vp16w9A7kj9jcp
+                      plate: IIL-805
+                      type: sedan
+                      fuel: diesel
+                      make: Mazda
+                      model: 'SuperВ Combi'
+                      engine: 'PS 160'
+                      gear_box: automatic
+                      air_conditioner: 1
+                      color: red
+                    -
+                      id: 5
+                      user_id: 3
+                      vin_number: 1r0pu3w1XAbfn5l30
+                      plate: RSV-723
+                      type: SUV
+                      fuel: hybrid
+                      make: Adler
+                      model: Metro
+                      engine: Freeclimber
+                      gear_box: manual
+                      air_conditioner: 1
+                      color: red
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 4
+                        user_id: 3
+                        vin_number: 337vp16w9A7kj9jcp
+                        plate: IIL-805
+                        type: sedan
+                        fuel: diesel
+                        make: Mazda
+                        model: 'SuperВ Combi'
+                        engine: 'PS 160'
+                        gear_box: automatic
+                        air_conditioner: 1
+                        color: red
+                      -
+                        id: 5
+                        user_id: 3
+                        vin_number: 1r0pu3w1XAbfn5l30
+                        plate: RSV-723
+                        type: SUV
+                        fuel: hybrid
+                        make: Adler
+                        model: Metro
+                        engine: Freeclimber
+                        gear_box: manual
+                        air_conditioner: 1
+                        color: red
+                    items:
+                      type: object
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+    parameters:
+      -
+        in: path
+        name: client_id
+        description: 'The ID of the client.'
+        example: 11
+        required: true
+        schema:
+          type: integer
+  /api/reservation:
     get:
       summary: ''
       description: ''
@@ -1961,15 +2816,162 @@ paths:
       tags:
         - Endpoints
       security: []
-    parameters:
-      -
-        in: path
-        name: client_id
-        description: 'The ID of the client.'
-        example: 6
+    post:
+      summary: 'POST api/reservation'
+      description: "Creating reservation on specific garage.\nThis endpoint is used by Clients, Garage Manager, Admin."
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  user_id: 1
+                  garage_id: 1
+                  vin_number: 1r0pu3w1XAbfn5l30
+                  description: 'Optio nihil quaerat quaerat. Est sunt eos neque mollitia consectetur sit reiciendis. Accusamus et eum ad rerum.'
+                  date: '1990-07-26'
+                  startingTime: '01:21:29'
+                  endingTime: '00:21:57'
+                  id: 6
+                properties:
+                  user_id:
+                    type: integer
+                    example: 1
+                  garage_id:
+                    type: integer
+                    example: 1
+                  vin_number:
+                    type: string
+                    example: 1r0pu3w1XAbfn5l30
+                  description:
+                    type: string
+                    example: 'Optio nihil quaerat quaerat. Est sunt eos neque mollitia consectetur sit reiciendis. Accusamus et eum ad rerum.'
+                  date:
+                    type: string
+                    example: '1990-07-26'
+                  startingTime:
+                    type: string
+                    example: '01:21:29'
+                  endingTime:
+                    type: string
+                    example: '00:21:57'
+                  id:
+                    type: integer
+                    example: 6
+        422:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  errors:
+                    user_id:
+                      - 'The user id field is required.'
+                    garage_id:
+                      - 'The garage id field is required.'
+                    vin_number:
+                      - 'The vin number field is required.'
+                    description:
+                      - 'The description field is required.'
+                    date:
+                      - 'The date field is required.'
+                    startingTime:
+                      - 'The starting time field is required.'
+                    endingTime:
+                      - 'The ending time field is required.'
+                properties:
+                  errors:
+                    type: object
+                    example:
+                      user_id:
+                        - 'The user id field is required.'
+                      garage_id:
+                        - 'The garage id field is required.'
+                      vin_number:
+                        - 'The vin number field is required.'
+                      description:
+                        - 'The description field is required.'
+                      date:
+                        - 'The date field is required.'
+                      startingTime:
+                        - 'The starting time field is required.'
+                      endingTime:
+                        - 'The ending time field is required.'
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      requestBody:
         required: true
-        schema:
-          type: integer
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: string
+                  description: ''
+                  example: sint
+                garage_id:
+                  type: string
+                  description: ''
+                  example: temporibus
+                vin_number:
+                  type: string
+                  description: ''
+                  example: est
+                description:
+                  type: string
+                  description: ''
+                  example: enim
+                date:
+                  type: string
+                  description: ''
+                  example: consequatur
+                startingTime:
+                  type: string
+                  description: ''
+                  example: id
+                endingTime:
+                  type: string
+                  description: ''
+                  example: culpa
+              required:
+                - user_id
+                - garage_id
+                - vin_number
+                - description
+                - date
+                - startingTime
+                - endingTime
 tags:
   -
     name: Endpoints

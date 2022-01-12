@@ -97,7 +97,18 @@ class UserController extends Controller
     }
 
 
- 
+    /**
+     * PUT api/garage/client/update/{client_id}
+     * 
+     * Update client of the garage.
+     * 
+     * 
+     * @response scenario=success { "message": "Updated successful" }
+     * @response status=404 { "message": "Not Found." }
+     * @response status=422 {"errors":{"first_name":["The first name field is required."],"last_name":["The last name field is required."],"email":["The email field is required."],"date_of_birth":["The date of birth field is required."],"address":["The address field is required."],"phone_number":["The phone number field is required."]}}
+     * @response status=401 { "message": "Unauthenticated." }
+     * @authenticated
+     */
     public function updateClientProfile(Request $request, $client_id)
     {
 
