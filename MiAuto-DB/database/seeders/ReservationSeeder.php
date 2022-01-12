@@ -18,14 +18,14 @@ class ReservationSeeder extends Seeder
     {
         $faker = Faker::create('nl_NL');
         $usersIDs = DB::table('users')->pluck('id');
-        $employee_id = DB::table('employees')->pluck('user_id');
+        $garages_ids = DB::table('garages')->pluck('id');
         $carsIDs = DB::table('cars')->pluck('vin_number');
 
         for ($i=0; $i < 5; $i++) {
             DB::table('reservations')->insert([
                 
                 'vin_number'=> $faker->randomElement($carsIDs),
-                'employee_id' => $faker->randomElement($employee_id),
+                'garage_id' => $faker->randomElement($garages_ids),
                 'user_id'=>  $faker->randomElement($usersIDs),
                 'description' => $faker->text(),
                 'date' => $faker->date(),
