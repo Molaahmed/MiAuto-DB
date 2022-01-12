@@ -62,7 +62,7 @@ class ReservationController extends Controller
             'endingTime' => 'required'
         ]);
 
-        $reservation = Reservation::where($request->id)
+        $reservation = Reservation::where('id',$request->id)
         ->update([
             'user_id' => $request->user_id,
             'garage_id' => $request->garage_id,
