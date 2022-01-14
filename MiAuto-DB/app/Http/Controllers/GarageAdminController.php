@@ -25,8 +25,8 @@ class GarageAdminController extends Controller
      * 
      * Returns the garages of the user that is authenticated.
      * 
+     * @group Garage Administrator
      * @response [{"id":1,"user_id":12,"name":"Sten Haselaar","address":"van Dokkumhof 3\n9801TA Westerhaar-Vriezenveensewijk","email":"lveenstra@gmail.com","phone_number":"+41682531929"},{"id":6,"user_id":12,"name":"ut","address":"placeat","email":"hic@gmail.com","phone_number":"+3125544785"}]
-     * 
      * @response status=401 { "message": "Unauthenticated." }
      * @authenticated
      */
@@ -41,6 +41,7 @@ class GarageAdminController extends Controller
      * 
      * Adding new car as Garage Administrator
      * 
+     * @group Garage Administrator
      * @response status=200  {"message": "Successfully created"}
      * @response status=422  {"errors":{"user_id":["The user id field is required."],"vin_number":["The vin number field is required."],"plate":["The plate field is required."],"type":["The type field is required."],"fuel":["The fuel field is required."],"make":["The make field is required."],"model":["The model field is required."],"engine":["The engine field is required."],"gear_box":["The gear box field is required."],"air_conditioner":["The air conditioner field is required."],"color":["The color field is required."]}}
      * @response status=401 { "message": "Unauthenticated." }
@@ -82,6 +83,7 @@ class GarageAdminController extends Controller
      * @bodyParam phone_number string required Example: +5514123456
      * @bodyParam password string required Example: password
      * 
+     * @group Garage Administrator
      * @response status=200
      * @response status=422  {"first_name":["The first name field is required."],"last_name":["The last name field is required."],"email":["The email field is required."],"date_of_birth":["The date of birth field is required."],"address":["The address field is required."],"phone_number":["The phone number field is required."],"password":["The password field is required."]}
      * @response status=401 { "message": "Unauthenticated." }
@@ -131,7 +133,7 @@ class GarageAdminController extends Controller
      * Create new employee.
      * Add that employee to the garage
      * 
-     * 
+     * @group Garage Administrator
      * @response status=200  {"message": "Successfully created"}
      * @response status=422 {"errors":{"first_name":["The first name field is required."],"last_name":["The last name field is required."],"date_of_birth":["The date of birth field is required."],"address":["The address field is required."],"phone_number":["The phone number field is required."],"email":["The email field is required."],"garage_id":["The garage id field is required."]}}
      * @response status=403 {"Error": "Not a valid role"}
@@ -216,6 +218,7 @@ class GarageAdminController extends Controller
      * 
      * Edit employee employee working in the garage.
      * 
+     * @group Garage Administrator
      * @response status=200  {"message": "Successfully updated"}
      * @response status=422 {"errors":{"first_name":["The first name field is required."],"last_name":["The last name field is required."],"date_of_birth":["The date of birth field is required."],"address":["The address field is required."],"phone_number":["The phone number field is required."],"email":["The email field is required."],"garage_id":["The garage id field is required."]}}
      * @response status=403 {"Error": "Not a valid role"}
@@ -288,8 +291,9 @@ class GarageAdminController extends Controller
      * 
      * Returning all the employees in the garage.
      * 
-     * @response [{"id":6,"first_name":"Chris","last_name":"Blom","email":"jdachgeldt@vanderberg.com","phone_number":"+23671905652","date_of_birth":"2021-12-27","address":"Kriensstraat 87-u\n4401CG Kommerzijl","role":"mechanic","salary":500},{"id":7,"first_name":"Lola","last_name":"Dirksen","email":"mvanhetheerenveen@winnrich.nl","phone_number":"+600830017408","date_of_birth":"2021-12-14","address":"Moetdreef 6\n9269SZ Wekerom","role":"mechanic","salary":200},{"id":12,"first_name":"Benjamin","last_name":"Zu\u00e9rius Boxhorn van Miggrode","email":"pham.maud@vanembden.org","phone_number":"+6802172188","date_of_birth":"2021-12-24","address":"van de Walweg 94-p\n7606XL Poortvliet","role":"garage_administration","salary":200}]
      * 
+     * @group Garage Administrator
+     * @response [{"id":6,"first_name":"Chris","last_name":"Blom","email":"jdachgeldt@vanderberg.com","phone_number":"+23671905652","date_of_birth":"2021-12-27","address":"Kriensstraat 87-u\n4401CG Kommerzijl","role":"mechanic","salary":500},{"id":7,"first_name":"Lola","last_name":"Dirksen","email":"mvanhetheerenveen@winnrich.nl","phone_number":"+600830017408","date_of_birth":"2021-12-14","address":"Moetdreef 6\n9269SZ Wekerom","role":"mechanic","salary":200},{"id":12,"first_name":"Benjamin","last_name":"Zu\u00e9rius Boxhorn van Miggrode","email":"pham.maud@vanembden.org","phone_number":"+6802172188","date_of_birth":"2021-12-24","address":"van de Walweg 94-p\n7606XL Poortvliet","role":"garage_administration","salary":200}]
      * @response status=401 { "message": "Unauthenticated." } 
      * @authenticated 
      */

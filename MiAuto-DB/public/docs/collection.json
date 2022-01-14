@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "Laravel",
-        "_postman_id": "e6e37eca-a0da-4056-a7f4-e268e019452d",
+        "_postman_id": "aacb5e2b-7b30-4482-ba47-82732b48bf8f",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -92,50 +92,6 @@
                     "response": []
                 },
                 {
-                    "name": "POST api\/client\/register",
-                    "request": {
-                        "url": {
-                            "host": "{{baseUrl}}",
-                            "path": "api\/client\/register",
-                            "query": [],
-                            "raw": "{{baseUrl}}\/api\/client\/register"
-                        },
-                        "method": "POST",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\"first_name\":\"Luuk\",\"last_name\":\"van der Steen\",\"email\":\"skye03@example.org\",\"date_of_birth\":\"2001-02-06\",\"address\":\"Juan Leon Mera, 19, Av. Patria\",\"phone_number\":\"+5514123456\",\"password\":\"dolorum\"}"
-                        },
-                        "description": "This endpoint is used to create client. The endpoint is used for development pupposes.",
-                        "auth": {
-                            "type": "noauth"
-                        }
-                    },
-                    "response": [
-                        {
-                            "header": [],
-                            "code": 200,
-                            "body": "{\"first_name\":\"Luuk\",\"last_name\":\"van der Steen\",\"email\":\"luckeeylssuddukss.633@gmail.com\",\"date_of_birth\":\"2001-02-06\",\"address\":\"Juan Leon Mera, 19, Av. Patria\",\"phone_number\":\"4 123 4567\",\"id\":14}",
-                            "name": ""
-                        },
-                        {
-                            "header": [],
-                            "code": 422,
-                            "body": "{\"first_name\":[\"The first name field is required.\"],\"last_name\":[\"The last name field is required.\"],\"email\":[\"The email field is required.\"],\"date_of_birth\":[\"The date of birth field is required.\"],\"address\":[\"The address field is required.\"],\"phone_number\":[\"The phone number field is required.\"],\"password\":[\"The password field is required.\"]}",
-                            "name": ""
-                        }
-                    ]
-                },
-                {
                     "name": "POST api\/garage\/register",
                     "request": {
                         "url": {
@@ -157,7 +113,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"first_name\":\"Luuk\",\"last_name\":\"van der Steen\",\"date_of_birth\":\"2001-02-06\",\"address\":\"Juan Leon Mera, 19, Av. Patria\",\"email\":\"distinctio\",\"phone_number\":\"+5514123456\",\"name\":\"nulla\",\"garage_address\":\"voluptatum\",\"garage_email\":\"ducimus\",\"garage_phone_number\":\"iure\"}"
+                            "raw": "{\"first_name\":\"Luuk\",\"last_name\":\"van der Steen\",\"date_of_birth\":\"2001-02-06\",\"address\":\"Juan Leon Mera, 19, Av. Patria\",\"email\":\"quam\",\"phone_number\":\"+5514123456\",\"name\":\"minima\",\"garage_address\":\"quas\",\"garage_email\":\"molestiae\",\"garage_phone_number\":\"harum\"}"
                         },
                         "description": "This endpoint will first create a user and then assign the garage to that user.\nYou need to pass the client credentials and the garage in the same request.",
                         "auth": {
@@ -222,7 +178,7 @@
                                 },
                                 {
                                     "key": "set-cookie",
-                                    "value": "laravel_session=wuq01pX3xcqUcN8N6KONYHDqRC8wSButAzDbZ43V; expires=Wed, 12-Jan-2022 13:37:16 GMT; Max-Age=7200; path=\/; httponly; samesite=lax"
+                                    "value": "laravel_session=pS9XDJ0ipzzapR5KrzTH20YMCD2YJNsRbTTF0jV6; expires=Wed, 12-Jan-2022 14:33:39 GMT; Max-Age=7200; path=\/; httponly; samesite=lax"
                                 }
                             ],
                             "code": 401,
@@ -308,53 +264,6 @@
                     ]
                 },
                 {
-                    "name": "PUT api\/user\/update",
-                    "request": {
-                        "url": {
-                            "host": "{{baseUrl}}",
-                            "path": "api\/user\/update",
-                            "query": [],
-                            "raw": "{{baseUrl}}\/api\/user\/update"
-                        },
-                        "method": "PUT",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\"first_name\":\"ad\",\"last_name\":\"et\",\"email\":\"kraig49@example.org\",\"date_of_birth\":\"eos\",\"address\":\"ut\",\"phone_number\":\"et\"}"
-                        },
-                        "description": "Update the user that is authenticated."
-                    },
-                    "response": [
-                        {
-                            "header": [],
-                            "code": 200,
-                            "body": "{ \"message\": \"Updated successful\" }",
-                            "name": "success"
-                        },
-                        {
-                            "header": [],
-                            "code": 422,
-                            "body": "{\"errors\":{\"first_name\":[\"The first name field is required.\"],\"last_name\":[\"The last name field is required.\"],\"email\":[\"The email field is required.\"],\"date_of_birth\":[\"The date of birth field is required.\"],\"address\":[\"The address field is required.\"],\"phone_number\":[\"The phone number field is required.\"]}}",
-                            "name": ""
-                        },
-                        {
-                            "header": [],
-                            "code": 401,
-                            "body": "{ \"message\": \"Unauthenticated.\" }",
-                            "name": ""
-                        }
-                    ]
-                },
-                {
                     "name": "GET api\/garages",
                     "request": {
                         "url": {
@@ -404,7 +313,7 @@
                                 {
                                     "id": "address",
                                     "key": "address",
-                                    "value": "sint",
+                                    "value": "expedita",
                                     "description": ""
                                 }
                             ]
@@ -523,6 +432,196 @@
                     ]
                 },
                 {
+                    "name": "PUT api\/garage\/client\/update\/{client_id}",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/garage\/client\/update\/:client_id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/garage\/client\/update\/:client_id",
+                            "variable": [
+                                {
+                                    "id": "client_id",
+                                    "key": "client_id",
+                                    "value": "aperiam",
+                                    "description": "The ID of the client."
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"first_name\":\"et\",\"last_name\":\"deleniti\",\"email\":\"etorp@example.org\",\"date_of_birth\":\"sint\",\"address\":\"eveniet\",\"phone_number\":\"illo\"}"
+                        },
+                        "description": "Update client of the garage."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{ \"message\": \"Updated successful\" }",
+                            "name": "success"
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{ \"message\": \"Not Found.\" }",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\"errors\":{\"first_name\":[\"The first name field is required.\"],\"last_name\":[\"The last name field is required.\"],\"email\":[\"The email field is required.\"],\"date_of_birth\":[\"The date of birth field is required.\"],\"address\":[\"The address field is required.\"],\"phone_number\":[\"The phone number field is required.\"]}}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{ \"message\": \"Unauthenticated.\" }",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "GET api\/garage\/id",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/garage\/id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/garage\/id"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Returns the ID of the garage that you are working."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "1",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{ \"message\": \"Unauthenticated.\" }",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "GET api\/reservation",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/reservation",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/reservation"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Get all the reservation that you have made."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "[{\"id\":6,\"user_id\":1,\"garage_id\":1,\"vin_number\":\"1r0pu3w1XAbfn5l30\",\"description\":\"Optio nihil quaerat quaerat. Est sunt eos neque mollitia consectetur sit reiciendis. Accusamus et eum ad rerum.\",\"date\":\"1990-07-26\",\"startingTime\":\"01:21:29\",\"endingTime\":\"00:21:57\"}]",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{ \"message\": \"Unauthenticated.\" }",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "POST api\/reservation",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/reservation",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/reservation"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"user_id\":\"et\",\"garage_id\":\"quis\",\"vin_number\":\"magnam\",\"description\":\"vitae\",\"date\":\"repellendus\",\"startingTime\":\"qui\",\"endingTime\":\"quo\"}"
+                        },
+                        "description": "Creating reservation on specific garage.\nThis endpoint is used by Clients, Garage Manager, Admin."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"user_id\":1,\"garage_id\":1,\"vin_number\":\"1r0pu3w1XAbfn5l30\",\"description\":\"Optio nihil quaerat quaerat. Est sunt eos neque mollitia consectetur sit reiciendis. Accusamus et eum ad rerum.\",\"date\":\"1990-07-26\",\"startingTime\":\"01:21:29\",\"endingTime\":\"00:21:57\",\"id\":6}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\"errors\":{\"user_id\":[\"The user id field is required.\"],\"garage_id\":[\"The garage id field is required.\"],\"vin_number\":[\"The vin number field is required.\"],\"description\":[\"The description field is required.\"],\"date\":[\"The date field is required.\"],\"startingTime\":[\"The starting time field is required.\"],\"endingTime\":[\"The ending time field is required.\"]}}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{ \"message\": \"Unauthenticated.\" }",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Garage Administrator",
+            "description": "",
+            "item": [
+                {
                     "name": "POST api\/cars\/create",
                     "request": {
                         "url": {
@@ -544,7 +643,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"user_id\":8,\"vin_number\":\"quo\",\"plate\":\"rerum\",\"type\":\"nihil\",\"fuel\":\"facilis\",\"make\":\"nihil\",\"model\":\"eos\",\"engine\":\"vel\",\"gear_box\":\"deserunt\",\"air_conditioner\":true,\"color\":\"repellendus\"}"
+                            "raw": "{\"user_id\":2,\"vin_number\":\"id\",\"plate\":\"ipsam\",\"type\":\"ut\",\"fuel\":\"cumque\",\"make\":\"vero\",\"model\":\"temporibus\",\"engine\":\"est\",\"gear_box\":\"dolorum\",\"air_conditioner\":false,\"color\":\"dicta\"}"
                         },
                         "description": "Adding new car as Garage Administrator"
                     },
@@ -608,6 +707,50 @@
                     ]
                 },
                 {
+                    "name": "POST api\/client\/register",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/client\/register",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/client\/register"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"first_name\":\"Luuk\",\"last_name\":\"van der Steen\",\"email\":\"nikolaus.antone@example.com\",\"date_of_birth\":\"2001-02-06\",\"address\":\"Juan Leon Mera, 19, Av. Patria\",\"phone_number\":\"+5514123456\",\"password\":\"qui\"}"
+                        },
+                        "description": "This endpoint is used to create client. The endpoint is used for development pupposes.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"first_name\":\"Luuk\",\"last_name\":\"van der Steen\",\"email\":\"luckeeylssuddukss.633@gmail.com\",\"date_of_birth\":\"2001-02-06\",\"address\":\"Juan Leon Mera, 19, Av. Patria\",\"phone_number\":\"4 123 4567\",\"id\":14}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\"first_name\":[\"The first name field is required.\"],\"last_name\":[\"The last name field is required.\"],\"email\":[\"The email field is required.\"],\"date_of_birth\":[\"The date of birth field is required.\"],\"address\":[\"The address field is required.\"],\"phone_number\":[\"The phone number field is required.\"],\"password\":[\"The password field is required.\"]}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
                     "name": "POST api\/client\/create",
                     "request": {
                         "url": {
@@ -629,7 +772,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"first_name\":\"Luuk\",\"last_name\":\"van der Steen\",\"email\":\"edison.collins@example.org\",\"date_of_birth\":\"2001-02-06\",\"address\":\"Juan Leon Mera, 19, Av. Patria\",\"phone_number\":\"+5514123456\",\"password\":\"password\"}"
+                            "raw": "{\"first_name\":\"Luuk\",\"last_name\":\"van der Steen\",\"email\":\"easton.schaden@example.net\",\"date_of_birth\":\"2001-02-06\",\"address\":\"Juan Leon Mera, 19, Av. Patria\",\"phone_number\":\"+5514123456\",\"password\":\"password\"}"
                         },
                         "description": "Create new client as Garage Administrator"
                     },
@@ -676,7 +819,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"first_name\":\"nq\",\"last_name\":\"\",\"date_of_birth\":\"reprehenderit\",\"address\":\"ij\",\"phone_number\":\"enmn\",\"email\":\"nick63@example.net\",\"garage_id\":\"ut\",\"role\":16382905.7826}"
+                            "raw": "{\"first_name\":\"c\",\"last_name\":\"\",\"date_of_birth\":\"aut\",\"address\":\"xf\",\"phone_number\":\"ehowh\",\"email\":\"jerde.ellsworth@example.org\",\"garage_id\":\"aut\",\"role\":2131}"
                         },
                         "description": "Create new employee.\nAdd that employee to the garage"
                     },
@@ -731,7 +874,7 @@
                                 {
                                     "id": "employee_id",
                                     "key": "employee_id",
-                                    "value": "cupiditate",
+                                    "value": "ipsa",
                                     "description": "The ID of the employee."
                                 }
                             ]
@@ -749,7 +892,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"first_name\":\"\",\"last_name\":\"sf\",\"email\":\"harmony.ferry@example.com\",\"date_of_birth\":\"voluptatibus\",\"address\":\"\",\"phone_number\":\"\",\"garage_id\":6,\"role\":11.50387}"
+                            "raw": "{\"first_name\":\"wy\",\"last_name\":\"xe\",\"email\":\"bcrist@example.net\",\"date_of_birth\":\"deserunt\",\"address\":\"x\",\"phone_number\":\"c\",\"garage_id\":16,\"role\":1613}"
                         },
                         "description": "Edit employee employee working in the garage."
                     },
@@ -804,7 +947,7 @@
                                 {
                                     "id": "garage_id",
                                     "key": "garage_id",
-                                    "value": "9",
+                                    "value": "17",
                                     "description": "The ID of the garage."
                                 }
                             ]
@@ -839,6 +982,53 @@
                     ]
                 },
                 {
+                    "name": "PUT api\/user\/update",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/user\/update",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/user\/update"
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"first_name\":\"odit\",\"last_name\":\"explicabo\",\"email\":\"lexi31@example.org\",\"date_of_birth\":\"quo\",\"address\":\"consequuntur\",\"phone_number\":\"omnis\"}"
+                        },
+                        "description": "Update the user that is authenticated."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{ \"message\": \"Updated successful\" }",
+                            "name": "success"
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\"errors\":{\"first_name\":[\"The first name field is required.\"],\"last_name\":[\"The last name field is required.\"],\"email\":[\"The email field is required.\"],\"date_of_birth\":[\"The date of birth field is required.\"],\"address\":[\"The address field is required.\"],\"phone_number\":[\"The phone number field is required.\"]}}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{ \"message\": \"Unauthenticated.\" }",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
                     "name": "GET api\/reservations\/{garage_id}",
                     "request": {
                         "url": {
@@ -850,7 +1040,7 @@
                                 {
                                     "id": "garage_id",
                                     "key": "garage_id",
-                                    "value": "13",
+                                    "value": "5",
                                     "description": "The ID of the garage."
                                 }
                             ]
@@ -906,7 +1096,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"first_name\":\"Luuk\",\"last_name\":\"van der Steen\",\"email\":\"halvorson.taryn@example.org\",\"date_of_birth\":\"2001-02-06\",\"address\":\"Juan Leon Mera, 19, Av. Patria\",\"phone_number\":\"+5514123456\",\"password\":\"sed\"}"
+                            "raw": "{\"first_name\":\"Luuk\",\"last_name\":\"van der Steen\",\"email\":\"candace11@example.org\",\"date_of_birth\":\"2001-02-06\",\"address\":\"Juan Leon Mera, 19, Av. Patria\",\"phone_number\":\"+5514123456\",\"password\":\"velit\"}"
                         },
                         "description": "This endpoint is used to create client. The endpoint is used for development pupposes.",
                         "auth": {
@@ -927,21 +1117,27 @@
                             "name": ""
                         }
                     ]
-                },
+                }
+            ]
+        },
+        {
+            "name": "Garage Client",
+            "description": "",
+            "item": [
                 {
-                    "name": "PUT api\/garage\/client\/update\/{client_id}",
+                    "name": "PUT api\/client\/cars\/{car_id}",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/garage\/client\/update\/:client_id",
+                            "path": "api\/client\/cars\/:car_id",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/garage\/client\/update\/:client_id",
+                            "raw": "{{baseUrl}}\/api\/client\/cars\/:car_id",
                             "variable": [
                                 {
-                                    "id": "client_id",
-                                    "key": "client_id",
-                                    "value": "blanditiis",
-                                    "description": "The ID of the client."
+                                    "id": "car_id",
+                                    "key": "car_id",
+                                    "value": "12",
+                                    "description": "The ID of the car."
                                 }
                             ]
                         },
@@ -958,27 +1154,21 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"first_name\":\"autem\",\"last_name\":\"magni\",\"email\":\"gutmann.leland@example.org\",\"date_of_birth\":\"debitis\",\"address\":\"sit\",\"phone_number\":\"dignissimos\"}"
+                            "raw": "{\"user_id\":3,\"vin_number\":\"veniam\",\"plate\":\"eum\",\"type\":\"eligendi\",\"fuel\":\"exercitationem\",\"make\":\"necessitatibus\",\"model\":\"ab\",\"engine\":\"ab\",\"gear_box\":\"est\",\"air_conditioner\":true,\"color\":\"et\"}"
                         },
-                        "description": "Update client of the garage."
+                        "description": "Client update the information about their car."
                     },
                     "response": [
                         {
                             "header": [],
                             "code": 200,
-                            "body": "{ \"message\": \"Updated successful\" }",
-                            "name": "success"
-                        },
-                        {
-                            "header": [],
-                            "code": 404,
-                            "body": "{ \"message\": \"Not Found.\" }",
+                            "body": "{\"message\": \"Successfully updated\"}",
                             "name": ""
                         },
                         {
                             "header": [],
                             "code": 422,
-                            "body": "{\"errors\":{\"first_name\":[\"The first name field is required.\"],\"last_name\":[\"The last name field is required.\"],\"email\":[\"The email field is required.\"],\"date_of_birth\":[\"The date of birth field is required.\"],\"address\":[\"The address field is required.\"],\"phone_number\":[\"The phone number field is required.\"]}}",
+                            "body": "{\"errors\":{\"user_id\":[\"The user id field is required.\"],\"vin_number\":[\"The vin number field is required.\"],\"plate\":[\"The plate field is required.\"],\"type\":[\"The type field is required.\"],\"fuel\":[\"The fuel field is required.\"],\"make\":[\"The make field is required.\"],\"model\":[\"The model field is required.\"],\"engine\":[\"The engine field is required.\"],\"gear_box\":[\"The gear box field is required.\"],\"air_conditioner\":[\"The air conditioner field is required.\"],\"color\":[\"The color field is required.\"]}}",
                             "name": ""
                         },
                         {
@@ -1001,7 +1191,7 @@
                                 {
                                     "id": "client_id",
                                     "key": "client_id",
-                                    "value": "1",
+                                    "value": "20",
                                     "description": "The ID of the client."
                                 }
                             ]
@@ -1025,44 +1215,6 @@
                             "header": [],
                             "code": 200,
                             "body": "{\"data\":[{\"id\":4,\"user_id\":3,\"vin_number\":\"337vp16w9A7kj9jcp\",\"plate\":\"IIL-805\",\"type\":\"sedan\",\"fuel\":\"diesel\",\"make\":\"Mazda\",\"model\":\"Super\\u0412 Combi\",\"engine\":\"PS 160\",\"gear_box\":\"automatic\",\"air_conditioner\":1,\"color\":\"red\"},{\"id\":5,\"user_id\":3,\"vin_number\":\"1r0pu3w1XAbfn5l30\",\"plate\":\"RSV-723\",\"type\":\"SUV\",\"fuel\":\"hybrid\",\"make\":\"Adler\",\"model\":\"Metro\",\"engine\":\"Freeclimber\",\"gear_box\":\"manual\",\"air_conditioner\":1,\"color\":\"red\"}]}",
-                            "name": ""
-                        },
-                        {
-                            "header": [],
-                            "code": 401,
-                            "body": "{ \"message\": \"Unauthenticated.\" }",
-                            "name": ""
-                        }
-                    ]
-                },
-                {
-                    "name": "GET api\/garage\/id",
-                    "request": {
-                        "url": {
-                            "host": "{{baseUrl}}",
-                            "path": "api\/garage\/id",
-                            "query": [],
-                            "raw": "{{baseUrl}}\/api\/garage\/id"
-                        },
-                        "method": "GET",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            }
-                        ],
-                        "body": null,
-                        "description": "Returns the ID of the garage that you are working."
-                    },
-                    "response": [
-                        {
-                            "header": [],
-                            "code": 200,
-                            "body": "1",
                             "name": ""
                         },
                         {
@@ -1133,53 +1285,30 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"user_id\":8,\"vin_number\":\"fugit\",\"plate\":\"voluptatem\",\"type\":\"mollitia\",\"fuel\":\"voluptate\",\"make\":\"nostrum\",\"model\":\"eum\",\"engine\":\"esse\",\"gear_box\":\"quidem\",\"air_conditioner\":true,\"color\":\"voluptates\"}"
+                            "raw": "{\"user_id\":3,\"vin_number\":\"deserunt\",\"plate\":\"iure\",\"type\":\"saepe\",\"fuel\":\"ut\",\"make\":\"soluta\",\"model\":\"aut\",\"engine\":\"sint\",\"gear_box\":\"laborum\",\"air_conditioner\":false,\"color\":\"in\"}"
                         },
-                        "description": "Client post new car in their profile.",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "description": "Client post new car in their profile."
                     },
-                    "response": []
-                },
-                {
-                    "name": "Update the specified resource in storage.",
-                    "request": {
-                        "url": {
-                            "host": "{{baseUrl}}",
-                            "path": "api\/client\/cars\/:car_id",
-                            "query": [],
-                            "raw": "{{baseUrl}}\/api\/client\/cars\/:car_id",
-                            "variable": [
-                                {
-                                    "id": "car_id",
-                                    "key": "car_id",
-                                    "value": "20",
-                                    "description": "The ID of the car."
-                                }
-                            ]
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"message\": \"Successfully created\"}",
+                            "name": ""
                         },
-                        "method": "PUT",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\"user_id\":\"sapiente\",\"vin_number\":\"placeat\",\"plate\":\"commodi\",\"type\":\"quasi\",\"fuel\":\"ullam\",\"make\":\"eum\",\"model\":\"facilis\",\"engine\":\"atque\",\"gear_box\":\"aut\",\"air_conditioner\":\"molestiae\",\"color\":\"optio\"}"
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\"errors\":{\"user_id\":[\"The user id field is required.\"],\"vin_number\":[\"The vin number field is required.\"],\"plate\":[\"The plate field is required.\"],\"type\":[\"The type field is required.\"],\"fuel\":[\"The fuel field is required.\"],\"make\":[\"The make field is required.\"],\"model\":[\"The model field is required.\"],\"engine\":[\"The engine field is required.\"],\"gear_box\":[\"The gear box field is required.\"],\"air_conditioner\":[\"The air conditioner field is required.\"],\"color\":[\"The color field is required.\"]}}",
+                            "name": ""
                         },
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{ \"message\": \"Unauthenticated.\" }",
+                            "name": ""
                         }
-                    },
-                    "response": []
+                    ]
                 },
                 {
                     "name": "GET api\/garage\/client\/cars\/{client_id}",
@@ -1193,7 +1322,7 @@
                                 {
                                     "id": "client_id",
                                     "key": "client_id",
-                                    "value": "11",
+                                    "value": "6",
                                     "description": "The ID of the client."
                                 }
                             ]
@@ -1228,7 +1357,7 @@
                     ]
                 },
                 {
-                    "name": "Remove the specified resource from storage.",
+                    "name": "DELETE api\/client\/cars\/{car_id}",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -1239,7 +1368,7 @@
                                 {
                                     "id": "car_id",
                                     "key": "car_id",
-                                    "value": "14",
+                                    "value": "16",
                                     "description": "The ID of the car."
                                 }
                             ]
@@ -1256,108 +1385,22 @@
                             }
                         ],
                         "body": null,
-                        "description": "",
+                        "description": "Remove a car in your profile.",
                         "auth": {
                             "type": "noauth"
                         }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "api\/reservation",
-                    "request": {
-                        "url": {
-                            "host": "{{baseUrl}}",
-                            "path": "api\/reservation",
-                            "query": [],
-                            "raw": "{{baseUrl}}\/api\/reservation"
-                        },
-                        "method": "GET",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            }
-                        ],
-                        "body": null,
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
-                    },
-                    "response": [
-                        {
-                            "header": [
-                                {
-                                    "key": "cache-control",
-                                    "value": "no-cache, private"
-                                },
-                                {
-                                    "key": "content-type",
-                                    "value": "application\/json"
-                                },
-                                {
-                                    "key": "vary",
-                                    "value": "Origin"
-                                },
-                                {
-                                    "key": "set-cookie",
-                                    "value": "laravel_session=eltAp4T8619phwhHFHFUjFlykguWFJZyjWogM0vN; expires=Wed, 12-Jan-2022 13:37:16 GMT; Max-Age=7200; path=\/; httponly; samesite=lax"
-                                }
-                            ],
-                            "code": 401,
-                            "body": "{\"message\":\"Unauthenticated.\"}",
-                            "name": ""
-                        }
-                    ]
-                },
-                {
-                    "name": "POST api\/reservation",
-                    "request": {
-                        "url": {
-                            "host": "{{baseUrl}}",
-                            "path": "api\/reservation",
-                            "query": [],
-                            "raw": "{{baseUrl}}\/api\/reservation"
-                        },
-                        "method": "POST",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\"user_id\":\"sint\",\"garage_id\":\"temporibus\",\"vin_number\":\"est\",\"description\":\"enim\",\"date\":\"consequatur\",\"startingTime\":\"id\",\"endingTime\":\"culpa\"}"
-                        },
-                        "description": "Creating reservation on specific garage.\nThis endpoint is used by Clients, Garage Manager, Admin."
                     },
                     "response": [
                         {
                             "header": [],
                             "code": 200,
-                            "body": "{\"user_id\":1,\"garage_id\":1,\"vin_number\":\"1r0pu3w1XAbfn5l30\",\"description\":\"Optio nihil quaerat quaerat. Est sunt eos neque mollitia consectetur sit reiciendis. Accusamus et eum ad rerum.\",\"date\":\"1990-07-26\",\"startingTime\":\"01:21:29\",\"endingTime\":\"00:21:57\",\"id\":6}",
+                            "body": "",
                             "name": ""
                         },
                         {
                             "header": [],
-                            "code": 422,
-                            "body": "{\"errors\":{\"user_id\":[\"The user id field is required.\"],\"garage_id\":[\"The garage id field is required.\"],\"vin_number\":[\"The vin number field is required.\"],\"description\":[\"The description field is required.\"],\"date\":[\"The date field is required.\"],\"startingTime\":[\"The starting time field is required.\"],\"endingTime\":[\"The ending time field is required.\"]}}",
-                            "name": ""
-                        },
-                        {
-                            "header": [],
-                            "code": 401,
-                            "body": "{ \"message\": \"Unauthenticated.\" }",
+                            "code": 404,
+                            "body": "{\"404\": \"Not Found\"}",
                             "name": ""
                         }
                     ]

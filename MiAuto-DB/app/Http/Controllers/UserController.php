@@ -69,6 +69,7 @@ class UserController extends Controller
      * 
      * Update the user that is authenticated.
      * 
+     * @group Garage Administrator
      * @response scenario=success { "message": "Updated successful" }
      * @response status=422 {"errors":{"first_name":["The first name field is required."],"last_name":["The last name field is required."],"email":["The email field is required."],"date_of_birth":["The date of birth field is required."],"address":["The address field is required."],"phone_number":["The phone number field is required."]}}
      * @response status=401 { "message": "Unauthenticated." }
