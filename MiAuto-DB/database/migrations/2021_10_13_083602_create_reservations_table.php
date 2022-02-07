@@ -20,6 +20,8 @@ class CreateReservationsTable extends Migration
             $table->string('vin_number');
             $table->string('description');
             $table->date('date');
+            $table->time('startingTime');
+            $table->time('endingTime');
 
 
         });

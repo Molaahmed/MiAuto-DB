@@ -25,10 +25,12 @@ class ReservationSeeder extends Seeder
             DB::table('reservations')->insert([
                 
                 'vin_number'=> $faker->randomElement($carsIDs),
-                'garage_id' => $faker->randomElement($garages_ids), 
+                'garage_id' => $faker->randomElement($garages_ids),
                 'user_id'=>  $faker->randomElement($usersIDs),
                 'description' => $faker->text(),
-                'date' => $faker->date()
+                'date' => $faker->date(),
+                'startingTime'=> $faker->time(),
+                'endingTime'=> $faker->time()
             ]);
         }
 

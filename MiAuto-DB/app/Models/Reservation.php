@@ -19,7 +19,9 @@ class Reservation extends Model
         'garage_id',
         'vin_number',
         'description',
-        'date'
+        'date',
+        'startingTime',
+        'endingTime'
     ];
 
 

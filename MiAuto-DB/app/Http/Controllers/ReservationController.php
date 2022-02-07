@@ -37,6 +37,8 @@ class ReservationController extends Controller
             'vin_number' => 'required',
             'description' => 'required',
             'date'=> 'required',
+            'startingTime' => 'required',
+            'endingTime' => 'required'
         ]);
 
         if($validator->fails()){
@@ -45,5 +47,33 @@ class ReservationController extends Controller
             $reservation = Reservation::create($request->all());
             return new JsonResponse($reservation, 200);
         }
+    }
+
+
+    public function updateReservation(Request $request)
+    {
+        $validator = Validator::make($request->all(),[
+            'user_id' => 'required',
+            'garage_id' => 'required',
+            'vin_number' => 'required',
+            'description' => 'required',
+            'date'=> 'required',
+            'startingTime' => 'required',
+            'endingTime' => 'required'
+        ]);
+
+        $reservation = Reservation::where('id',$request->id)
+        ->update([
+            'user_id' => $request->user_id,
+            'garage_id' => $request->garage_id,
+            'vin_number' => $request->vin_number,
+            'description' => $request->description,
+            'date'=> $request->date,
+            'startingTime' => $request->startingTime,
+            'endingTime' => $request->endingTime
+        ]);
+
+        return new JsonResponse($reservation,200);
+
     }
 }

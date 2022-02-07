@@ -43,7 +43,7 @@ Route::middleware('auth:sanctum')->group( function(){
     Route::get('/user' ,[UserController::class, 'User']);
     Route::get('/users', [UserController::class, 'index']);
     Route::put('/user/update', [UserController::class, 'updateProfile']);
-    Route::put('/reservation' ,[ReservationController::class, 'store']);
+    Route::post('/reservation' ,[ReservationController::class, 'store']);
     Route::get('/garages' ,[GarageController::class, 'index']);
     Route::get('/garages/address/{address}' ,[GarageController::class, 'searchByAddress']);
     Route::get('/garages/{id}' ,[GarageController::class, 'show']);
@@ -60,11 +60,14 @@ Route::middleware(['auth:sanctum','garage.admin'])->group(function() {
     Route::post('/client/create',[GarageAdminController::class,'registerClient']);
     //employee
     Route::post('/employee/create',[GarageAdminController::class,'registerEmployee']);
-    Route::post('/employee/update',[GarageAdminController::class,'modifyEmployee']);
+    Route::put('/employee/update/{employee_id}',[GarageAdminController::class,'modifyEmployee']);
     Route::get('/employees/{garage_id}',[GarageAdminController::class,'getEmployees']);
+    //reservations
     Route::get('/reservations/{garage_id}' ,[ReservationController::class, 'getByGarageId']);
+    Route::post('/reservations/update',[ReservationController::class,'updateReservation']);
     Route::post('/garage/client/register', [RegistrationController::class, 'storeClient']);
     Route::put('/garage/client/update/{client_id}', [UserController::class, 'updateClientProfile']);
+    Route::get('/garage/client/cars/{client_id}' ,[ClientCarController::class, 'show']);
 });
 
  // Authorization : Garage Employee
@@ -77,8 +80,8 @@ Route::middleware(['auth:sanctum','garage.admin'])->group(function() {
 Route::middleware(['auth:sanctum','garage.client'])->group(function() {
     Route::get('/client/cars' ,[ClientCarController::class, 'index']);
     Route::post('/client/cars' ,[ClientCarController::class, 'store']);
-    Route::put('/client/cars/{id}' ,[ClientCarController::class, 'update']);
-    Route::get('/client/cars/{id}' ,[ClientCarController::class, 'show']);
-    Route::delete('/client/cars/{id}' ,[ClientCarController::class, 'destroy']);
+    Route::put('/client/cars/{car_id}' ,[ClientCarController::class, 'update']);
+    Route::get('/client/cars/{client_id}' ,[ClientCarController::class, 'show']);
+    Route::delete('/client/cars/{car_id}' ,[ClientCarController::class, 'destroy']);
     Route::get('/reservation' ,[ReservationController::class, 'index']);
 }); 
