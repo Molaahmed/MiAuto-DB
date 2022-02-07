@@ -81,6 +81,4 @@ Route::middleware(['auth:sanctum','garage.client'])->group(function() {
     Route::get('/client/cars/{id}' ,[ClientCarController::class, 'show']);
     Route::delete('/client/cars/{id}' ,[ClientCarController::class, 'destroy']);
     Route::get('/reservation' ,[ReservationController::class, 'index']);
-});
-
-
+}); 
